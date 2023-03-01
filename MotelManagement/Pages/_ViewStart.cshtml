@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "_Layout";
+    var path = ((Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor)ViewContext.ActionDescriptor).RelativePath;
+    string[] pathArray = path.Split('/');
+    string pageFolder = pathArray[2];
+    if (pageFolder != null && pageFolder.ToLower() == "admin")
+    {
+        Layout = "_AdminLayout";
+    }
+    else
+    {
+        Layout = "_UserLayout";
+    }
 }
