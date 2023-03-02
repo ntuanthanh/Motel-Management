@@ -16,8 +16,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\Semester7\PRN221\Assignment\Motel-Management\MotelManagement
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/admin/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcYWRtaW5cUHJpdmFjeS5jc2h0bWw=
+[E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/admin/TestUpload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcYWRtaW5cVGVzdFVwbG9hZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/Error.cshtml]
@@ -26,6 +26,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Semester7/PRN221/Assignment/Motel-Management/MotelManagement/Pages/Shared/_AdminLayout.cshtml]

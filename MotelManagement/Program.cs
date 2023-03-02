@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MotelManagement.Business.IService;
 using MotelManagement.Business.Service;
+using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Core.Repository;
 using MotelManagement.Data.Models;
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<MotelManagementContext>(option =>
 // Inject 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
-
+builder.Services.AddTransient<UploadFileUnit>();
 var app = builder.Build();
 
 
