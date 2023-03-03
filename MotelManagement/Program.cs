@@ -15,9 +15,13 @@ builder.Services.AddDbContext<MotelManagementContext>(option =>
 {
     option.UseSqlServer(connectionString);
 });
+
+builder.Services.AddSession();
+
 // Inject 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<UploadFileUnit>();
 var app = builder.Build();
 
@@ -34,5 +38,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseSession();
 
 app.Run();

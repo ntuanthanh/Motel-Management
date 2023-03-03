@@ -4,6 +4,7 @@ namespace MotelManagement.Core.IRepository
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        void AddUserRegister(User user);
+        Task<User> Authentication(string username, string password);
+
     }
 }

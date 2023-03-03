@@ -1,18 +1,25 @@
-﻿using MotelManagement.Core.IRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
 
 namespace MotelManagement.Core.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public void Add(User entity)
+        public UserRepository(MotelManagementContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public void AddUserRegister(User user)
+        public void Add(User entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
+        }
+
+        public async Task<User> Authentication(string username, string password)
+        {
+            return await _context.Users.Where(user => user.Password.Equals(password)
+                                &&user.Email.Equals(user)).FirstOrDefaultAsync();
+
         }
 
         public void Delete(User entity)
@@ -32,7 +39,7 @@ namespace MotelManagement.Core.Repository
 
         public void Update(User entity)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

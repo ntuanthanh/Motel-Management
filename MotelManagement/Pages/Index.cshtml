@@ -10,3 +10,43 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <h1>@ViewData["Room"]</h1>
 </div>
+@section Scripts{
+    <script type="text/javascript">
+        @{
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].Equals("Success"))
+                {
+                    <text>
+                        swal({
+                            title: "Đăng ký thành công!",
+                            text: "Chúc mừng bạn đã đăng ký thành công!",
+                            icon: "success",
+                        });
+                    </text>
+                }
+                else if(TempData["Message"].Equals("Failed"))
+                {
+                    <text>
+                        swal({
+                          title: "Đăng ký thất bại!",
+                          text: "Opps! Đã có lỗi xảy ra!",
+                          icon: "warning",
+                        })
+                    </text>
+                }
+                else if (TempData["Message"].Equals("Error"))
+                {
+                    <text>
+                        swal({
+                          title: "Đăng nhập thất bại!",
+                          text: "Mật khẩu hoặc tên đăng nhập không đúng!",
+                          icon: "warning",
+                        })
+                    </text>
+                }
+                TempData["Message"] = null;
+            }
+        }
+    </script>
+}

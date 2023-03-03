@@ -9,11 +9,15 @@ namespace MotelManagement.Core.Repository
 
         public IRoomTypeRepository roomTypeRepository { get; }
 
+        public IUserRepository userRepository { get; }
+
         public UnitOfWork(MotelManagementContext context)
         {
             _context = context;
             roomTypeRepository = new RoomTypeRepository(_context);
+            userRepository = new UserRepository(_context);
         }
+
         public void Dispose()
         {
             _context.Dispose();
@@ -23,6 +27,11 @@ namespace MotelManagement.Core.Repository
         public void save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
