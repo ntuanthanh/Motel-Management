@@ -9,7 +9,7 @@ namespace MotelManagement.Business.Service
         private readonly IUnitOfWork _unitOfWork;
         public void Register(User user)
         {
-            _unitOfWork.save(user);
+            //_unitOfWork.save(user);
         }
     }
 }
