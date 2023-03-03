@@ -4,6 +4,9 @@ namespace MotelManagement.Business.IService
 {
     public interface IUserService
     {
-        public void Register(User user);
+        public Task Register(User user);
+        public Task<User> Login(string username, string password);
+
+        public Task ChangePassword(User user);
     }
 }

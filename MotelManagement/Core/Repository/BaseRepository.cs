@@ -16,9 +16,19 @@ namespace MotelManagement.Core.Repository
             _context.Set<T>().Add(entity);
         }
 
+        public async Task AddAsync(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+        }
+
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<T> GetAll()
@@ -26,13 +36,29 @@ namespace MotelManagement.Core.Repository
             return _context.Set<T>().ToList();
         }
 
+        public async Task<List<T>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
+
+        public async Task<T> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            await UpdateAsync(entity);
         }
     }
 }
