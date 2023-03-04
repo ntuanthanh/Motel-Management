@@ -8,14 +8,14 @@ namespace MotelManagement.Core.Repository
         private readonly MotelManagementContext _context;
 
         public IRoomTypeRepository roomTypeRepository { get; }
-
         public IUserRepository userRepository { get; }
-
+        public IRoomRepository roomRepository { get;  }
         public UnitOfWork(MotelManagementContext context)
         {
             _context = context;
             roomTypeRepository = new RoomTypeRepository(_context);
             userRepository = new UserRepository(_context);
+            roomRepository = new RoomRepository(_context);
         }
 
         public void Dispose()

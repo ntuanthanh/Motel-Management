@@ -4,6 +4,6 @@ namespace MotelManagement.Business.IService
 {
     public interface IRoomTypeService
     {
-       List<RoomType> GetAll();
+       Task<List<RoomType>> GetAll();
     }
 }

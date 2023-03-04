@@ -38,7 +38,7 @@ namespace MotelManagement.Core.Repository
 
         public async Task<List<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().ToList();
         }
 
         public T GetById(int id)

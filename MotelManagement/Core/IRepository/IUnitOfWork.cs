@@ -7,6 +7,7 @@ namespace MotelManagement.Core.IRepository
         // Inteface IRepository
         IRoomTypeRepository roomTypeRepository { get; }
         IUserRepository userRepository { get; }
+        IRoomRepository roomRepository { get; }
         void save();
 
         Task SaveAsync();
