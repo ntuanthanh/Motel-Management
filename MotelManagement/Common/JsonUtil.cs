@@ -8,9 +8,9 @@ namespace MotelManagement.Common
             return JsonConvert.SerializeObject(t);
         } 
 
-        public static object DeserializeObject(string json)
+        public static object DeserializeObject<T>(string json)
         {
-            return JsonConvert.DeserializeObject(json);
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 }

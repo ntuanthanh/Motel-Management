@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor Accessor
+@using MotelManagement.Common;
+@using MotelManagement.Data.Models;
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -87,8 +90,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse yamm" id="navigation">
                 <div class="button navbar-right">
-                    <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.html')" data-wow-delay="0.4s">Login</button>
-                    <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('submit-property.html')" data-wow-delay="0.5s">Submit</button>
+                    @{
+                        if (@Accessor.HttpContext.Session.GetString("user") == null)
+                        {
+                            <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.html')" data-wow-delay="0.4s">Login</button>
+                            <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('submit-property.html')" data-wow-delay="0.5s">Submit</button>
+                        }
+                    }
                 </div>
                 <ul class="main-nav nav navbar-nav navbar-right">
                     <li class="dropdown ymm-sw " data-wow-delay="0.1s">
@@ -189,16 +197,39 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="wow fadeInDown" data-wow-delay="0.4s"><a href="contact.html">Contact</a></li>
+                @if (@Accessor.HttpContext.Session.GetString("user") != null)
+                {
+                    User user = (User)JsonUtil.DeserializeObject<User>(Accessor.HttpContext.Session.GetString("user"));
+                    <li class="dropdown ymm-sw " data-wow-delay="0.1s">
+                        <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">
+                                Hello @user.FullName.Split(" ")[0]
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a href="/user/myinfor">Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="/user/roominfor">Phòng của tôi</a>
+                            </li>
+                            <li>
+                                <a href="/user/changepassword">Đổi mật khẩu</a>
+                            </li>
+                            <li>
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+
+                        </ul>
+                    </li>                
+                }
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <!-- End of nav bar -->
-
     @RenderBody()
-     
+
 
     <!-- Footer area-->
     <div class="footer-area">

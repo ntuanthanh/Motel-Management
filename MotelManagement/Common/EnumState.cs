@@ -13,5 +13,12 @@
         UNPAID,
         DEBT 
     }
+
+    enum IMAGE_STATE
+    {
+        ROOM,
+        BILL,
+        REPORT
+    }
 }
 

@@ -15,6 +15,5 @@ namespace MotelManagement.Core.IRepository
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T entity);
-        Task<User> Authentication(string username, string password);
     }
 }

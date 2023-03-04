@@ -17,8 +17,9 @@ namespace MotelManagement.Core.Repository
 
         public async Task<User> Authentication(string username, string password)
         {
-            return await _context.Users.Where(user => user.Password.Equals(password)
-                                &&user.Email.Equals(user)).FirstOrDefaultAsync();
+            User user = await _context.Users.Where(user => user.Password.Equals(password)
+                                &&user.Email.Equals(username)).FirstOrDefaultAsync();
+            return user;
 
         }
 
@@ -40,6 +41,12 @@ namespace MotelManagement.Core.Repository
         public void Update(User entity)
         {
 
+        }
+
+        public void ChangePassword(User user)
+        {
+            _context.Users.Attach(user);
+            _context.Entry(user).Property(x => x.Password).IsModified = true;      
         }
     }
 }
