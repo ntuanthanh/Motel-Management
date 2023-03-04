@@ -12,9 +12,10 @@ namespace MotelManagement.Business.Service
             _unitOfWork = unitOfWork;
         }
 
-        public Task ChangePassword(User user)
+        public async Task ChangePasswordAync(User user)
         {
-            throw new NotImplementedException();
+             _unitOfWork.userRepository.ChangePassword(user);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task<User> Login(string username, string password)

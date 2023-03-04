@@ -17,6 +17,7 @@ builder.Services.AddDbContext<MotelManagementContext>(option =>
 });
 
 builder.Services.AddSession();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Inject 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

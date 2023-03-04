@@ -7,6 +7,6 @@ namespace MotelManagement.Business.IService
         public Task Register(User user);
         public Task<User> Login(string username, string password);
 
-        public Task ChangePassword(User user);
+        public Task ChangePasswordAync(User user);
     }
 }

@@ -22,6 +22,7 @@
                             title: "Đăng ký thành công!",
                             text: "Chúc mừng bạn đã đăng ký thành công!",
                             icon: "success",
+                            buttons: false
                         });
                     </text>
                 }
@@ -32,6 +33,7 @@
                           title: "Đăng ký thất bại!",
                           text: "Opps! Đã có lỗi xảy ra!",
                           icon: "warning",
+                          buttons: false
                         })
                     </text>
                 }
@@ -42,6 +44,18 @@
                           title: "Đăng nhập thất bại!",
                           text: "Mật khẩu hoặc tên đăng nhập không đúng!",
                           icon: "warning",
+                          buttons: false
+                        })
+                    </text>
+                }
+                else if (TempData["Message"].Equals("SuccChangePw"))
+                {
+                    <text>
+                        swal({
+                          title: "Thành công!",
+                          text: "Mật khẩu của bạn đã được thay đổi!",
+                          icon: "success",
+                          buttons: false
                         })
                     </text>
                 }

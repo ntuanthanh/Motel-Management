@@ -19,11 +19,34 @@ namespace MotelManagement.Pages
         {
         }
 
-        public void OnPost(string password) {
+        public async Task<IActionResult> OnPostChangepwAsync(string oldPassword, string password, string confirmPassword) {
             string json = HttpContext.Session.GetString("user");
-            User user = (User) JsonUtil.DeserializeObject(json);
-            user.Password = password;
-            //_service.
+            Console.WriteLine(json);
+            if (json == null|| !password.Equals(confirmPassword))
+            {
+                TempData["Message"] = "Failed";
+                return Page();
+            }
+            else
+            {
+                User user = (User)JsonUtil.DeserializeObject<User>(json);
+                if (user.Password.Equals(oldPassword))
+                {
+                    try
+                    {
+                        user.Password = password;
+                        await _service.ChangePasswordAync(user);
+                        TempData["Message"] = "SuccChangePw";
+                        return RedirectToPage("./Index");
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.LogError(ex.ToString());
+                    }
+                }               
+            }
+            TempData["Message"] = "Wrong";
+            return Page();
         }    
     }
 }

@@ -15,21 +15,21 @@ namespace MotelManagement.Common
         {
             if (Files.Length == 0) return null;
             string RootPath = _env.WebRootPath + "\\upload\\";
-            string path = RootPath + PrefixImage;
             string[] result = new string[Files.Length];
             int CountFiles = 0;
             if(MaxNumber==null) MaxNumber = Files.Length;
-
+            string imageName = "";
             foreach (IFormFile File in Files)
             {
                 CountFiles += 1;
                 string FileExtension = System.IO.Path.GetExtension(File.FileName);
-                string FileName = path + Guid.NewGuid().ToString() + FileExtension;
+                imageName = PrefixImage + Guid.NewGuid().ToString() + FileExtension;
+                string FileName = RootPath + imageName;
                 using (var FileStream = new FileStream(FileName, FileMode.Create))
                 {
                     await File.CopyToAsync(FileStream);
                 }
-                result[CountFiles-1] = FileName;
+                result[CountFiles-1] = imageName;
                 if (CountFiles == MaxNumber) break;
             }
             return result;

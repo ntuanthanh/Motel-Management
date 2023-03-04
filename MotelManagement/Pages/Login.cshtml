@@ -20,7 +20,7 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>New account : </h2>
-                    <form action="" method="post" name="user">
+                    <form method="post" asp-page-handler="Register">
                         <div class="form-group">
                             <label for="FullName">Full Name</label>
                             <input type="text" class="form-control" name="FullName">
@@ -31,11 +31,15 @@
                         </div>
                         <div class="form-group">
                             <label for="Gender">Gender</label>
-                            <div>
-                                <label for="Male">Male</label>
-                                <input type="radio" style="padding-right:40px" class="form-control" name="Gender" value="1">
-                                <label for="Male">Female</label>
-                                <input type="radio" class="form-control" name="Gender" value="0">
+                            <div style="display:flex">
+                                <div style="padding: 0px 32px 0px 0px">
+                                    <label for="Male">Male</label>
+                                    <input type="radio" style="padding-right:40px" class="form-control" name="Gender" value="1">
+                                </div>
+                                <div>
+                                    <label for="Male">Female</label>
+                                    <input type="radio" class="form-control" name="Gender" value="0">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -66,28 +70,20 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 login-blocks">
                     <h2>Login : </h2>
-                    <form action="" method="post">
+                    <form method="post" asp-page-handler="Login">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" class="form-control" name="email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" name="password">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-default"> Log in</button>
                         </div>
                     </form>
                     <br>
-
-                    <h2>Social login :  </h2>
-
-                    <p>
-                        <a class="login-social" href="#"><i class="fa fa-facebook"></i>&nbsp;Facebook</a>
-                        <a class="login-social" href="#"><i class="fa fa-google-plus"></i>&nbsp;Gmail</a>
-                        <a class="login-social" href="#"><i class="fa fa-twitter"></i>&nbsp;Twitter</a>
-                    </p>
                 </div>
 
             </div>

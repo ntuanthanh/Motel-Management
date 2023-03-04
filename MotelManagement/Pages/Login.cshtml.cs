@@ -21,11 +21,11 @@ namespace MotelManagement.Pages
         {
         }
 
-        public async Task<IActionResult> OnPostLoginAsync(String username, String password)
+        public async Task<IActionResult> OnPostLoginAsync(string email, string password)
         {
             try
             {
-                User user = await _service.Login(username, password);
+                User user = await _service.Login(email, password);
                 if (user != null)          
                 {
                     string json = JsonUtil.SerializeObject(user);
@@ -40,7 +40,7 @@ namespace MotelManagement.Pages
             return RedirectToPage("./Index");
         }
 
-        public async Task<IActionResult> OnPostAsync(User user)
+        public async Task<IActionResult> OnPostRegisterAsync(User user)
         {
             Console.WriteLine(JsonSerializer.Serialize(user));
             try
