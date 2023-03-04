@@ -12,9 +12,9 @@ namespace MotelManagement.Business.Service
         {
             _unitOfWork = unitOfWork;
         }
-        public List<RoomType> GetAll()
+        public async Task<List<RoomType>> GetAll()
         {
-            return _unitOfWork.roomTypeRepository.GetAll(); 
+            return await _unitOfWork.roomTypeRepository.GetAllAsync(); 
         }
         public RoomType addNewRoomType(RoomType newRoomType)
         {

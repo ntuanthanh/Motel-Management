@@ -9,9 +9,5 @@ namespace MotelManagement.Core.Repository
         {
 
         }
-        public void Update(RoomType category)
-        {
-            _context.Update(category);
-        }
     }
 }
