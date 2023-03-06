@@ -3,7 +3,7 @@
 @using System.Collections.Generic
 @using MotelManagement.Data.Models
 @{
-
+    ViewData["Title"] = "Danh sách Phòng Trọ";
 }
 <div class="page-head"> 
     <div class="container">
@@ -170,7 +170,7 @@
                             <div class="col-sm-6 col-md-4 p0">
                                     <div class="box-two proerty-item">
                                         <div class="item-thumb">
-                                            <a href="property-1.html" ><img src="~/Assets/User/assets/img/property-1/property2.jpg"></a>
+                                            <a href="property-1.html" ><img src="~/upload/@((room.Images.ToList())[0].Url)"> </a>
                                         </div>
 
                                         <div class="item-entry overflow">
