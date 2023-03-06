@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Data\DTO\" />
     <Folder Include="Data\Models\" />
-    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
   <ItemGroup>

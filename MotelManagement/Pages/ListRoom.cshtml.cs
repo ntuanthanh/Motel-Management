@@ -36,7 +36,7 @@ namespace MotelManagement.Pages
 
             // Advanced Search 
             List<Room> rooms = await _roomService.advancedSearchRoomList(nameRoom, roomTypeId, status, price, sizePerson, pageIndex);
-
+ 
             // Count để phân trang
             int totalPage = await _roomService.totalPage(nameRoom, roomTypeId, status, price, sizePerson);
 
