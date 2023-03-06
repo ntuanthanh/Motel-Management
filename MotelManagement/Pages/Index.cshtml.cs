@@ -16,7 +16,7 @@ namespace MotelManagement.Pages
 
         public void OnGet()
         {
-            ViewData["Room"]  = _roomTypeService.GetAll().Count; 
+            
         }
     }
 }
