@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5a497a34-8d75-4c99-ba07-16ab672741fe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Shared/faster_coding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Common/EnumState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Common/EnumState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/IRepository/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/IRepository/IUnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/Repository/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Repository/UnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Login.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Privacy.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Privacy.cshtml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/_UserLayout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/_UserLayout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Program.cs" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2MhD9aUUBmW0oIBUDlcaIxcr1bo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5a497a34-8d75-4c99-ba07-16ab672741fe" name="Default Changelist" comment="" />
+      <created>1678210769885</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678210769885</updated>
+      <workItem from="1678210771008" duration="3988000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Shared/faster_coding.js</url>
+          <line>4</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

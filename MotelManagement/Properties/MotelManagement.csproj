@@ -1,0 +1,307 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\DTO\" />
+    <Folder Include="Data\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Assets\Admin\css\bootstrap-datetimepicker.min.css" />
+    <None Include="wwwroot\Assets\Admin\css\bootstrap.min.css" />
+    <None Include="wwwroot\Assets\Admin\css\feathericon.min.css" />
+    <None Include="wwwroot\Assets\Admin\css\select2.min.css" />
+    <None Include="wwwroot\Assets\Admin\css\style.css" />
+    <None Include="wwwroot\Assets\Admin\fonts\feathericon-1.eot" />
+    <None Include="wwwroot\Assets\Admin\fonts\feathericon.eot" />
+    <None Include="wwwroot\Assets\Admin\fonts\feathericon.svg" />
+    <None Include="wwwroot\Assets\Admin\fonts\feathericon.ttf" />
+    <None Include="wwwroot\Assets\Admin\fonts\feathericon.woff" />
+    <None Include="wwwroot\Assets\Admin\fonts\MaterialIcons-Regular.eot" />
+    <None Include="wwwroot\Assets\Admin\fonts\MaterialIcons-Regular.ttf" />
+    <None Include="wwwroot\Assets\Admin\fonts\MaterialIcons-Regular.woff" />
+    <None Include="wwwroot\Assets\Admin\fonts\MaterialIcons-Regular.woff2" />
+    <None Include="wwwroot\Assets\Admin\img\favicon.png" />
+    <None Include="wwwroot\Assets\Admin\img\hotel_logo.png" />
+    <None Include="wwwroot\Assets\Admin\img\logo.png" />
+    <None Include="wwwroot\Assets\Admin\img\placeholder.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-01.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-02.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-03.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-04.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-05.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-06.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-07.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\product\product-08.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-01.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-02.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-03.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-04.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-05.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-06.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-07.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-08.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-09.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-10.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-11.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-12.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-13.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-15.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-16.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\profiles\avatar-17.jpg" />
+    <None Include="wwwroot\Assets\Admin\img\sent.png" />
+    <None Include="wwwroot\Assets\Admin\img\video-call.jpg" />
+    <None Include="wwwroot\Assets\Admin\js\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\bootstrap.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\chart.morris.js" />
+    <None Include="wwwroot\Assets\Admin\js\jquery-3.5.1.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\jquery-ui.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\moment.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\popper.min.js" />
+    <None Include="wwwroot\Assets\Admin\js\script.js" />
+    <None Include="wwwroot\Assets\Admin\js\select2.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\datatables\datatables.min.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\datatables\datatables.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\datatables\jquery.dataTables.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\css\all.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\css\all.min.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\css\fontawesome.min.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400-1.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400.woff" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400-1.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400.woff" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900-1.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900.woff" />
+    <None Include="wwwroot\Assets\Admin\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\Assets\Admin\plugins\fullcalendar\fullcalendar.min.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\fullcalendar\fullcalendar.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\fullcalendar\jquery.fullcalendar.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\morris\morris.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\morris\morris.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\raphael\raphael.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\slimscroll\jquery.slimscroll.min.js" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\font\summernote-1.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\font\summernote.eot" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\font\summernote.ttf" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\font\summernote.woff" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\font\summernote.woff2" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\summernote-bs4.css" />
+    <None Include="wwwroot\Assets\Admin\plugins\summernote\dist\summernote-bs4.min.js" />
+    <None Include="wwwroot\Assets\User\assets\css\animate.css" />
+    <None Include="wwwroot\Assets\User\assets\css\bootstrap-select.min.css" />
+    <None Include="wwwroot\Assets\User\assets\css\bootstrap-theme.css" />
+    <None Include="wwwroot\Assets\User\assets\css\font-awesome.min.css" />
+    <None Include="wwwroot\Assets\User\assets\css\fontello.css" />
+    <None Include="wwwroot\Assets\User\assets\css\icheck.min_all.css" />
+    <None Include="wwwroot\Assets\User\assets\css\ion.rangeSlider.css" />
+    <None Include="wwwroot\Assets\User\assets\css\ion.rangeSlider.skinFlat.css" />
+    <None Include="wwwroot\Assets\User\assets\css\ion.rangeSlider.skinNice.css" />
+    <None Include="wwwroot\Assets\User\assets\css\jquery.slitslider.css" />
+    <None Include="wwwroot\Assets\User\assets\css\lightslider.min.css" />
+    <None Include="wwwroot\Assets\User\assets\css\normalize.css" />
+    <None Include="wwwroot\Assets\User\assets\css\owl.carousel.css" />
+    <None Include="wwwroot\Assets\User\assets\css\owl.theme.css" />
+    <None Include="wwwroot\Assets\User\assets\css\owl.transitions.css" />
+    <None Include="wwwroot\Assets\User\assets\css\price-range.css" />
+    <None Include="wwwroot\Assets\User\assets\css\responsive.css" />
+    <None Include="wwwroot\Assets\User\assets\css\slider.css" />
+    <None Include="wwwroot\Assets\User\assets\css\style.css" />
+    <None Include="wwwroot\Assets\User\assets\css\styleNoJS.css" />
+    <None Include="wwwroot\Assets\User\assets\css\wizard.css" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont_1.eot" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont_1.svg" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont_1.ttf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontawesome-webfont_1.woff" />
+    <None Include="wwwroot\Assets\User\assets\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\FontAwesome_1.otf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontello\fontello.eot" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontello\fontello.svg" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontello\fontello.ttf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\fontello\fontello.woff" />
+    <None Include="wwwroot\Assets\User\assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\Assets\User\assets\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Assets\User\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\css\helper.css" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\css\pe-icon-7-stroke.css" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+    <None Include="wwwroot\Assets\User\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+    <None Include="wwwroot\Assets\User\assets\img\ads.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\arrow-left.svg" />
+    <None Include="wwwroot\Assets\User\assets\img\arrow-right.svg" />
+    <None Include="wwwroot\Assets\User\assets\img\arrows-small.png" />
+    <None Include="wwwroot\Assets\User\assets\img\arrows.png" />
+    <None Include="wwwroot\Assets\User\assets\img\bg-footer.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\blog1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\blog2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\chevron-down.png" />
+    <None Include="wwwroot\Assets\User\assets\img\client-face1.png" />
+    <None Include="wwwroot\Assets\User\assets\img\client-face2.png" />
+    <None Include="wwwroot\Assets\User\assets\img\controls.png" />
+    <None Include="wwwroot\Assets\User\assets\img\default-property.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-3.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-4.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-5.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\property-6.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\small-proerty-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\small-property-1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\small-property-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\demo\small-property-3.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\dsdsds33 - Copy.png" />
+    <None Include="wwwroot\Assets\User\assets\img\footer-logo-2.png" />
+    <None Include="wwwroot\Assets\User\assets\img\footer-logo.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon-shearch.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\bed-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\bed.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\cars-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\cars.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\os-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\os.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\picine-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\picine.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\rent-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\room-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\room.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\sale-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\shawer-orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\icon\shawer.png" />
+    <None Include="wwwroot\Assets\User\assets\img\logo.png" />
+    <None Include="wwwroot\Assets\User\assets\img\page-header.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\preloader.gif" />
+    <None Include="wwwroot\Assets\User\assets\img\pro-ads.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\property-1\property1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\property-1\property2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\property-1\property3.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\property-1\property4.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\property-video.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\similar\property-1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\similar\property-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\similar\property-3.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\aero%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\aero.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\blue%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\blue.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\green%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\green.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\grey%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\orange%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\orange.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\pink%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\pink.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\purple%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\purple.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\red%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\red.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\square%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\square.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\yellow%402x.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\yellow.png" />
+    <None Include="wwwroot\Assets\User\assets\img\skin\yellow_1.png" />
+    <None Include="wwwroot\Assets\User\assets\img\slide-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\slide1\slider-image-1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\slide1\slider-image-2.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\slide1\slider-image-4.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\slide2\1.jpg" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\delicious_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\delicious_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\digg_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\digg_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\dribbble_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\dribbble_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\facebook_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\facebook_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\linkedin_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\linkedin_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\rss_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\rss_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\tumblr_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\tumblr_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\twitter_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\twitter_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\vimeo_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\vimeo_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\youtube_grey.png" />
+    <None Include="wwwroot\Assets\User\assets\img\social_big\youtube_white.png" />
+    <None Include="wwwroot\Assets\User\assets\img\welcome-bg.png" />
+    <None Include="wwwroot\Assets\User\assets\js\bootstrap-hover-dropdown.js" />
+    <None Include="wwwroot\Assets\User\assets\js\bootstrap-select.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\bootstrap-slider.js" />
+    <None Include="wwwroot\Assets\User\assets\js\bootstrap-wizard.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\easypiechart.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\gmaps.init.js" />
+    <None Include="wwwroot\Assets\User\assets\js\gmaps.js" />
+    <None Include="wwwroot\Assets\User\assets\js\icheck.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery.ba-cond.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery.bootstrap.wizard.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery.easypiechart.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery.slitslider.js" />
+    <None Include="wwwroot\Assets\User\assets\js\jquery.validate.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\lightslider.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\main.js" />
+    <None Include="wwwroot\Assets\User\assets\js\modernizr-2.6.2.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\modernizr.custom.79639.js" />
+    <None Include="wwwroot\Assets\User\assets\js\owl.carousel.min.js" />
+    <None Include="wwwroot\Assets\User\assets\js\plugins.js" />
+    <None Include="wwwroot\Assets\User\assets\js\price-range.js" />
+    <None Include="wwwroot\Assets\User\assets\js\wizard.js" />
+    <None Include="wwwroot\Assets\User\assets\js\wow.js" />
+    <None Include="wwwroot\Assets\User\assets\js\wow.min.js" />
+    <None Include="wwwroot\Assets\User\bootstrap\css\bootstrap.css" />
+    <None Include="wwwroot\Assets\User\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Assets\User\bootstrap\css\bootstrap.min.css" />
+    <None Include="wwwroot\Assets\User\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\Assets\User\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Assets\User\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\Assets\User\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\Assets\User\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\Assets\User\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Assets\User\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Assets\User\bootstrap\js\npm.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+  </ItemGroup>
+
+</Project>

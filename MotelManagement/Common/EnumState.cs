@@ -19,6 +19,14 @@
         BILL,
         REPORT
     }
+
+    enum REGISTER_ROOM_STATE
+    {
+        REGISTER = 1,
+        UN_REGISTER = 0,
+        SUCCESS = 2
+    }
+
     enum PageManagement
     {
         PageSize = 9
