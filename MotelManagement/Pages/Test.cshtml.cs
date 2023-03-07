@@ -7,6 +7,8 @@ namespace MotelManagement.Pages
     {
         public void OnGet()
         {
+            // Advanced Search
+            int a = 1; 
         }
     }
 }
