@@ -8,6 +8,8 @@ namespace MotelManagement.Core.IRepository
         IRoomTypeRepository roomTypeRepository { get; }
         IUserRepository userRepository { get; }
         IRoomRepository roomRepository { get; }
+
+        IBookingRepository bookingRepository { get; }
         void save();
 
         Task SaveAsync();

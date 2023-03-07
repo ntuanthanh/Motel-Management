@@ -52,7 +52,7 @@ namespace MotelManagement.Pages
                 _logger.LogError(ex.ToString());
                 TempData["Message"] = "Failed";
             }
-            return RedirectToPage("./Index");
+            return Redirect("~/Index");
         }
     }
 }

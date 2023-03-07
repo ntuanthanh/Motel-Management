@@ -93,8 +93,12 @@
                     @{
                         if (@Accessor.HttpContext.Session.GetString("user") == null)
                         {
-                            <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.html')" data-wow-delay="0.4s">Login</button>
-                            <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('submit-property.html')" data-wow-delay="0.5s">Submit</button>
+                            <button class="navbar-btn nav-button wow bounceInRight login" data-wow-delay="0.4s">
+                                <a href="/user/login">Login</a>                              
+                            </button>
+                            <button class="navbar-btn nav-button wow fadeInRight" data-wow-delay="0.5s">
+                                <a href="/user/register">Submit</a>                             
+                            </button>
                         }
                     }
                 </div>
@@ -184,7 +188,7 @@
                                             </ul>
                                             <h5>User account</h5>
                                             <ul>
-                                                <li><a href="register.html">Register / login</a>   </li>
+                                                <li><a href="/user/login">Register / login</a>   </li>
                                                 <li><a href="user-properties.html">Your properties</a>  </li>
                                                 <li><a href="submit-property.html">Submit property</a>  </li>
                                                 <li><a href="change-password.html">Change password</a> </li>
@@ -210,7 +214,7 @@
                                 <a href="/user/myinfor">Thông tin cá nhân</a>
                             </li>
                             <li>
-                                <a href="/user/roominfor">Phòng của tôi</a>
+                                    <a href="/user/mylistroom">Phòng của tôi</a>
                             </li>
                             <li>
                                 <a href="/user/changepassword">Đổi mật khẩu</a>
