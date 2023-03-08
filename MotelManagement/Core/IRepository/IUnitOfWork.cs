@@ -10,6 +10,7 @@ namespace MotelManagement.Core.IRepository
         IRoomRepository roomRepository { get; }
 
         IBookingRepository bookingRepository { get; }
+        IContractRepository contractRepository { get; } 
         void save();
 
         Task SaveAsync();
