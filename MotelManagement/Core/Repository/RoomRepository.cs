@@ -33,6 +33,17 @@ namespace MotelManagement.Core.Repository
             ).Count(); 
         }
 
+        public async Task<Room> getRoomById(int? id)
+        {
+            // Query get room by id 
+            return _context.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomId == id);
+        }
+
+        public async Task<List<Room>> RoomSimilar(int? status)
+        {
+            return await _context.Rooms.Where(r => r.StatusId == status).OrderBy(r => r.Price).Take(4).ToListAsync();
+        }
+
         public async Task<List<Room>> Top4BestRoom()
         {
             return await _context.Rooms.Where(r => r.StatusId == 2).OrderBy(r => r.Price).Take(4).ToListAsync();
