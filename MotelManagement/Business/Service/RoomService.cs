@@ -88,5 +88,16 @@ namespace MotelManagement.Business.Service
         {
             return _unitOfWork.roomRepository.Top4BestRoom(); 
         }
+
+        public Task<Room> getRoomById(int? roomId)
+        {
+            // Business get Room By Id 
+            return _unitOfWork.roomRepository.getRoomById(roomId); 
+        }
+
+        public Task<List<Room>> roomSimilar(int? statusRoom)
+        {
+            return _unitOfWork.roomRepository.RoomSimilar(statusRoom);
+        }
     }
 }
