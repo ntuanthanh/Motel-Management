@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a497a34-8d75-4c99-ba07-16ab672741fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Shared/faster_coding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Common/EnumState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Common/EnumState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/IRepository/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/IRepository/IUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/Repository/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Repository/UnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Login.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Privacy.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Privacy.cshtml.cs" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shared/faster_coding.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyListRoom.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/MyListRoom.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyListRoom.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MyListRoom.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shared/_UserLayout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/_UserLayout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/faster_coding.js" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/faster_coding.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Program.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -31,6 +30,7 @@
   <component name="ProjectId" id="2MhD9aUUBmW0oIBUDlcaIxcr1bo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -57,6 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678210769885</updated>
       <workItem from="1678210771008" duration="3988000" />
+      <workItem from="1678286539531" duration="3944000" />
     </task>
     <servers />
   </component>
@@ -68,7 +69,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -80,7 +83,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Shared/faster_coding.js</url>
           <line>4</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

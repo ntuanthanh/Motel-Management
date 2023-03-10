@@ -9,11 +9,13 @@ namespace MotelManagement.Pages
 
     public class MyListRoomModel : PageModel
     {
-        private readonly IBookingService _service;
+        private readonly IBookingService _serviceBooking;
+        private readonly IContractService _serviceContract;
         private readonly ILogger<LoginModel> _logger;
-        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger)
+        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger, IContractService contractService)
         {
-            this._service = bookingService;
+            this._serviceBooking = bookingService;
+            this._serviceContract = contractService;
             this._logger = logger;
         }
         public async Task<IActionResult> OnGetAsync()
@@ -24,8 +26,10 @@ namespace MotelManagement.Pages
             {
                 try
                 {
-                    List<Booking> list = await _service.listBookings(user.UserId);
+                    List<Booking> list = await _serviceBooking.listBookings(user.UserId);
+                    List<Contract> listContracts = await _serviceContract.getListContractsByUserId(user.UserId);
                     ViewData["list"] = list;
+                    ViewData["listContracts"] = listContracts;
                     return Page();
                 }
                 catch (Exception ex)
@@ -45,10 +49,10 @@ namespace MotelManagement.Pages
             {
                 try
                 {
-                    bool isExist = await _service.isBooking(roomid, user.UserId);
+                    bool isExist = await _serviceBooking.isBooking(roomid, user.UserId);
                     if(isExist&&roomid!=null)
                     {
-                        await _service.updateUnRegister(user.UserId, roomid);
+                        await _serviceBooking.updateUnRegister(user.UserId, roomid);
                         TempData["Message"] = "Success";
                     }
                     else
