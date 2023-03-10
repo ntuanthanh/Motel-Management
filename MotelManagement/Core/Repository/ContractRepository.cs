@@ -13,7 +13,9 @@ namespace MotelManagement.Core.Repository
         public async Task<List<Contract>> getListContractsByUserId(int userId)
         {
             return await _context.Contracts.Where(c => c.UserId==userId)
-                                    .Include(c=>c.Room).ToListAsync();
+                                    .Include(c=>c.Room)
+                                        .ThenInclude(c=> c.Images)
+                                    .ToListAsync();
 
         }
     }

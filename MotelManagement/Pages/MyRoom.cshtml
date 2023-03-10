@@ -1,0 +1,534 @@
+﻿@page "/user/manageroom"
+@model MotelManagement.Pages.MyRoomModel
+@{
+}
+<style>
+    .gallery_cus {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .gallery_cus img {
+            max-width: 100%;
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+    .overlay_cus {
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+        .overlay_cus img {
+            max-height: 90%;
+            max-width: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .overlay_cus .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+</style>
+
+<div class="page-head">
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">Quản lý phòng</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+<!-- property area -->
+<div class="content-area single-property" style="background-color: #FFF;">
+    &nbsp;
+    <div class="container">
+
+        <div class="clearfix padding-top-40">
+            <div class="col-md-12 single-property-content">
+                <div class="row">
+                    <div class="light-slide-item full-width-sld">
+                        <div class="clearfix">
+                            <div class="favorite-and-print">
+                                <a class="add-to-fav" href="#login-modal" data-toggle="modal">
+                                    <i class="fa fa-star-o"></i>
+                                </a>
+                                <a class="printer-icon " href="javascript:window.print()">
+                                    <i class="fa fa-print"></i>
+                                </a>
+                            </div>
+
+                            <ul id="fullWidth-gallery" class="gallery list-unstyled cS-hidden">
+                                <li data-thumb="assets/img/property-1/property1.jpg">
+                                    <img src="assets/img/property-1/property1.jpg" />
+                                </li>
+                                <li data-thumb="assets/img/property-1/property2.jpg">
+                                    <img src="assets/img/property-1/property3.jpg" />
+                                </li>
+                                <li data-thumb="assets/img/property-1/property3.jpg">
+                                    <img src="assets/img/property-1/property3.jpg" />
+                                </li>
+                                <li data-thumb="assets/img/property-1/property4.jpg">
+                                    <img src="assets/img/property-1/property4.jpg" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="single-property-wrapper">
+                <div class="single-property-header">
+                    <h1 class="property-title pull-left">Phòng số: 101</h1>
+                </div>
+
+                <div class="property-meta entry-meta clearfix ">
+                    <h4 class="s-property-title">Quản lý</h4>
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-tag">
+                            <i class="fa-regular fa-money-bill-1" data-toggle="modal" data-target="#bill"
+                               role="button" style="font-size:24px"></i>
+                        </span>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true" id="bill">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel"
+                                            style="display: inline-block;">
+                                            Hóa đơn
+                                        </h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="font-size: 32px;">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="recipient-name"
+                                                       class="col-form-label">Recipient:</label>
+                                                <input type="text" class="form-control" id="recipient-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Message:</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary">Send message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Hóa đơn</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info icon-area">
+                            <i class="fa-solid fa-clock-rotate-left" data-toggle="modal"
+                               data-target="#billhistory" role="button" style="font-size:24px"></i>
+
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true" id="billhistory">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel"
+                                                style="display: inline-block;">
+                                                Lịch sử thanh toán
+                                            </h3>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true" style="font-size: 32px;">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style="color: black;">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Tháng</th>
+                                                        <th scope="col">Tiền phòng</th>
+                                                        <th scope="col">Tiền điện</th>
+                                                        <th scope="col">Tiền nước</th>
+                                                        <th scope="col">Còn nợ</th>
+                                                        <th scope="col">Ngày thanh toán</th>
+                                                        <th scope="col">Ngày xác nhận</th>
+                                                        <th scope="col">Ảnh</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>1</td>
+                                                        <td>2.000.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>
+                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>1</td>
+                                                        <td>2.000.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>
+                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>1</td>
+                                                        <td>2.000.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>132.000</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>12/02/2022 12:02:2023</td>
+                                                        <td>
+                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="pull-right">
+                                                <div class="pagination">
+                                                    <ul>
+                                                        <li><a href="#">Prev</a></li>
+                                                        <li><a href="#">1</a></li>
+                                                        <li><a href="#">2</a></li>
+                                                        <li><a href="#">3</a></li>
+                                                        <li><a href="#">4</a></li>
+                                                        <li><a href="#">Next</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                    data-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Lịch sử</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-bed">
+                            <i class="fa-regular fa-flag" style="font-size:24px"></i>
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Báo cáo</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-bed">
+                            <img src="assets/img/icon/cars-orange.png">
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Thanh toán</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-bath">
+                            <img src="assets/img/icon/os-orange.png">
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Nhượng phòng</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-garage">
+                            <img src="assets/img/icon/room-orange.png">
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Gia hạn</span>
+                        </span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                        <span class="property-info-icon icon-garage">
+                            <img src="assets/img/icon/shawer-orange.png">
+                        </span>
+                        <span class="property-info-entry">
+                            <span class="property-info-label">Garages</span>
+                        </span>
+                    </div>
+
+
+                </div>
+                <!-- .property-meta -->
+
+                <div class="section">
+                    <h4 class="s-property-title">Mô tả</h4>
+                    <div class="s-property-content">
+                        <p>
+                            Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse
+                            ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium.
+                            Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu
+                            nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies
+                            commodo arcu nec pretium. Nullam sed arcu ultricies
+                        </p>
+                    </div>
+                </div>
+                <!-- End description area  -->
+
+                <div class="section additional-details">
+
+                    <h4 class="s-property-title">Additional Details</h4>
+
+                    <ul class="additional-details-list clearfix">
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
+                        </li>
+
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Built In</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2003</span>
+                        </li>
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                2 Or More Spaces,Covered
+                                Parking,Valet Parking
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
+                        </li>
+
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">View</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal View,Direct ew</span>
+                        </li>
+
+                        <li>
+                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront Description:</span>
+                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                Intracoastal Front,Ocean
+                                Access
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- End additional-details area  -->
+
+                <div class="section property-features">
+
+                    <h4 class="s-property-title">Features</h4>
+                    <ul>
+                        <li><a href="properties.html">Swimming Pool</a></li>
+                        <li><a href="properties.html">3 Stories</a></li>
+                        <li><a href="properties.html">Central Cooling</a></li>
+                        <li><a href="properties.html">Jog Path 2</a></li>
+                        <li><a href="properties.html">2 Lawn</a></li>
+                        <li><a href="properties.html">Bike Path</a></li>
+                    </ul>
+
+                </div>
+                <!-- End features area  -->
+
+                <div class="section property-video">
+                    <h4 class="s-property-title">Property Video</h4>
+                    <div class="video-thumb">
+                        <a class="video-popup" href="yout" title="Virtual Tour">
+                            <img src="assets/img/property-video.jpg" class="img-responsive wp-post-image"
+                                 alt="Exterior">
+                        </a>
+                    </div>
+                </div>
+                <!-- End video area  -->
+
+
+
+                <div class="section property-share">
+                    <h4 class="s-property-title">Share width your friends </h4>
+                    <div class="roperty-social">
+                        <ul>
+                            <li>
+                                <a title="Share this on dribbble " href="#">
+                                    <img src="assets/img/social_big/dribbble_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on facebok " href="#">
+                                    <img src="assets/img/social_big/facebook_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on delicious " href="#">
+                                    <img src="assets/img/social_big/delicious_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on tumblr " href="#">
+                                    <img src="assets/img/social_big/tumblr_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on digg " href="#">
+                                    <img src="assets/img/social_big/digg_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on twitter " href="#">
+                                    <img src="assets/img/social_big/twitter_grey.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Share this on linkedin " href="#">
+                                    <img src="assets/img/social_big/linkedin_grey.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End video area  -->
+
+            </div>
+
+            <div class="similar-post-section padding-top-40">
+                <div id="prop-smlr-slide_0">
+                    <div class="box-two proerty-item">
+                        <div class="item-thumb">
+                            <a href="property-1.html"><img src="assets/img/similar/property-1.jpg"></a>
+                        </div>
+                        <div class="item-entry overflow">
+                            <h5><a href="property-1.html"> Super nice villa </a></h5>
+                            <div class="dot-hr"></div>
+                            <span class="pull-left"><b> Area :</b> 120m </span>
+                            <span class="proerty-price pull-right"> $ 300,000</span>
+                        </div>
+                    </div>
+                    <div class="box-two proerty-item">
+                        <div class="item-thumb">
+                            <a href="property-1.html"><img src="assets/img/similar/property-2.jpg"></a>
+                        </div>
+                        <div class="item-entry overflow">
+                            <h5><a href="property-1.html"> Super nice villa </a></h5>
+                            <div class="dot-hr"></div>
+                            <span class="pull-left"><b> Area :</b> 120m </span>
+                            <span class="proerty-price pull-right"> $ 300,000</span>
+                        </div>
+                    </div>
+                    <div class="box-two proerty-item">
+                        <div class="item-thumb">
+                            <a href="property-1.html"><img src="assets/img/similar/property-3.jpg"></a>
+                        </div>
+                        <div class="item-entry overflow">
+                            <h5><a href="property-1.html"> Super nice villa </a></h5>
+                            <div class="dot-hr"></div>
+                            <span class="pull-left"><b> Area :</b> 120m </span>
+                            <span class="proerty-price pull-right"> $ 300,000</span>
+                        </div>
+                    </div>
+                    <div class="box-two proerty-item">
+                        <div class="item-thumb">
+                            <a href="property-1.html"><img src="assets/img/similar/property-1.jpg"></a>
+                        </div>
+                        <div class="item-entry overflow">
+                            <h5><a href="property-1.html"> Super nice villa </a></h5>
+                            <div class="dot-hr"></div>
+                            <span class="pull-left"><b> Area :</b> 120m </span>
+                            <span class="proerty-price pull-right"> $ 300,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#image-gallery').lightSlider({
+                gallery: true,
+                item: 1,
+                thumbItem: 9,
+                slideMargin: 0,
+                speed: 500,
+                auto: true,
+                loop: true,
+                onSliderLoad: function () {
+                    $('#image-gallery').removeClass('cS-hidden');
+                }
+            });
+        });
+        const images = document.querySelectorAll('.gallery_cus img');
+        const overlay = document.createElement('div');
+
+        function showImage(e) {
+            overlay.classList.add('overlay_cus');
+            overlay.innerHTML = `<img src="${this.src}" alt="${this.alt}">
+                    <div class="close">&times;</div>`;
+            document.body.appendChild(overlay);
+        }
+
+        function hideImage() {
+            overlay.innerHTML = '';
+            overlay.classList.remove("overlay_cus");
+        }
+
+        images.forEach(image => {
+            image.addEventListener('click', showImage);
+        });
+
+        overlay.addEventListener('click', hideImage);
+
+    </script>
+
+}

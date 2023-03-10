@@ -12,6 +12,9 @@ namespace MotelManagement.Core.Repository
         public IRoomRepository roomRepository { get;  }
 
         public IBookingRepository bookingRepository { get; }
+
+        public IContractRepository contractRepository  { get; }
+
         public UnitOfWork(MotelManagementContext context)
         {
             _context = context;
@@ -19,6 +22,7 @@ namespace MotelManagement.Core.Repository
             userRepository = new UserRepository(_context);
             roomRepository = new RoomRepository(_context);
             bookingRepository = new BookingRepository(_context);
+            contractRepository = new ContractRepository(_context);
         }
 
         public void Dispose()
