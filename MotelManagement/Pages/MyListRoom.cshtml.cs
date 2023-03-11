@@ -68,6 +68,38 @@ namespace MotelManagement.Pages
             }
             return Redirect("~/user/mylistroom");
         }
+        // Thành 
+        public async Task<IActionResult> OnGetRegisterAsync(int roomid)
+        {
+            string json = HttpContext.Session.GetString("user"); 
+            User user = UserUtil.getUserFromSession(json);
+            if (user != null)
+            {
+                try
+                {
+                    bool isExist = await _serviceBooking.isBooking(roomid, user.UserId);
+                    if (!isExist && roomid != null)
+                    {
+                        await _serviceBooking.Register(user.UserId, roomid);
+                        TempData["Message"] = "Success";
+                    }
+                    else if(isExist)
+                    {
+                        TempData["Message"] = "Registered";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Probs";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.ToString());
+                    TempData["Message"] = "Probs";
+                }
+            }
+            return Redirect("~/user/mylistroom");
+        }
 
 
     }

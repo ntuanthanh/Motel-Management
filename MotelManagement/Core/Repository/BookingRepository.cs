@@ -15,7 +15,7 @@ namespace MotelManagement.Core.Repository
         public async Task<bool> isBooking(int? roomid, int userId)
         {
             Booking booking = await _context.Bookings
-                                            .Where(b=>b.RoomId==roomid&&b.UserId==userId)
+                                            .Where(b=>b.RoomId==roomid&&b.UserId==userId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER)
                                             .FirstOrDefaultAsync();
             return booking != null;
         }
@@ -30,7 +30,6 @@ namespace MotelManagement.Core.Repository
                                             .ToListAsync();
             return listBooking;
         }
-
         public async Task updateUnRegister(int userId, int roomid)
         {
             Booking booking = await _context.Bookings
