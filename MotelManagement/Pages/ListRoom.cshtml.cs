@@ -12,6 +12,35 @@ namespace MotelManagement.Pages
         private readonly IRoomService _roomService;
         private readonly IRoomTypeService _roomTypeService;
 
+     //   Design : Hiện nút booking : 
+     //   TH1 : room và user chưa nằm trong bảng booking
+     //   TH2 : room và user nằm trong bảng booking nhưng trạng thái là status là 0 và không có trạng thái 1 (đã hủy booking trước đó ) 
+        public bool isShowBooking(Room room, int userId)
+        {
+            if(room.Bookings == null)
+               return true;
+            else
+            {
+                Booking booking = room.Bookings.Where(b => b.UserId == userId && 
+                                                           b.RoomId == room.RoomId && 
+                                                           b.Status == (int)REGISTER_ROOM_STATE.REGISTER).FirstOrDefault();
+                if (booking == null)
+                    return true;
+            }
+            return false; 
+        }
+        public bool isShowCancelBooking(Room room, int userId)
+        {
+            if (room.Bookings == null)
+                return false;
+            Booking booking = room.Bookings.Where(b => b.UserId == userId &&
+                                                           b.RoomId == room.RoomId &&
+                                                           b.Status == (int)REGISTER_ROOM_STATE.REGISTER).FirstOrDefault();
+            if (booking != null)
+                return true;
+            return false;
+        }
+
         public ListRoomModel(IRoomService roomService, IRoomTypeService roomTypeService)
         {
             _roomService = roomService;

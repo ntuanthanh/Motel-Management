@@ -1,6 +1,9 @@
 ﻿@page "/room/detail"
+@using MotelManagement.Common
 @using MotelManagement.Data.Models
 @model MotelManagement.Pages.DetailRoomModel
+@inject IHttpContextAccessor Accessor
+
 @{
     Room room = (Room)ViewData["room"];
 }
@@ -42,19 +45,31 @@
                         </div>
                     </div>
                 </div>
-                @*Còn Trống*@
-                @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId)
+                @if (@Accessor.HttpContext.Session.GetString("user") != null)
                 {
-                    <div class="text-center" style="margin-bottom : 40px; margin-top : -45px">
-                        <button class="btn btn-success">Đặt Phòng</button>
-                    </div>
-                }
-                @*Cần Pass*@
-                @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId)
-                {
-                    <div class="text-center" style="margin-bottom : 40px; margin-top : -45px">
-                        <button class="btn btn-success">Đặt Phòng</button>
-                    </div>
+                    User user = (User)JsonUtil.DeserializeObject<User>(Accessor.HttpContext.Session.GetString("user"));
+                    @*Còn Trống*@
+                    @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId)
+                    {
+                        if(Model.isShowBooking(room, user.UserId))
+                        {
+                           <div class="text-center" style="margin-bottom : 40px; margin-top : -45px">
+                             <button class="btn btn-success" onclick = "Booking(@room.RoomId)">Đặt Phòng</button>
+                           </div>                     
+                        }else if (Model.isShowCancelBooking(room, user.UserId))
+                        {
+                           <div class="text-center" style="margin-bottom : 40px; margin-top : -45px">
+                             <button class="btn btn-success" onclick = "CancelBooking(@room.RoomId)">Hủy Đặt Phòng</button>
+                           </div>                          
+                        }
+                    }
+                    @*Cần Pass*@
+                    @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId)
+                    {
+                        <div class="text-center" style="margin-bottom : 40px; margin-top : -45px">
+                            <button class="btn btn-success">Đặt Phòng</button>
+                        </div>
+                    }
                 }
                 <div class="single-property-wrapper">
                     <div class="single-property-header">
@@ -354,5 +369,38 @@
             }
         });
     });
+
+     // Đặt phòng
+        function Booking(roomId){
+             swal({
+                    title: "Are you sure?",
+                    text: "Bạn chắc chắn muốn đăng kí phòng này?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willBooking) => {
+                    if (willBooking) {
+                        window.location.href = "/user/mylistroom?handler=Register&roomid="+roomId;
+                    }
+                });
+        }
+        // Hủy Phòng 
+        function CancelBooking(roomId){
+             swal({
+                    title: "Are you sure?",
+                    text: "Bạn chắc chắn muốn hủy đăng kí phòng này?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willBooking) => {
+                    if (willBooking) {
+                        window.location.href = "/user/mylistroom?handler=UnRegister&roomid="+roomId;
+                    }
+                });
+        }
+        // Booking Phòng 
+        // Hủy Booking Phòng 
 </script>
 }

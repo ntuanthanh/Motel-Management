@@ -33,7 +33,7 @@ namespace MotelManagement.Core.Repository
         public async Task updateUnRegister(int userId, int roomid)
         {
             Booking booking = await _context.Bookings
-                                            .Where(b => b.RoomId == roomid && b.UserId == userId)
+                                            .Where(b => b.RoomId == roomid && b.UserId == userId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER)
                                             .FirstOrDefaultAsync();
             booking.Status = (int) REGISTER_ROOM_STATE.UN_REGISTER;
             _context.Entry(booking).Property(s => s.Status).IsModified = true;

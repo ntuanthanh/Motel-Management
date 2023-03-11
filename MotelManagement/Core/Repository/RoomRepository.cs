@@ -19,7 +19,7 @@ namespace MotelManagement.Core.Repository
                 r.StatusId == (status ?? r.StatusId) &&
                 r.Price >= fromPrice && r.Price <= toPrice &&
                 r.MaxPerson >= fromSizePerson && r.MaxPerson <= toSizePerson
-            ).Include(r => r.Images).Skip(offSet - 1).Take(count).ToListAsync(); 
+            ).Include(r => r.Images).Include(b => b.Bookings).Skip(offSet - 1).Take(count).ToListAsync(); 
         }
 
         public async Task<int> Count(string nameRoom, int? roomTypeId, int? status, decimal fromPrice, decimal toPrice, int fromSizePerson, int toSizePerson)
@@ -36,7 +36,7 @@ namespace MotelManagement.Core.Repository
         public async Task<Room> getRoomById(int? id)
         {
             // Query get room by id 
-            return _context.Rooms.Include(r => r.Images).FirstOrDefault(r => r.RoomId == id);
+            return _context.Rooms.Include(r => r.Images).Include(b => b.Bookings).FirstOrDefault(r => r.RoomId == id);
         }
 
         public async Task<List<Room>> RoomSimilar(int? status)

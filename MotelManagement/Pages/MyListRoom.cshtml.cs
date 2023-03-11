@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MotelManagement.Business.IService;
 using MotelManagement.Common;
@@ -11,11 +11,13 @@ namespace MotelManagement.Pages
     {
         private readonly IBookingService _serviceBooking;
         private readonly IContractService _serviceContract;
+        private readonly IRoomService _serviceRoom;
         private readonly ILogger<LoginModel> _logger;
-        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger, IContractService contractService)
+        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger, IContractService contractService, IRoomService serviceRoom)
         {
             this._serviceBooking = bookingService;
             this._serviceContract = contractService;
+            _serviceRoom = serviceRoom; 
             this._logger = logger;
         }
         public async Task<IActionResult> OnGetAsync()
@@ -68,7 +70,7 @@ namespace MotelManagement.Pages
             }
             return Redirect("~/user/mylistroom");
         }
-        // Th�nh 
+        // Thành 
         public async Task<IActionResult> OnGetRegisterAsync(int roomid)
         {
             string json = HttpContext.Session.GetString("user"); 
@@ -78,7 +80,9 @@ namespace MotelManagement.Pages
                 try
                 {
                     bool isExist = await _serviceBooking.isBooking(roomid, user.UserId);
-                    if (!isExist && roomid != null)
+                    // TH user dùng url, nếu phòng đã có nguời đang có người thuê nhưng vẫn booking
+                    Room room = await _serviceRoom.getRoomById(roomid);
+                    if (!isExist && roomid != null && room.StatusId == (int)ROOM_STATE.PROCESSING)
                     {
                         await _serviceBooking.Register(user.UserId, roomid);
                         TempData["Message"] = "Success";

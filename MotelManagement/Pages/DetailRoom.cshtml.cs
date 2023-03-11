@@ -11,6 +11,32 @@ namespace MotelManagement.Pages
         private readonly IRoomService _roomService;
         private readonly IRoomTypeService _roomTypeService;
 
+        public bool isShowBooking(Room room, int userId)
+        {
+            if (room.Bookings == null)
+                return true;
+            else
+            {
+                Booking booking = room.Bookings.Where(b => b.UserId == userId &&
+                                                           b.RoomId == room.RoomId &&
+                                                           b.Status == (int)REGISTER_ROOM_STATE.REGISTER).FirstOrDefault();
+                if (booking == null)
+                    return true;
+            }
+            return false;
+        }
+        public bool isShowCancelBooking(Room room, int userId)
+        {
+            if (room.Bookings == null)
+                return false;
+            Booking booking = room.Bookings.Where(b => b.UserId == userId &&
+                                                           b.RoomId == room.RoomId &&
+                                                           b.Status == (int)REGISTER_ROOM_STATE.REGISTER).FirstOrDefault();
+            if (booking != null)
+                return true;
+            return false;
+        }
+
         public DetailRoomModel(IRoomService roomService, IRoomTypeService roomTypeService)
         {
             _roomService = roomService;
