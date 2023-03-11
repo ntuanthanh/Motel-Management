@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
+using System.Collections;
 
 namespace MotelManagement.Core.Repository
 {
@@ -17,6 +18,21 @@ namespace MotelManagement.Core.Repository
                                         .ThenInclude(c=> c.Images)
                                     .ToListAsync();
 
+        }
+
+        public async Task<Hashtable> getOwners(int roomId, int userId)
+        {
+            bool isPermit = false;
+            List<Contract> contracts = await _context.Contracts.Where(c=>c.RoomId==roomId
+                                                                        &&c.IsActive==true).Include(u=>u.User).ToListAsync();
+            Hashtable onwers = new Hashtable();
+            foreach(Contract c in contracts)
+            {
+                onwers.Add(c.User.UserId, c.User.FullName);
+                if(c.UserId==userId) isPermit = true;
+            }
+            if (isPermit) return onwers;
+            else return null;
         }
 
         public async Task<bool> IsMemberOfRoom(User user, int roomId)

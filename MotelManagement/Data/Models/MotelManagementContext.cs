@@ -60,6 +60,8 @@ namespace MotelManagement.Data.Models
 
                 entity.Property(e => e.ElectricBill).HasColumnType("money");
 
+                entity.Property(e => e.AcceptTime).HasColumnType("datetime");
+
                 entity.Property(e => e.PaidTime).HasColumnType("datetime");
 
                 entity.Property(e => e.RoomBill).HasColumnType("money");
