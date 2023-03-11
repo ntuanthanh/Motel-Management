@@ -1,4 +1,5 @@
 ﻿using MotelManagement.Business.IService;
+using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
 
@@ -20,6 +21,18 @@ namespace MotelManagement.Business.Service
         public async Task<List<Booking>> listBookings(int userId)
         {
             return await _unitOfWork.bookingRepository.listBookings(userId);
+        }
+
+        public async Task Register(int userId, int roomid)
+        {
+            Booking booking = new Booking();
+            booking.RoomId = roomid;
+            booking.UserId = userId;
+            booking.Status = (int)REGISTER_ROOM_STATE.REGISTER;
+            booking.BookingTime = DateTime.Now;
+            booking.MeetingDate = null; 
+            await _unitOfWork.bookingRepository.AddAsync(booking);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task updateUnRegister(int userId, int roomid)

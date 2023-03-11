@@ -2,7 +2,7 @@
 
 namespace MotelManagement.Core.IRepository
 {
-    public interface IBookingRepository
+    public interface IBookingRepository : IGenericRepository<Booking>
     {
         public Task<bool> isBooking(int? roomid, int userId);
         public Task<List<Booking>> listBookings(int userId);

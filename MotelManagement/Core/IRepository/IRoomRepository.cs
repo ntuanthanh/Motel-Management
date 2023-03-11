@@ -9,6 +9,6 @@ namespace MotelManagement.Core.IRepository
        Task<int> Count(string nameRoom, int? roomTypeId, int? status, decimal fromPrice, decimal toPrice, int fromSizePerson, int toSizePerson);
        Task<List<Room>> Top4BestRoom();
        Task<Room> getRoomById(int? id);
-       Task<List<Room>> RoomSimilar(int ? status); 
+       Task<List<Room>> RoomSimilar(int ? status);
     }
 }

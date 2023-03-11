@@ -18,5 +18,16 @@ namespace MotelManagement.Core.Repository
                                     .ToListAsync();
 
         }
+
+        public async Task<bool> IsMemberOfRoom(User user, int roomId)
+        {
+             Contract contract =  _context.Contracts.Where(c => c.RoomId == roomId 
+                                                             && c.User.UserId == user.UserId 
+                                                             && c.IsActive == true).FirstOrDefault();
+            if(contract != null)
+                return true;
+            else
+                return false;
+        }
     }
 }

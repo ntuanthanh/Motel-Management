@@ -43,10 +43,10 @@
                                     <div class="col-md-4 p0">
                                         <div class="box-two proerty-item">
                                             <div class="item-thumb">
-                                                <a href="property-1.html"><img src="~/upload/@b.Room.Images.ElementAt(0).Url"></a>
+                                                <a href="../../room/detail?id=@b.RoomId"><img src="~/upload/@b.Room.Images.ElementAt(0).Url"></a>
                                             </div>
                                             <div class="item-entry overflow">
-                                                <h5><a href="property-1.html"> </a></h5>
+                                                <h5><a href="../../room/detail?id=@b.RoomId"> </a></h5>
                                                 <div class="dot-hr"></div>
                                                 <span class="pull-left"><b> Tên phòng :</b> @b.Room.Name </span>
                                                 <span class="proerty-price pull-right">
@@ -75,6 +75,9 @@
                                                             <a href="/user/mylistroom?handler=Unregister&roomid=@b.RoomId" style="color: red; padding-right: 8px" class="button" id="unregister">Hủy đăng ký</a>
                                                         }
                                                     </div>
+                                                </div>
+                                                <div>
+                                                   <p style="font-weight: bold; color: #333;">Đặt phòng vào <span style ="color:red">@b.BookingTime.ToString("dd/MM/yyyy") lúc @b.BookingTime.ToString("HH:mm")</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,27 +204,37 @@
             if (TempData["Message"] != null)
             {
                 if (TempData["Message"].Equals("Success"))
-            {
-                <text>
-                    swal({
-                        title: "Cập nhật thành công!",
-                        text: "",
-                        icon: "success",
-                        buttons: false
-                    });
-                </text>
-            }
-            else if(TempData["Message"].Equals("Probs"))
-            {
-                <text>
-                    swal({
-                        title: "Cập nhật thất bại!",
-                        text: "Opps! Đã có lỗi xảy ra!",
-                        icon: "warning",
-                        buttons: false
-                    })
-                </text>
-            }
+                {
+                    <text>
+                        swal({
+                            title: "Cập nhật thành công!",
+                            text: "",
+                            icon: "success",
+                            buttons: false
+                        });
+                    </text>
+                }
+                else if(TempData["Message"].Equals("Probs"))
+                {
+                    <text>
+                        swal({
+                            title: "Cập nhật thất bại!",
+                            text: "Opps! Đã có lỗi xảy ra!",
+                            icon: "warning",
+                            buttons: false
+                        })
+                    </text>
+               }else if(TempData["Message"].Equals("Registered"))
+               {
+                    <text>
+                        swal({
+                            title: "Cập nhật thất bại!",
+                            text: "Phòng này bạn đã đăng kí",
+                            icon: "warning",
+                            buttons: false
+                        })
+                    </text>
+               }
         }
     }
     </script>

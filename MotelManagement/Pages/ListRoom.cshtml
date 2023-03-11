@@ -213,8 +213,8 @@
                                             }
                                             @*Còn Trống*@
                                             @if(room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId){
-                                                <div class="text-center">
-                                                    <button class="btn btn-success">Đặt Phòng</button>
+                                            <div class="text-center">
+                                                <button class="btn btn-success" onclick = "Booking(@room.RoomId)">Đặt Phòng</button>
                                                 </div>
                                             }
                                             @*Cần Pass*@
@@ -248,5 +248,24 @@
         var gap = 2;
         var url_param = '@ViewData["url"]';
         pagination(pageindex,totalpage,container,gap,url_param); 
+
+        // Đặt phòng
+        function Booking(roomId){
+             swal({
+                    title: "Are you sure?",
+                    text: "Bạn chắc chắn muốn đăng kí phòng này?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willBooking) => {
+                    if (willBooking) {
+                        window.location.href = "/user/mylistroom?handler=Register&roomid="+roomId;
+                    }
+                });
+        }
+        // Hủy Phòng  
+        // Booking Phòng 
+        // Hủy Booking Phòng 
    </script>
 }
