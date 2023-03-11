@@ -1,7 +1,6 @@
 ﻿@page "/user/manageroom"
 @model MotelManagement.Pages.MyRoomModel
-@{
-}
+@using MotelManagement.Common;
 <style>
     .gallery_cus {
         display: flex;
@@ -164,13 +163,56 @@
                                                     aria-label="Close">
                                                 <span aria-hidden="true" style="font-size: 32px;">×</span>
                                             </button>
+
+
+                                            <form style="display: flex; flex-direction: column;">
+
+                                                <div form-row>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="paidTimeFrom">Ngày thanh toán từ</label>
+                                                        <input type="date" class="form-control" name="paidTimeFrom" id="paidTimeFrom">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="paidTimeTo">Ngày thanh toán đến</label>
+                                                        <input type="date" class="form-control" name="paidTimeTo" id="paidTimeTo">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="isDept">Trạng thái</label>
+                                                        <select name="isDept" class="form-control" id="isDept">
+                                                            <option value="@PAYMENT_STATE.PAID">Đã nộp</option>
+                                                            <option value="@PAYMENT_STATE.UNPAID">Chưa nộp</option>
+                                                            <option value="@PAYMENT_STATE.DEBT">Còn nợ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div form-row>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="confirmDateFrom">Ngày xác nhận từ</label>
+                                                        <input type="date" class="form-control" name="confirmDateFrom" id="confirmDateFrom">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="confirmDateTo">Ngày xác nhận đến</label>
+                                                        <input type="date" class="form-control" name="confirmDateTo" id="confirmDateTo">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="onwer">Người nộp</label>
+                                                        <select class="form-control" name="onwer" id="owner">
+                                                            <option>Nguyen The Vinh</option>
+                                                            <option>Nguyen Tuan Thanh</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <button id="search" class="btn btn-primary" style="align-self:center">Tìm kiếm</button>
+                                            </form>
                                         </div>
-                                        <div class="modal-body" style="color: black;">
+                                        <div class="modal-body" style="color: black; padding:0px">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Tháng</th>
+                                                        <th scope="col">Người nộp</th>
                                                         <th scope="col">Tiền phòng</th>
                                                         <th scope="col">Tiền điện</th>
                                                         <th scope="col">Tiền nước</th>
@@ -183,7 +225,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td>1</td>
+                                                        <td>Nguyen The Vinh</td>
                                                         <td>2.000.000</td>
                                                         <td>132.000</td>
                                                         <td>132.000</td>
@@ -198,7 +240,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td>1</td>
+                                                        <td>Nguyen The Vinh</td>
                                                         <td>2.000.000</td>
                                                         <td>132.000</td>
                                                         <td>132.000</td>
@@ -213,7 +255,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td>1</td>
+                                                        <td>Nguyen Tuan Thanh</td>
                                                         <td>2.000.000</td>
                                                         <td>132.000</td>
                                                         <td>132.000</td>
@@ -228,22 +270,21 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="pull-right">
-                                                <div class="pagination">
-                                                    <ul>
-                                                        <li><a href="#">Prev</a></li>
-                                                        <li><a href="#">1</a></li>
-                                                        <li><a href="#">2</a></li>
-                                                        <li><a href="#">3</a></li>
-                                                        <li><a href="#">4</a></li>
-                                                        <li><a href="#">Next</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <div class="modal-footer">
+                                        <div class="modal-footer" style="display: flex; justify-content: flex-end;">
+                                            <div class="pagination">
+                                                <ul>
+                                                    <li><a href="#">Prev</a></li>
+                                                    <li><a href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">4</a></li>
+                                                    <li><a href="#">Next</a></li>
+                                                </ul>
+                                            </div>
                                             <button type="button" class="btn btn-primary"
-                                                    data-dismiss="modal">
+                                                    data-dismiss="modal"
+                                                    style="height: fit-content;align-self: center;">
                                                 Close
                                             </button>
                                         </div>
@@ -529,6 +570,28 @@
 
         overlay.addEventListener('click', hideImage);
 
-    </script>
+        function buildUrl(url){
+            var url = window.location.href;
+            var paidTimeFrom = $("#paidTimeFrom").val();;
+            var paidTimeTo = $("#paidTimeTo").val();
+            var confirmDateFrom = $("#confirmDateFrom").val();;
+            var confirmDateTo = $("#confirmDateTo").val();
+            var isDept = $("#isDept").val();
+            var owner = $("#owner").val();
+            console.log(paidTimeFrom + "-" + paidTimeTo + "-" + confirmDateFrom + "-" + confirmDateTo + "-" + isDept + "-" + owner);
+        }
 
+        $(document).ready(function () {
+            buildUrl();
+            $("#search").click(function (event) {
+                event.preventDefault();
+                $.get(url, function (data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+                buildUrl();
+            });
+        });
+
+
+    </script>
 }
