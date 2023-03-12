@@ -5,7 +5,9 @@ namespace MotelManagement.Business.IService
 {
     public interface IBillService
     {
-        Task<List<Bill>> getListBills(string? paidTimeFrom, string? paidTimeTo, string? confirmDateFrom, string? confirmDateTo, int owner, int isDept, int roomId, int pageIndex);
+        public Task<int> countListBills(DateTime? paidTimeFrom, DateTime? paidTimeTo, DateTime? confirmDateFrom, DateTime? confirmDateTo, int? owner, int? isDept, int roomId);
+
+        public Task<List<Bill>> getListBills(DateTime? paidTimeFrom, DateTime? paidTimeTo, DateTime? confirmDateFrom, DateTime? confirmDateTo, int? owner, int? isDept, int roomId, int pageIndex);
         public Task<Hashtable> getOwners(int roomId, int userId);
     }
 }
