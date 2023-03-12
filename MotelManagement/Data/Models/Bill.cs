@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -19,8 +20,9 @@ namespace MotelManagement.Data.Models
         public int BillState { get; set; }
         public decimal? Debt { get; set; }
         public string BankingImage { get; set; }
-
+        [JsonIgnore]
         public virtual Room Room { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; }
     }
 }

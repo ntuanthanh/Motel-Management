@@ -9,9 +9,10 @@
 
     enum PAYMENT_STATE
     {
-        PAID,
-        UNPAID,
-        DEBT 
+        PAID=1,
+        UNPAID=-1,
+        DEBT=0,
+        NOT_CONFIRM = 2
     }
     enum IMAGE_STATE
     {
@@ -29,7 +30,13 @@
 
     enum PageManagement
     {
-        PageSize = 9
+        PageSize = 3
+    }
+
+    enum DEFAULT_VALUE
+    {
+        PAYMENT_STATE = -2,
+        USER_SELECT = -1
     }
 }
 

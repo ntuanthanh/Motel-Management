@@ -1,6 +1,7 @@
 ﻿@page "/user/manageroom"
 @model MotelManagement.Pages.MyRoomModel
 @using MotelManagement.Common;
+@using System;
 <style>
     .gallery_cus {
         display: flex;
@@ -179,9 +180,10 @@
                                                     <div class="form-group col-md-4">
                                                         <label for="isDept">Trạng thái</label>
                                                         <select name="isDept" class="form-control" id="isDept">
-                                                            <option value="@PAYMENT_STATE.PAID">Đã nộp</option>
-                                                            <option value="@PAYMENT_STATE.UNPAID">Chưa nộp</option>
-                                                            <option value="@PAYMENT_STATE.DEBT">Còn nợ</option>
+                                                            <option value="@((Int32)DEFAULT_VALUE.PAYMENT_STATE)">--Trạng thái--</option>
+                                                            <option value="@((Int32)PAYMENT_STATE.PAID)">Đã nộp</option>
+                                                            <option value="@((Int32)PAYMENT_STATE.UNPAID)">Chưa nộp</option>
+                                                            <option value="@((Int32)PAYMENT_STATE.DEBT)">Còn nợ</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -199,8 +201,9 @@
                                                     <div class="form-group col-md-4">
                                                         <label for="onwer">Người nộp</label>
                                                         <select class="form-control" name="onwer" id="owner">
-                                                            <option>Nguyen The Vinh</option>
-                                                            <option>Nguyen Tuan Thanh</option>
+                                                            <option value="@((Int32)DEFAULT_VALUE.USER_SELECT)">--Người nộp--</option>
+                                                            <option value="1">Nguyen The Vinh</option>
+                                                            <option value="2">Nguyen Tuan Thanh</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -222,7 +225,7 @@
                                                         <th scope="col">Ảnh</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="data-container">
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>Nguyen The Vinh</td>
@@ -272,16 +275,17 @@
                                             </table>
                                         </div>
                                         <div class="modal-footer" style="display: flex; justify-content: flex-end;">
-                                            <div class="pagination">
-                                                <ul>
-                                                    <li><a href="#">Prev</a></li>
-                                                    <li><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">Next</a></li>
-                                                </ul>
-                                            </div>
+                                            <div id="demo" class="pagination"></div>
+                                            @*                                            <div class="pagination">
+                                            <ul>
+                                            <li><a href="#">Prev</a></li>
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">Next</a></li>
+                                            </ul>
+                                            </div>*@
                                             <button type="button" class="btn btn-primary"
                                                     data-dismiss="modal"
                                                     style="height: fit-content;align-self: center;">
@@ -534,6 +538,77 @@
 </div>
 
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <script>
+        function buildUrl(url) {
+            var url = window.location.origin + window.location.pathname + "?handler=Bill&";
+            var paidTimeFrom = $("#paidTimeFrom").val();;
+            var paidTimeTo = $("#paidTimeTo").val();
+            var confirmDateFrom = $("#confirmDateFrom").val();;
+            var confirmDateTo = $("#confirmDateTo").val();
+            var isDept = $("#isDept").val();
+            var owner = $("#owner").val();
+            //var pageIndex = url.
+            url = url + `paidTimeFrom=${paidTimeFrom}&paidTimeTo=${paidTimeTo}&confirmDateFrom=${confirmDateFrom}&confirmDateTo=${confirmDateTo}&isDept=${isDept}&owner=${owner}&roomId=5`
+            //console.log(paidTimeFrom + "-" + paidTimeTo + "-" + confirmDateFrom + "-" + confirmDateTo + "-" + isDept + "-" + owner);
+            return url;
+        }
+
+        $(document).ready(function () {
+            $("#search").click(function (event) {
+                event.preventDefault();
+                var url = buildUrl();
+                console.log(url);
+                loadData(url);
+            });
+        });
+
+        function loadData(url) {
+            var container = $('#demo');
+            var data_container = $('.data-container');
+            container.pagination({
+                dataSource: url,
+                totalNumberLocator: function (response) {
+                    console.log(response);
+
+                    return response.countBills;
+                },
+                locator: "listBills",
+                pageSize: 3,
+                formatNavigator: '<%= rangeStart %>-<%= rangeEnd %> of <%= totalNumber %> items',
+                ajax: {
+                    beforeSend: function () {
+                        data_container.html('Loading data from flickr.com ...');
+                    }
+                },
+                callback: function (response, pagination) {
+                    var dataHtml='';
+                    var pageStart = (pagination.pageNumber - 1) * pagination.pageSize;
+                    var pageEnd = pageStart + pagination.pageSize;
+                    var pageItems = response;
+                    $.each(pageItems, function (index, item) {
+                        dataHtml += `<tr>
+                                        <th scope="row">${index}</th>
+                                        <td>${item.userId}</td>
+                                        <td>${item.roomBill}</td>
+                                        <td>${item.electricBill}</td>
+                                        <td>${item.serviceBill}</td>
+                                        <td>${item.debt}</td>
+                                        <td>${item.paidTime}</td>
+                                        <td>${item.acceptTime}</td>
+                                        <td>
+                                            <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                                <img src="/upload/${item.bankingImage}">
+                                            </div>
+                                        </td>
+                                    </tr>`;
+                    });
+                    data_container.html(dataHtml);
+                                        console.log(response);
+                }
+            })
+        }
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#image-gallery').lightSlider({
@@ -548,50 +623,29 @@
                     $('#image-gallery').removeClass('cS-hidden');
                 }
             });
-        });
-        const images = document.querySelectorAll('.gallery_cus img');
-        const overlay = document.createElement('div');
 
-        function showImage(e) {
-            overlay.classList.add('overlay_cus');
-            overlay.innerHTML = `<img src="${this.src}" alt="${this.alt}">
-                    <div class="close">&times;</div>`;
-            document.body.appendChild(overlay);
-        }
 
-        function hideImage() {
-            overlay.innerHTML = '';
-            overlay.classList.remove("overlay_cus");
-        }
+            const images = document.querySelectorAll('.gallery_cus img');
+            const overlay = document.createElement('div');
 
-        images.forEach(image => {
-            image.addEventListener('click', showImage);
-        });
 
-        overlay.addEventListener('click', hideImage);
+            function showImage(e) {
+                overlay.classList.add('overlay_cus');
+                overlay.innerHTML = `<img src="${this.src}" alt="${this.alt}">
+                                    <div class="close">&times;</div>`;
+                document.body.appendChild(overlay);
+            }
 
-        function buildUrl(url){
-            var url = window.location.href;
-            var paidTimeFrom = $("#paidTimeFrom").val();;
-            var paidTimeTo = $("#paidTimeTo").val();
-            var confirmDateFrom = $("#confirmDateFrom").val();;
-            var confirmDateTo = $("#confirmDateTo").val();
-            var isDept = $("#isDept").val();
-            var owner = $("#owner").val();
-            console.log(paidTimeFrom + "-" + paidTimeTo + "-" + confirmDateFrom + "-" + confirmDateTo + "-" + isDept + "-" + owner);
-        }
+            function hideImage() {
+                overlay.innerHTML = '';
+                overlay.classList.remove("overlay_cus");
+            }
 
-        $(document).ready(function () {
-            buildUrl();
-            $("#search").click(function (event) {
-                event.preventDefault();
-                $.get(url, function (data, status) {
-                    alert("Data: " + data + "\nStatus: " + status);
-                });
-                buildUrl();
+            images.forEach(image => {
+                image.addEventListener('click', showImage);
             });
+
+            overlay.addEventListener('click', hideImage);
         });
-
-
     </script>
 }
