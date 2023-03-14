@@ -48,7 +48,7 @@ namespace MotelManagement.Core.Repository
 
         public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public void Update(T entity)

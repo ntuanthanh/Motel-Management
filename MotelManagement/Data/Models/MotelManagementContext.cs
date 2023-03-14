@@ -70,6 +70,8 @@ namespace MotelManagement.Data.Models
 
                 entity.Property(e => e.WaterBill).HasColumnType("money");
 
+                entity.Property(e => e.Description).HasColumnType("description");
+
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Bills)
                     .HasForeignKey(d => d.RoomId)

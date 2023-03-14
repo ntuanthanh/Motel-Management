@@ -1,5 +1,6 @@
 ﻿using MotelManagement.Business.IService;
 using MotelManagement.Core.IRepository;
+using MotelManagement.Core.Repository;
 using MotelManagement.Data.Models;
 using MotelManagement.Pages;
 using System.Collections;
@@ -27,6 +28,21 @@ namespace MotelManagement.Business.Service
         public async Task<Hashtable> getOwners(int roomId, int userId)
         {
             return await _unitOfWork.contractRepository.getOwners(roomId, userId);
+        }
+
+        public async Task<List<Bill>> getListUnPaidBill(int userId, int roomId)
+        {
+            return await _unitOfWork.billRepository.getListUnPaidBills(userId, roomId);
+        }
+
+        public async Task<Bill> getBillByIdAsync(int billId)
+        {
+            return await ((BillRepository)_unitOfWork.billRepository).GetByIdAsync(billId);
+        }
+
+        public async Task SubmitBillAsync(Bill bill)
+        {
+             await _unitOfWork.billRepository.SubmitBillAsync(bill);
         }
     }
 }

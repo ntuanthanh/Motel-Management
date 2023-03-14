@@ -12,7 +12,7 @@ namespace MotelManagement.Data.Models
         public int RoomId { get; set; }
         public int UserId { get; set; }
         public DateTime PaidTime { get; set; }
-        public DateTime AcceptTime { get; set; }
+        public DateTime? AcceptTime { get; set; }
         public decimal RoomBill { get; set; }
         public decimal ElectricBill { get; set; }
         public decimal WaterBill { get; set; }
@@ -20,9 +20,8 @@ namespace MotelManagement.Data.Models
         public int BillState { get; set; }
         public decimal? Debt { get; set; }
         public string BankingImage { get; set; }
-        [JsonIgnore]
         public virtual Room Room { get; set; }
-        [JsonIgnore]
         public virtual User User { get; set; }
+        public string Description { get; set; }
     }
 }
