@@ -1,19 +1,23 @@
 ﻿@page "/user/manageroom"
 @model MotelManagement.Pages.MyRoomModel
 @using MotelManagement.Common;
+@using MotelManagement.Data.Models;
 @using System;
+@{
+    List<Bill> listBills = (List<Bill>)ViewData["listUnPaidBills"];
+}
 <style>
     .gallery_cus {
         display: flex;
         flex-wrap: wrap;
     }
 
-        .gallery_cus img {
-            max-width: 100%;
-            height: auto;
-            margin: 5px;
-            cursor: pointer;
-        }
+    .gallery_cus img {
+        max-width: 100%;
+        height: auto;
+        margin: 5px;
+        cursor: pointer;
+    }
 
     .overlay_cus {
         position: fixed;
@@ -25,23 +29,48 @@
         background-color: rgba(0, 0, 0, 0.8);
     }
 
-        .overlay_cus img {
-            max-height: 90%;
-            max-width: 90%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+    .overlay_cus img {
+        max-height: 90%;
+        max-width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-        .overlay_cus .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-        }
+    .overlay_cus .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .paid{
+        background-color: greenyellow;
+    }
+
+    .unpaid{
+        background-color: red;
+    }
+
+    .dept{
+        background-color: lightgoldenrodyellow;
+    }
+
+    thead th{
+        text-align: center;
+    }
+
+
+    hr {
+        background-color: greenyellow;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
 </style>
 
 <div class="page-head">
@@ -106,7 +135,7 @@
                         </span>
                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
                              aria-labelledby="myLargeModalLabel" aria-hidden="true" id="bill">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-lg" style="width:960px">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h3 class="modal-title" id="exampleModalLabel"
@@ -117,25 +146,61 @@
                                             <span aria-hidden="true" style="font-size: 32px;">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="recipient-name"
-                                                       class="col-form-label">Recipient:</label>
-                                                <input type="text" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Message:</label>
-                                                <textarea class="form-control" id="message-text"></textarea>
-                                            </div>
-                                        </form>
+                                    <div class="modal-body" style="color: black; padding:0px; text-align:center;">
+                                        @{
+                                            foreach(Bill bill in listBills)
+                                            {
+                                                <div>
+                                                    <table class="table" style="text-align:center;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Tiền phòng</th>
+                                                            <th scope="col">Tiền điện</th>
+                                                            <th scope="col">Tiền nước</th>
+                                                            <th scope="col">Còn nợ</th>
+                                                            <th scope="col">Trạng thái</th>
+                                                            <th scope="col">Cần thanh toán</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>@bill.RoomBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                            <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                            <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                            <td>@bill.Debt</td>
+                                                            <td>@Model.GetBillState(bill.BillState)</td>
+                                                            <td>@Model.GetTotalBill(bill.RoomBill, bill.WaterBill, bill.ElectricBill).ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                    <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" class="bill-form" method="post" asp-page-handler="SubmitBill">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <input name="bankingImage" type="file" class="custom-file-input-upload" id="customFile">
+                                                            <div class="gallery_cus">
+                                                            <img class="preview-image" style="display:block; margin:auto; width:100px" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-8">
+                                                            <label for="message-text" class="col-form-label">Message:</label>
+                                                            <textarea class="form-control" id="message-text" rows="7" name="description"></textarea>
+                                                        </div>
+                                                        <input name="billId" value="@bill.BillId" hidden id="customFile">
+                                                    </div>
+                                                </form>
+                                                </div>
+                                                <hr>
+                                            }
+                                        }
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                        <button type="button" class="btn btn-primary" id="submit-bill"
                                                 data-dismiss="modal">
-                                            Close
+                                            Thanh toán
                                         </button>
-                                        <button type="button" class="btn btn-primary">Send message</button>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +218,7 @@
 
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
                                  aria-labelledby="myLargeModalLabel" aria-hidden="true" id="billhistory">
-                                <div class="modal-dialog modal-lg">
+                                <div class="modal-dialog modal-lg" style="width: 960px">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="exampleModalLabel"
@@ -168,7 +233,7 @@
 
                                             <form style="display: flex; flex-direction: column;">
 
-                                                <div form-row>
+                                                <div class="form-row">
                                                     <div class="form-group col-md-4">
                                                         <label for="paidTimeFrom">Ngày thanh toán từ</label>
                                                         <input type="date" class="form-control" name="paidTimeFrom" id="paidTimeFrom">
@@ -184,6 +249,7 @@
                                                             <option value="@((Int32)PAYMENT_STATE.PAID)">Đã nộp</option>
                                                             <option value="@((Int32)PAYMENT_STATE.UNPAID)">Chưa nộp</option>
                                                             <option value="@((Int32)PAYMENT_STATE.DEBT)">Còn nợ</option>
+                                                            <option value="@((Int32)PAYMENT_STATE.NOT_CONFIRM)">Chưa xác nhận</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -210,8 +276,8 @@
                                                 <button id="search" class="btn btn-primary" style="align-self:center">Tìm kiếm</button>
                                             </form>
                                         </div>
-                                        <div class="modal-body" style="color: black; padding:0px">
-                                            <table class="table">
+                                        <div class="modal-body" style="color: black; padding:0px; text-align:center;">
+                                            <table class="table" style="text-align:center;">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -222,70 +288,16 @@
                                                         <th scope="col">Còn nợ</th>
                                                         <th scope="col">Ngày thanh toán</th>
                                                         <th scope="col">Ngày xác nhận</th>
+                                                        <th scope="col">Trạng thái</th>
                                                         <th scope="col">Ảnh</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="data-container">
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Nguyen The Vinh</td>
-                                                        <td>2.000.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>
-                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
-                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Nguyen The Vinh</td>
-                                                        <td>2.000.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>
-                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
-                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Nguyen Tuan Thanh</td>
-                                                        <td>2.000.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>132.000</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>12/02/2022 12:02:2023</td>
-                                                        <td>
-                                                            <div class="gallery_cus" style="width: 50px;height: 80px">
-                                                                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/tao-bill-chuyen-tien-gia/tao-bill-chuyen-tien-gia-1.jpg">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="modal-footer" style="display: flex; justify-content: flex-end;">
                                             <div id="demo" class="pagination"></div>
-                                            @*                                            <div class="pagination">
-                                            <ul>
-                                            <li><a href="#">Prev</a></li>
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">Next</a></li>
-                                            </ul>
-                                            </div>*@
                                             <button type="button" class="btn btn-primary"
                                                     data-dismiss="modal"
                                                     style="height: fit-content;align-self: center;">
@@ -531,10 +543,7 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
 </div>
 
 @section Scripts{
@@ -548,20 +557,43 @@
             var confirmDateTo = $("#confirmDateTo").val();
             var isDept = $("#isDept").val();
             var owner = $("#owner").val();
-            //var pageIndex = url.
             url = url + `paidTimeFrom=${paidTimeFrom}&paidTimeTo=${paidTimeTo}&confirmDateFrom=${confirmDateFrom}&confirmDateTo=${confirmDateTo}&isDept=${isDept}&owner=${owner}&roomId=5`
-            //console.log(paidTimeFrom + "-" + paidTimeTo + "-" + confirmDateFrom + "-" + confirmDateTo + "-" + isDept + "-" + owner);
             return url;
         }
 
         $(document).ready(function () {
+            // click to load data bill history
             $("#search").click(function (event) {
                 event.preventDefault();
                 var url = buildUrl();
                 console.log(url);
                 loadData(url);
             });
+            // load data for first time go to page
+            loadData("http://localhost:5027/user/manageroom?handler=Bill&paidTimeFrom=&paidTimeTo=&confirmDateFrom=&confirmDateTo=&isDept=-2&owner=-1&roomId=5");
+            //submit form
+            $("#submit-bill").click(function (event){
+                $(".bill-form").each(function (index, item) {
+                    item.submit();
+                });
+            });
+            // preview images
+            previewImages();
         });
+
+        function previewImages(){
+            const img = $(".preview-image");
+            console.log(img.length);
+            $(".custom-file-input-upload").each(function (index, item) {
+                item.addEventListener(("change"), () => {
+                    console.log(img[index]);
+                    console.log(item);
+                    console.log(index);
+                    const file = item.files;
+                    img[index].src = URL.createObjectURL(file[0]);
+                })
+            })
+        }
 
         function loadData(url) {
             var container = $('#demo');
@@ -578,7 +610,7 @@
                 formatNavigator: '<%= rangeStart %>-<%= rangeEnd %> of <%= totalNumber %> items',
                 ajax: {
                     beforeSend: function () {
-                        data_container.html('Loading data from flickr.com ...');
+                        data_container.html('Loading data from server ...');
                     }
                 },
                 callback: function (response, pagination) {
@@ -587,24 +619,65 @@
                     var pageEnd = pageStart + pagination.pageSize;
                     var pageItems = response;
                     $.each(pageItems, function (index, item) {
-                        dataHtml += `<tr>
-                                        <th scope="row">${index}</th>
+                        if (item.billState == @((Int32)PAYMENT_STATE.PAID)){
+                            dataHtml += '<tr class="paid">';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.UNPAID)){
+                            dataHtml += '<tr class="unpaid">';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.DEBT)) {
+                            dataHtml += '<tr class="dept">';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.NOT_CONFIRM)) {
+                            dataHtml += '<tr class="not-confirm">';
+                        }
+                        dataHtml += `   <th scope="row">${index}</th>
                                         <td>${item.userId}</td>
                                         <td>${item.roomBill}</td>
                                         <td>${item.electricBill}</td>
                                         <td>${item.serviceBill}</td>
                                         <td>${item.debt}</td>
                                         <td>${item.paidTime}</td>
-                                        <td>${item.acceptTime}</td>
-                                        <td>
-                                            <div class="gallery_cus" style="width: 50px;height: 80px">
-                                                                <img src="/upload/${item.bankingImage}">
-                                            </div>
-                                        </td>
-                                    </tr>`;
+                                        <td>${item.acceptTime}</td>`;
+                        if (item.billState == @((Int32)PAYMENT_STATE.PAID)) {
+                            dataHtml += '<td>Đã nộp</td>';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.UNPAID)) {
+                            dataHtml += '<td>Chưa nộp</td>';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.DEBT)) {
+                            dataHtml += '<td>Còn nợ</td>';
+                        } else if (item.billState == @((Int32)PAYMENT_STATE.NOT_CONFIRM)) {
+                            dataHtml += '<td>Chưa xác nhận</td>';
+                        }
+
+
+                        dataHtml +=
+                         `<td>
+                                <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                    <img src="/upload/${item.bankingImage}">
+                                </div>
+                         </td> </tr>`;
                     });
+                    console.log(dataHtml);
                     data_container.html(dataHtml);
-                                        console.log(response);
+
+                    const images = document.querySelectorAll('.gallery_cus img');
+                    const overlay = document.createElement('div');
+                    console.log(images.length);
+
+                    function showImage(e) {
+                        overlay.classList.add('overlay_cus');
+                        overlay.innerHTML = `<img src="${this.src}" alt="${this.alt}">
+                                                    <div class="close">&times;</div>`;
+                        document.body.appendChild(overlay);
+                    }
+
+                    function hideImage() {
+                        overlay.innerHTML = '';
+                        overlay.classList.remove("overlay_cus");
+                    }
+
+                    images.forEach(image => {
+                        image.addEventListener('click', showImage);
+                    });
+
+                    overlay.addEventListener('click', hideImage);
                 }
             })
         }
@@ -623,29 +696,8 @@
                     $('#image-gallery').removeClass('cS-hidden');
                 }
             });
-
-
-            const images = document.querySelectorAll('.gallery_cus img');
-            const overlay = document.createElement('div');
-
-
-            function showImage(e) {
-                overlay.classList.add('overlay_cus');
-                overlay.innerHTML = `<img src="${this.src}" alt="${this.alt}">
-                                    <div class="close">&times;</div>`;
-                document.body.appendChild(overlay);
-            }
-
-            function hideImage() {
-                overlay.innerHTML = '';
-                overlay.classList.remove("overlay_cus");
-            }
-
-            images.forEach(image => {
-                image.addEventListener('click', showImage);
-            });
-
-            overlay.addEventListener('click', hideImage);
         });
+
+
     </script>
 }

@@ -38,3 +38,10 @@
     }
 )
 
+const img = $(".");
+$(".").each(function (index, item) {
+    item.addEventListener(("change"),()=>{
+        const file = item.files;
+        img[index].src = URL.createObjectURL(file);
+    })
+})
