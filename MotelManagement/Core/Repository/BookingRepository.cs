@@ -5,7 +5,7 @@ using MotelManagement.Data.Models;
 
 namespace MotelManagement.Core.Repository
 {
-    public class BookingRepository : BaseRepository<Booking>, IBookingRepository 
+    public class BookingRepository : BaseRepository<Booking>, IBookingRepository
     {
         public BookingRepository(MotelManagementContext context) : base(context)
         {
@@ -40,6 +40,47 @@ namespace MotelManagement.Core.Repository
                                             .ToListAsync();
             return listBooking;
         }
+
+        public async Task updateMeetingDate(DateTime? meetingDate, int? roomId)
+        {
+            List<Booking> bookings = await BookingListByRoomAvailable(roomId);
+            //Booking booking = await _context.Bookings.Where(b => b.BookingId == 12).FirstOrDefaultAsync();
+            //booking.MeetingDate = meetingDate;
+            //_context.Update(booking);
+            //_context.Entry(booking).Property(b => b.MeetingDate).IsModified = true;
+            if (bookings != null && bookings.Count > 0)
+            {
+                foreach (Booking booking in bookings)
+                {
+                    booking.MeetingDate = meetingDate;
+                    //_context.Entry(booking).Property(s => s.MeetingDate).IsModified = true;
+                    _context.Update(booking);
+                }
+            }
+        }
+
+        public async Task updateMeetingDateForUser(DateTime? meetingDate, int? bookingId)
+        {
+            Booking booking =  await _context.Bookings.Where(b => b.BookingId == bookingId).FirstOrDefaultAsync();
+            booking.MeetingDate = meetingDate;
+            _context.Update(booking);
+        }
+
+        public async Task updateSuccessRejectUsersExceptMember(int memberId, int roomId, int bookingId)
+        {
+            // Update status member; 
+            Booking booking = await _context.Bookings.Where(b => b.BookingId == bookingId).FirstOrDefaultAsync();
+            booking.Status = (int)REGISTER_ROOM_STATE.SUCCESS;
+            _context.Update(booking);
+            // Update status user to be rejected
+            List<Booking> bookings = await _context.Bookings.Where(b => b.RoomId == roomId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER && b.BookingId != bookingId).ToListAsync();
+            foreach(Booking book in bookings)
+            {
+                book.Status = (int)REGISTER_ROOM_STATE.REJECT;
+                _context.Update(book); 
+            }
+        }
+
         public async Task updateUnRegister(int userId, int roomid)
         {
             Booking booking = await _context.Bookings
