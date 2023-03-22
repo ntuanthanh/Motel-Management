@@ -27,5 +27,11 @@ namespace MotelManagement.Pages.admin
              await _bookingService.UpdateMeetingDateAllUser(meetingdate, roomId);
             return Redirect("/admin/room/booking/list?roomId=" + roomId);
         }
+        // Gửi thông tin lịch hẹn cho riêng user 
+        public async Task<IActionResult> OnGetChangeMeetingAsync(DateTime? meetingDate, int? bookingId, int? roomId)
+        {
+            await _bookingService.UpdateMeetingForUser(meetingDate, bookingId, roomId);
+            return Redirect("/admin/room/booking/list?roomId=" + roomId);
+        }
     }
 }

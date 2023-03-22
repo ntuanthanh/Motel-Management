@@ -11,5 +11,6 @@ namespace MotelManagement.Business.IService
         public Task Register(int userId, int roomid);
         public Task<List<Booking>> BookingsAvailable(int? roomId);
         public Task UpdateMeetingDateAllUser(DateTime? dateTime, int? roomId);
+        public Task UpdateMeetingForUser(DateTime? dateTime,int? bookingId, int? roomId);
     }
 }

@@ -58,6 +58,12 @@ namespace MotelManagement.Business.Service
             await _unitOfWork.SaveAsync();
         }
 
+        public async Task UpdateMeetingForUser(DateTime? dateTime, int? bookingId, int? roomId)
+        {
+            await _unitOfWork.bookingRepository.updateMeetingDateForUser(dateTime, bookingId);
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task updateUnRegister(int userId, int roomid)
         {
             await _unitOfWork.bookingRepository.updateUnRegister(userId, roomid);

@@ -22,7 +22,6 @@
         <div class="card card-table">
             <div class="card-body booking_card">
                 <div class="table-responsive">
-                    <form action = "/admin/room/booking/list?handler=AllUser" method = "post">
                         <table class="table table-stripped table table-hover table-center mb-0">
                             <thead>
                                 <tr>
@@ -42,16 +41,22 @@
                                        <td>@booking.User.Email</td>
                                        <td>@booking.User.Phone</td>
                                        <td>@booking.BookingTime</td>
-                                       <td><input type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")"/></td>
+                                       <td><input onchange = "ChangeTimeMeeting(this.value ,@booking.BookingId,@booking.RoomId)" type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")"/></td>
                                        <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Đồng ý</a></td>
                                    </tr>   
                                 }
                             </tbody>
                         </table>
-                        <button class ="btn btn-warning float-right">Cập nhật Ngày Gặp</button>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+       function ChangeTimeMeeting(meetingDate, bookingId, roomId){
+            console.log("a");
+            window.location.href = "/admin/room/booking/list?handler=ChangeMeeting&meetingDate="+meetingDate+"&bookingId="+bookingId+"&roomId="+roomId; 
+       }
+    </script>
+}

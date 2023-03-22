@@ -5,7 +5,7 @@ using MotelManagement.Data.Models;
 
 namespace MotelManagement.Core.Repository
 {
-    public class BookingRepository : BaseRepository<Booking>, IBookingRepository 
+    public class BookingRepository : BaseRepository<Booking>, IBookingRepository
     {
         public BookingRepository(MotelManagementContext context) : base(context)
         {
@@ -57,6 +57,13 @@ namespace MotelManagement.Core.Repository
                     _context.Update(booking);
                 }
             }
+        }
+
+        public async Task updateMeetingDateForUser(DateTime? meetingDate, int? bookingId)
+        {
+            Booking booking =  await _context.Bookings.Where(b => b.BookingId == bookingId).FirstOrDefaultAsync();
+            booking.MeetingDate = meetingDate;
+            _context.Update(booking);
         }
 
         public async Task updateUnRegister(int userId, int roomid)
