@@ -7,6 +7,8 @@ namespace MotelManagement.Core.IRepository
         public Task<bool> isBooking(int? roomid, int userId);
         public Task<List<Booking>> listBookings(int userId);
         Task updateUnRegister(int userId, int roomid);
+        Task updateMeetingDate(DateTime? meetingDate, int? roomId); 
+        Task updateMeetingDateForUser(DateTime? meetingDate, int? bookingId);
         public Task<List<Booking>> BookingListByRoomAvailable(int? roomId);
 
     }
