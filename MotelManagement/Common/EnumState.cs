@@ -25,7 +25,8 @@
     {
         REGISTER = 1,
         UN_REGISTER = 0,
-        SUCCESS = 2
+        SUCCESS = 2,
+        REJECT = 3
     }
 
     enum PageManagement
@@ -37,6 +38,11 @@
     {
         PAYMENT_STATE = -2,
         USER_SELECT = -1
+    }
+    
+    enum TimeContract
+    {
+        time = 6 // mỗi hợp đồng 6 tháng
     }
 }
 

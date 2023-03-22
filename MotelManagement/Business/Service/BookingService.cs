@@ -41,6 +41,18 @@ namespace MotelManagement.Business.Service
             await _unitOfWork.SaveAsync();
         }
 
+        public async Task SetUserBeMember(int userId, int roomid, decimal price, int bookingId)
+        {
+            // Add to  Contract 
+            await _unitOfWork.contractRepository.addUsertoRoom(roomid, userId, price);
+            // Update status Booking 
+            await _unitOfWork.bookingRepository.updateSuccessRejectUsersExceptMember(userId, roomid, bookingId);
+            // Update status Room
+            await _unitOfWork.roomRepository.UpdateStatusRoom(roomid, (int)ROOM_STATE.RENTED);
+            // Save transaction 
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task UpdateMeetingDateAllUser(DateTime? meetingDate, int? roomId)
         {
             //List<Booking> bookings = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
 using System.Collections;
@@ -9,6 +10,19 @@ namespace MotelManagement.Core.Repository
     {
         public ContractRepository(MotelManagementContext context) : base(context)
         {
+        }
+
+        public async Task addUsertoRoom(int roomId, int userId, decimal price )
+        {
+            int timeContract = (int)TimeContract.time;
+            Contract contract = new Contract();
+            contract.RoomId = roomId;
+            contract.UserId = userId;
+            contract.Price = price;
+            contract.EffectiveFrom = DateTime.Now;
+            contract.EffectiveTo = contract.EffectiveFrom.AddMonths(timeContract);
+            contract.IsActive = true; 
+            _context.Add(contract);
         }
 
         public async Task<List<Contract>> getListContractsByUserId(int userId)

@@ -48,5 +48,12 @@ namespace MotelManagement.Core.Repository
         {
             return await _context.Rooms.Where(r => r.StatusId == 2).OrderBy(r => r.Price).Take(4).ToListAsync();
         }
+
+        public async Task UpdateStatusRoom(int roomId, int status)
+        {
+            Room room = await _context.Rooms.Where(r => r.RoomId == roomId).FirstOrDefaultAsync(); 
+            room.StatusId = status;
+            _context.Update(room);
+        }
     }
 }
