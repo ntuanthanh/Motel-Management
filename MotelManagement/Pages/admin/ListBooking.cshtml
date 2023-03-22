@@ -8,9 +8,10 @@
         <div class="col">
             <div class="mt-5">
                 <h4 class="card-title float-left mt-2">Danh Sách Booking: <span style = "color : red">@Model.bookings.ElementAt(0).Room.Name</span></h4>
-                <form class = "float-right">
+                <form method = "post" asp-page-handler="AllUser" class = "float-right">
                     <td><input type = "datetime-local" name = "meetingdate"/></td>
-                    <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Hẹn Tất Cả User</a></td>
+                    <td><input hidden ="hidden" type = "text" name = "roomId" value = "@Model.bookings.ElementAt(0).RoomId"/></td>
+                    <td><button class="btn btn-success veiwbutton ">Hẹn Tất Cả User</button></td>
                 </form>
             </div>
         </div>
@@ -21,7 +22,7 @@
         <div class="card card-table">
             <div class="card-body booking_card">
                 <div class="table-responsive">
-                    <form action = "" method = "post">
+                    <form action = "/admin/room/booking/list?handler=AllUser" method = "post">
                         <table class="table table-stripped table table-hover table-center mb-0">
                             <thead>
                                 <tr>
@@ -41,7 +42,7 @@
                                        <td>@booking.User.Email</td>
                                        <td>@booking.User.Phone</td>
                                        <td>@booking.BookingTime</td>
-                                       <td><input type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate"/></td>
+                                       <td><input type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")"/></td>
                                        <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Đồng ý</a></td>
                                    </tr>   
                                 }

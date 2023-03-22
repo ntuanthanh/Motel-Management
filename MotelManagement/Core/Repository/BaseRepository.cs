@@ -58,7 +58,7 @@ namespace MotelManagement.Core.Repository
 
         public async Task UpdateAsync(T entity)
         {
-            await UpdateAsync(entity);
+            _context.Set<T>().Update(entity);
         }
     }
 }

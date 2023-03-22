@@ -40,6 +40,25 @@ namespace MotelManagement.Core.Repository
                                             .ToListAsync();
             return listBooking;
         }
+
+        public async Task updateMeetingDate(DateTime? meetingDate, int? roomId)
+        {
+            List<Booking> bookings = await BookingListByRoomAvailable(roomId);
+            //Booking booking = await _context.Bookings.Where(b => b.BookingId == 12).FirstOrDefaultAsync();
+            //booking.MeetingDate = meetingDate;
+            //_context.Update(booking);
+            //_context.Entry(booking).Property(b => b.MeetingDate).IsModified = true;
+            if (bookings != null && bookings.Count > 0)
+            {
+                foreach (Booking booking in bookings)
+                {
+                    booking.MeetingDate = meetingDate;
+                    //_context.Entry(booking).Property(s => s.MeetingDate).IsModified = true;
+                    _context.Update(booking);
+                }
+            }
+        }
+
         public async Task updateUnRegister(int userId, int roomid)
         {
             Booking booking = await _context.Bookings

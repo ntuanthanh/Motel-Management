@@ -16,8 +16,16 @@ namespace MotelManagement.Pages.admin
         public async Task<IActionResult> OnGetAsync(int? roomId)
         {
             // Danh sách booking của room id 
+            
+            
             bookings  = await _bookingService.BookingsAvailable(roomId);
             return Page(); 
+        }
+        // Gửi thông tin lịch hẹn cho từng user
+        public async Task<IActionResult> OnPostAllUserAsync(DateTime? meetingdate, int? roomId)
+        {
+             await _bookingService.UpdateMeetingDateAllUser(meetingdate, roomId);
+            return Redirect("/admin/room/booking/list?roomId=" + roomId);
         }
     }
 }

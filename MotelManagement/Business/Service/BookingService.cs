@@ -16,8 +16,6 @@ namespace MotelManagement.Business.Service
         public async Task<List<Booking>> BookingsAvailable(int? roomId)
         {
             List<Booking> bookings = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);
-            List<Booking> bookingss = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);
-
             return bookings; 
         }
 
@@ -40,6 +38,23 @@ namespace MotelManagement.Business.Service
             booking.BookingTime = DateTime.Now;
             booking.MeetingDate = null; 
             await _unitOfWork.bookingRepository.AddAsync(booking);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task UpdateMeetingDateAllUser(DateTime? meetingDate, int? roomId)
+        {
+            //List<Booking> bookings = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);
+            //// Nếu phòng có booking avaiable update all date to user 
+            //if(bookings != null && bookings.Count > 0)
+            //{
+            //    foreach(Booking booking in bookings)
+            //    {
+            //        booking.MeetingDate = meetingDate;
+            //        _unitOfWork.bookingRepository.Update(booking); 
+            //    }
+            //    _unitOfWork.save(); 
+            //}
+            await _unitOfWork.bookingRepository.updateMeetingDate(meetingDate, roomId);
             await _unitOfWork.SaveAsync();
         }
 
