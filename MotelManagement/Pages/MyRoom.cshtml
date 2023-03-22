@@ -148,50 +148,60 @@
                                     </div>
                                     <div class="modal-body" style="color: black; padding:0px; text-align:center;">
                                         @{
-                                            foreach(Bill bill in listBills)
+                                            if (listBills != null)
                                             {
-                                                <div>
-                                                    <table class="table" style="text-align:center;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">Tiền phòng</th>
-                                                            <th scope="col">Tiền điện</th>
-                                                            <th scope="col">Tiền nước</th>
-                                                            <th scope="col">Còn nợ</th>
-                                                            <th scope="col">Trạng thái</th>
-                                                            <th scope="col">Cần thanh toán</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>@bill.RoomBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
-                                                            <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
-                                                            <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
-                                                            <td>@bill.Debt</td>
-                                                            <td>@Model.GetBillState(bill.BillState)</td>
-                                                            <td>@Model.GetTotalBill(bill.RoomBill, bill.WaterBill, bill.ElectricBill).ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                    <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" class="bill-form" method="post" asp-page-handler="SubmitBill">
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-4">
-                                                            <input name="bankingImage" type="file" class="custom-file-input-upload" id="customFile">
-                                                            <div class="gallery_cus">
-                                                            <img class="preview-image" style="display:block; margin:auto; width:100px" >
-                                                            </div>
+                                                foreach (Bill bill in listBills)
+                                                { 
+                                                    <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" id="bill-form" method="post" asp-page-handler="SubmitBill">
+                                                    <input hidden value="@ViewData["roomId"]">
+                                                        <div>
+                                                            <table class="table" style="text-align:center;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Tiền phòng</th>
+                                                                        <th scope="col">Tiền điện</th>
+                                                                        <th scope="col">Tiền nước</th>
+                                                                        <th scope="col">Tiền dịch vụ</th>
+                                                                        <th scope="col">Còn nợ</th>
+                                                                        <th scope="col">Trạng thái</th>
+                                                                        <th scope="col">Cần thanh toán</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">1</th>
+                                                                        <td>@bill.RoomBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                                        <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                                        <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                                        <td>@bill.ServiceBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>s
+                                                                        <td>@bill.Debt</td>
+                                                                        <td>@Model.GetBillState(bill.BillState)</td>
+                                                                        <td>@Model.GetTotalBill(bill.RoomBill, bill.WaterBill, bill.ElectricBill).ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-4">
+                                                                        <input name="bankingImages" type="file" class="custom-file-input-upload" id="customFile">
+                                                                        <div class="gallery_cus">
+                                                                            <img class="preview-image" style="display:block; margin:auto; width:100px">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group col-md-8">
+                                                                        <label for="message-text" class="col-form-label">Message:</label>
+                                                                        <textarea class="form-control" id="message-text" rows="7" name="descriptions"></textarea>
+                                                                    </div>
+                                                                    <input name="billIds" value="@bill.BillId" hidden id="customFile">
+                                                                </div>
                                                         </div>
-                                                        <div class="form-group col-md-8">
-                                                            <label for="message-text" class="col-form-label">Message:</label>
-                                                            <textarea class="form-control" id="message-text" rows="7" name="description"></textarea>
-                                                        </div>
-                                                        <input name="billId" value="@bill.BillId" hidden id="customFile">
-                                                    </div>
-                                                </form>
-                                                </div>
-                                                <hr>
+                                                        <hr>
+                                                    </form>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h1>Không có hóa đơn!</h1>
                                             }
                                         }
 
@@ -285,6 +295,7 @@
                                                         <th scope="col">Tiền phòng</th>
                                                         <th scope="col">Tiền điện</th>
                                                         <th scope="col">Tiền nước</th>
+                                                        <th scope="col">Tiền dịch vụ</th>
                                                         <th scope="col">Còn nợ</th>
                                                         <th scope="col">Ngày thanh toán</th>
                                                         <th scope="col">Ngày xác nhận</th>
@@ -572,10 +583,8 @@
             // load data for first time go to page
             loadData("http://localhost:5027/user/manageroom?handler=Bill&paidTimeFrom=&paidTimeTo=&confirmDateFrom=&confirmDateTo=&isDept=-2&owner=-1&roomId=5");
             //submit form
-            $("#submit-bill").click(function (event){
-                $(".bill-form").each(function (index, item) {
-                    item.submit();
-                });
+            $("#submit-bill").click(function (event) {
+                $("#bill-form").submit();
             });
             // preview images
             previewImages();
@@ -632,6 +641,7 @@
                                         <td>${item.userId}</td>
                                         <td>${item.roomBill}</td>
                                         <td>${item.electricBill}</td>
+                                        <td>${item.waterBill}</td>
                                         <td>${item.serviceBill}</td>
                                         <td>${item.debt}</td>
                                         <td>${item.paidTime}</td>
@@ -645,8 +655,6 @@
                         } else if (item.billState == @((Int32)PAYMENT_STATE.NOT_CONFIRM)) {
                             dataHtml += '<td>Chưa xác nhận</td>';
                         }
-
-
                         dataHtml +=
                          `<td>
                                 <div class="gallery_cus" style="width: 50px;height: 80px">
@@ -697,7 +705,48 @@
                 }
             });
         });
-
-
     </script>
+
+    <script type="text/javascript">
+        @{
+            if (TempData["BillMessage"] != null)
+            {
+                if (TempData["BillMessage"].Equals("Success"))
+                {
+                    <text>
+                        swal({
+                            title: "Thanh toán thành công!",
+                            text: "Hãy chờ admin duyệt nhé!",
+                            icon: "success",
+                            buttons: false
+                        });
+                    </text>
+                }
+                else if(TempData["BillMessage"].Equals("Failed"))
+                {
+                    <text>
+                        swal({
+                          title: "Thanh toán thất bại!",
+                          text: "Opps! Đã có lỗi xảy ra!",
+                          icon: "warning",
+                          buttons: false
+                        })
+                    </text>
+                }
+                else if (TempData["Message"].Equals("Error"))
+                {
+                    <text>
+                        swal({
+                          title: "Đăng nhập thất bại!",
+                          text: "Mật khẩu hoặc tên đăng nhập không đúng!",
+                          icon: "warning",
+                          buttons: false
+                        })
+                    </text>
+                }
+                TempData["Message"] = null;
+            }
+        }
+    </script>
+
 }

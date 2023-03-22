@@ -22,15 +22,21 @@ namespace MotelManagement.Common
             foreach (IFormFile File in Files)
             {
                 CountFiles += 1;
-                string FileExtension = System.IO.Path.GetExtension(File.FileName);
-                imageName = PrefixImage + Guid.NewGuid().ToString() + FileExtension;
-                string FileName = RootPath + imageName;
-                using (var FileStream = new FileStream(FileName, FileMode.Create))
+                try
                 {
-                    await File.CopyToAsync(FileStream);
+                    string FileExtension = System.IO.Path.GetExtension(File.FileName);
+                    imageName = PrefixImage + Guid.NewGuid().ToString() + FileExtension;
+                    string FileName = RootPath + imageName;
+                    using (var FileStream = new FileStream(FileName, FileMode.Create))
+                    {
+                        await File.CopyToAsync(FileStream);
+                    }
+                    result[CountFiles - 1] = imageName;
+                    if (CountFiles == MaxNumber) break;
                 }
-                result[CountFiles-1] = imageName;
-                if (CountFiles == MaxNumber) break;
+                catch(Exception ex) {
+                    result[CountFiles - 1] = null;
+                }
             }
             return result;
         }
