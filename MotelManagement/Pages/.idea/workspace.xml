@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a497a34-8d75-4c99-ba07-16ab672741fe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Business/IService/IBillService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Business/IService/IBillService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Business/Service/BillService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Business/Service/BillService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/IRepository/IBillRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/IRepository/IBillRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/Repository/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Repository/BaseRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/Repository/BillRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Repository/BillRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Models/Bill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Data/Models/Bill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Models/MotelManagementContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Data/Models/MotelManagementContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyRoom.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/MyRoom.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyRoom.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MyRoom.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/faster_coding.js" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/faster_coding.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +26,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../SignalR/wwwroot/js/site.js" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -63,6 +53,8 @@
       <workItem from="1678210771008" duration="3988000" />
       <workItem from="1678286539531" duration="3944000" />
       <workItem from="1678817869764" duration="1804000" />
+      <workItem from="1679079751820" duration="2106000" />
+      <workItem from="1679148188537" duration="1315000" />
     </task>
     <servers />
   </component>

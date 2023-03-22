@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
@@ -15,14 +16,26 @@ namespace MotelManagement.Core.Repository
 
         public async Task<List<Bill>> getListBills(DateTime? paidTimeFrom, DateTime? paidTimeTo, DateTime? confirmDateFrom, DateTime? confirmDateTo, int? owner, int? isDept, int roomId, int pageIndex)
         {
-            List<Bill> list = await _context.Bills.Where(b=>b.PaidTime == b.PaidTime      
-                                            && b.PaidTime >= (paidTimeFrom ?? b.PaidTime)
+            List<Bill> list = new List<Bill>();
+            IQueryable<Bill> query = _context.Bills.AsQueryable();
+            if (paidTimeFrom == null && paidTimeTo == null && confirmDateFrom == null && confirmDateTo == null)
+            {
+                query = query.Where(b => b.BillState == (isDept ?? b.BillState)
+                                            && b.RoomId == roomId
+                                            && b.UserId == (owner ?? b.UserId));
+            }
+            else
+            {
+                query = query.Where(b => b.PaidTime >= (paidTimeFrom ?? b.PaidTime)
                                             && b.PaidTime <= (paidTimeTo ?? b.PaidTime)
                                             && b.AcceptTime >= (confirmDateFrom ?? b.AcceptTime)
                                             && b.AcceptTime <= (confirmDateTo ?? b.AcceptTime)
-                                            && b.BillState == (isDept??b.BillState)
+                                            && b.BillState == (isDept ?? b.BillState)
                                             && b.RoomId == roomId
-                                            && b.UserId == (owner??b.UserId)).OrderByDescending(b=>b.PaidTime)
+                                            && b.UserId == (owner ?? b.UserId));
+            }
+
+            list = await query.OrderByDescending(b=>b.PaidTime)
                                             .Skip((pageIndex-1)*(int)PageManagement.PageSize).Take((int)PageManagement.PageSize).AsNoTracking().ToListAsync();
             return list;
         }
@@ -30,14 +43,24 @@ namespace MotelManagement.Core.Repository
 
         public async Task<int> countListBills(DateTime? paidTimeFrom, DateTime? paidTimeTo, DateTime? confirmDateFrom, DateTime? confirmDateTo, int? owner, int? isDept, int roomId)
         {
-            return await _context.Bills.Where(b => b.PaidTime == b.PaidTime
-                                            && b.PaidTime >= (paidTimeFrom ?? b.PaidTime)
+            IQueryable<Bill> query = _context.Bills.AsQueryable();
+            if (paidTimeFrom == null && paidTimeTo == null && confirmDateFrom == null && confirmDateTo == null)
+            {
+                query = query.Where(b => b.BillState == (isDept ?? b.BillState)
+                                            && b.RoomId == roomId
+                                            && b.UserId == (owner ?? b.UserId));
+            }
+            else
+            {
+                query = query.Where(b => b.PaidTime >= (paidTimeFrom ?? b.PaidTime)
                                             && b.PaidTime <= (paidTimeTo ?? b.PaidTime)
-                                            && b.AcceptTime >= (confirmDateFrom ?? b.PaidTime)
-                                            && b.AcceptTime <= (confirmDateTo ?? b.PaidTime)
+                                            && b.AcceptTime >= (confirmDateFrom ?? b.AcceptTime)
+                                            && b.AcceptTime <= (confirmDateTo ?? b.AcceptTime)
                                             && b.BillState == (isDept ?? b.BillState)
                                             && b.RoomId == roomId
-                                            && b.UserId == (owner ?? b.UserId)).CountAsync();
+                                            && b.UserId == (owner ?? b.UserId));
+            }
+            return await query.CountAsync();
         }
 
         public async Task<List<Bill>> getListUnPaidBills(int userId, int roomId)

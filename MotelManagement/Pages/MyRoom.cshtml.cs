@@ -37,7 +37,7 @@ namespace MotelManagement.Pages
                     Hashtable owners = await _serviceBill.getOwners(roomId, user.UserId);
                     ViewData["listUnpaidBills"] = listUnPaidBills;
                     ViewData["owners"] = owners;
-
+                    ViewData["roomId"] = roomId;
                 }
                 catch (Exception ex)
                 {
@@ -48,28 +48,37 @@ namespace MotelManagement.Pages
 
         //      Processcing payment, user paid bills.
 
-        public async Task OnPostSubmitBillAsync(string description, IFormFile bankingImage, int billId)
+        public async Task<IActionResult> OnPostSubmitBillAsync(string[] descriptions, IFormFile[] bankingImages, int[] billIds, int roomId)
         {
+            UploadFileUnit upload = new UploadFileUnit(_env);
+            string[] filename = await upload.UploadFile(bankingImages, "bill", null);
             try
             {
-                if(String.IsNullOrEmpty(description)||billId==null||bankingImage==null)
+                for(int i = 0; i < billIds.Length; i++)
                 {
-                    return;
+                    if (String.IsNullOrEmpty(descriptions[i]) || billIds[i]==null || filename[i]==null)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Bill bill = await _serviceBill.getBillByIdAsync(billIds[0]);
+                        bill.PaidTime = DateTime.Now;
+                        bill.BillState = (int)PAYMENT_STATE.NOT_CONFIRM;
+                        bill.BankingImage = filename[0];
+                        bill.Description = descriptions[0];
+                        bill.AcceptTime = null;
+                        await _serviceBill.SubmitBillAsync(bill);
+                    }
                 }
-                UploadFileUnit upload = new UploadFileUnit(_env);
-                string[] filename = await upload.UploadFile(new IFormFile[] { bankingImage }, "bill", null);
-                Bill bill = await _serviceBill.getBillByIdAsync(billId);
-                bill.PaidTime = DateTime.Now;
-                bill.BillState = (int)PAYMENT_STATE.NOT_CONFIRM;
-                bill.BankingImage = filename[0];
-                bill.Description = description;
-                bill.AcceptTime = null;
-                await _serviceBill.SubmitBillAsync(bill);
+                TempData["BillMessage"] = "Success";
             }
             catch(Exception ex) 
             {
+                TempData["BillMessage"] = "Failed";
                 _logger.LogError(ex.ToString());
             }
+            return Redirect("/user/manageroom?roomId=" + roomId);
         }
 
 //      Report broken devices
