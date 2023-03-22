@@ -12,6 +12,16 @@ namespace MotelManagement.Core.Repository
 
         }
 
+        public async Task<List<Booking>> BookingListByRoomAvailable(int? roomId)
+        {
+            Room room = _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 2).FirstOrDefault();
+            List<Booking> listBookings = new List<Booking>(); 
+            if (room != null) { 
+               listBookings = await _context.Bookings.Include(u => u.User).Include(u => u.Room).Where(b => b.Status == 1 && b.RoomId == roomId).ToListAsync();
+            }
+            return listBookings;
+        }
+
         public async Task<bool> isBooking(int? roomid, int userId)
         {
             Booking booking = await _context.Bookings

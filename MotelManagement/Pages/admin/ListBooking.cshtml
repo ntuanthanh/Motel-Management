@@ -1,0 +1,56 @@
+﻿@page "/admin/room/booking/list"
+@using MotelManagement.Data.Models
+@model MotelManagement.Pages.admin.ListBookingModel
+@{
+}
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="mt-5">
+                <h4 class="card-title float-left mt-2">Danh Sách Booking: <span style = "color : red">@Model.bookings.ElementAt(0).Room.Name</span></h4>
+                <form class = "float-right">
+                    <td><input type = "datetime-local" name = "meetingdate"/></td>
+                    <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Hẹn Tất Cả User</a></td>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body booking_card">
+                <div class="table-responsive">
+                    <form action = "" method = "post">
+                        <table class="table table-stripped table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Người Booking</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Booking Time</th>
+                                    <th>Meeting Date</th>
+                                    <th>Xác nhận cho thuê</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(Booking booking in Model.bookings)
+                                {
+                                   <tr>
+                                       <td>@booking.User.FullName</td>
+                                       <td>@booking.User.Email</td>
+                                       <td>@booking.User.Phone</td>
+                                       <td>@booking.BookingTime</td>
+                                       <td><input type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate"/></td>
+                                       <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Đồng ý</a></td>
+                                   </tr>   
+                                }
+                            </tbody>
+                        </table>
+                        <button class ="btn btn-warning float-right">Cập nhật Ngày Gặp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

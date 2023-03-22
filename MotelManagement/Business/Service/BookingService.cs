@@ -13,6 +13,14 @@ namespace MotelManagement.Business.Service
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<List<Booking>> BookingsAvailable(int? roomId)
+        {
+            List<Booking> bookings = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);
+            List<Booking> bookingss = await _unitOfWork.bookingRepository.BookingListByRoomAvailable(roomId);
+
+            return bookings; 
+        }
+
         public async Task<bool> isBooking(int? roomid, int userId)
         {
             return await _unitOfWork.bookingRepository.isBooking(roomid, userId); 
