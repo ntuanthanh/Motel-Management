@@ -33,5 +33,12 @@ namespace MotelManagement.Pages.admin
             await _bookingService.UpdateMeetingForUser(meetingDate, bookingId, roomId);
             return Redirect("/admin/room/booking/list?roomId=" + roomId);
         }
+        // Set User to be Member 
+        public async Task<IActionResult> OnGetSetMemberToRoomAsync(int roomId, int userId, decimal price, int bookingId)
+        {
+            // set member to room
+            await _bookingService.SetUserBeMember(userId, roomId, price,bookingId); 
+            return Redirect("/admin/room/booking/list?roomId=" + roomId);
+        }
     }
 }

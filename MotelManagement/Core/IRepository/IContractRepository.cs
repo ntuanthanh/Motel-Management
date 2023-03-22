@@ -8,6 +8,7 @@ namespace MotelManagement.Core.IRepository
         public Task<List<Contract>> getListContractsByUserId(int userId);
         public Task<bool> IsMemberOfRoom(User user, int roomId);
         public Task<Hashtable> getOwners(int roomId, int userId);
+        public Task addUsertoRoom(int roomId, int userId, decimal price);
     }
 
 }

@@ -7,12 +7,15 @@
     <div class="row align-items-center">
         <div class="col">
             <div class="mt-5">
-                <h4 class="card-title float-left mt-2">Danh Sách Booking: <span style = "color : red">@Model.bookings.ElementAt(0).Room.Name</span></h4>
-                <form method = "post" asp-page-handler="AllUser" class = "float-right">
-                    <td><input type = "datetime-local" name = "meetingdate"/></td>
-                    <td><input hidden ="hidden" type = "text" name = "roomId" value = "@Model.bookings.ElementAt(0).RoomId"/></td>
-                    <td><button class="btn btn-success veiwbutton ">Hẹn Tất Cả User</button></td>
-                </form>
+                @if (Model.bookings != null && Model.bookings.Count > 0 )
+                {
+                    <h4 class="card-title float-left mt-2">Danh Sách Booking: <span style = "color : red">@Model.bookings.ElementAt(0).Room.Name</span></h4>
+                    <form method = "post" asp-page-handler="AllUser" class = "float-right">
+                        <td><input type = "datetime-local" name = "meetingdate"/></td>
+                        <td><input hidden ="hidden" type = "text" name = "roomId" value = "@Model.bookings.ElementAt(0).RoomId"/></td>
+                        <td><button class="btn btn-success veiwbutton ">Hẹn Tất Cả User</button></td>
+                    </form>
+                }
             </div>
         </div>
     </div>
@@ -22,6 +25,10 @@
         <div class="card card-table">
             <div class="card-body booking_card">
                 <div class="table-responsive">
+                    @if(Model.bookings.Count == 0)
+                    {
+                     <h3 style = "color : red">Phòng đang có người thuê - không có danh sách booking</h3>   
+                    }
                         <table class="table table-stripped table table-hover table-center mb-0">
                             <thead>
                                 <tr>
@@ -34,16 +41,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(Booking booking in Model.bookings)
-                                {
-                                   <tr>
-                                       <td>@booking.User.FullName</td>
-                                       <td>@booking.User.Email</td>
-                                       <td>@booking.User.Phone</td>
-                                       <td>@booking.BookingTime</td>
-                                       <td><input onchange = "ChangeTimeMeeting(this.value ,@booking.BookingId,@booking.RoomId)" type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")"/></td>
-                                       <td><a href="add-booking.html" class="btn btn-success veiwbutton ">Đồng ý</a></td>
-                                   </tr>   
+                                @if(Model.bookings != null){
+                                    @foreach(Booking booking in Model.bookings)
+                                    {
+                                       <tr>
+                                           <td>@booking.User.FullName</td>
+                                           <td>@booking.User.Email</td>
+                                           <td>@booking.User.Phone</td>
+                                           <td>@booking.BookingTime</td>
+                                           <td><input onchange = "ChangeTimeMeeting(this.value ,@booking.BookingId,@booking.RoomId)" type = "datetime-local" name = "meetingdate" value = "@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")"/></td>
+                                           <td><a href="/admin/room/booking/list?handler=SetMemberToRoom&roomId=@booking.RoomId&userId=@booking.UserId&price=@booking.Room.Price&bookingId=@booking.BookingId" id="SetMemberToRoom" class="btn btn-success veiwbutton ">Đồng ý</a></td>
+                                       </tr>   
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -58,5 +67,65 @@
             console.log("a");
             window.location.href = "/admin/room/booking/list?handler=ChangeMeeting&meetingDate="+meetingDate+"&bookingId="+bookingId+"&roomId="+roomId; 
        }
+
+       if(document.querySelector("#SetMemberToRoom")!=null){
+        [document.querySelector("#SetMemberToRoom")].forEach(
+        (item) => {
+            item.addEventListener("click", (event) => {
+                event.preventDefault();
+                swal({
+                    title: "Cho người này thuê phòng?",
+                    text: "Tất cả booking sẽ bị hủy nếu đã có người thuê phòng!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = item.href;
+                    }
+                });
+            })
+        }
+    )
+    }
+
+        @{
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].Equals("Success"))
+                {
+                    <text>
+                        swal({
+                            title: "Cập nhật thành công!",
+                            text: "",
+                            icon: "success",
+                            buttons: false
+                        });
+                    </text>
+                }
+                else if(TempData["Message"].Equals("Probs"))
+                {
+                    <text>
+                        swal({
+                            title: "Cập nhật thất bại!",
+                            text: "Opps! Đã có lỗi xảy ra!",
+                            icon: "warning",
+                            buttons: false
+                        })
+                    </text>
+               }else if(TempData["Message"].Equals("Registered"))
+               {
+                    <text>
+                        swal({
+                            title: "Cập nhật thất bại!",
+                            text: "Phòng này bạn đã đăng kí",
+                            icon: "warning",
+                            buttons: false
+                        })
+                    </text>
+               }
+        }
+    }
     </script>
 }

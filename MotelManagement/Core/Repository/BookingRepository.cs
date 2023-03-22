@@ -66,6 +66,21 @@ namespace MotelManagement.Core.Repository
             _context.Update(booking);
         }
 
+        public async Task updateSuccessRejectUsersExceptMember(int memberId, int roomId, int bookingId)
+        {
+            // Update status member; 
+            Booking booking = await _context.Bookings.Where(b => b.BookingId == bookingId).FirstOrDefaultAsync();
+            booking.Status = (int)REGISTER_ROOM_STATE.SUCCESS;
+            _context.Update(booking);
+            // Update status user to be rejected
+            List<Booking> bookings = await _context.Bookings.Where(b => b.RoomId == roomId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER && b.BookingId != bookingId).ToListAsync();
+            foreach(Booking book in bookings)
+            {
+                book.Status = (int)REGISTER_ROOM_STATE.REJECT;
+                _context.Update(book); 
+            }
+        }
+
         public async Task updateUnRegister(int userId, int roomid)
         {
             Booking booking = await _context.Bookings
