@@ -89,7 +89,7 @@ namespace MotelManagement.Business.Service
             return _unitOfWork.roomRepository.Top4BestRoom(); 
         }
 
-        public Task<Room> getRoomById(int? roomId)
+        public Task<Room> getRoomById(int roomId)
         {
             // Business get Room By Id 
             return _unitOfWork.roomRepository.getRoomById(roomId); 
@@ -98,6 +98,12 @@ namespace MotelManagement.Business.Service
         public Task<List<Room>> roomSimilar(int? statusRoom)
         {
             return _unitOfWork.roomRepository.RoomSimilar(statusRoom);
+        }
+ 
+
+        public async Task PassingRoom(Room room)
+        {
+            await _unitOfWork.roomRepository.UpdateStatusRoom(room.RoomId, (int)ROOM_STATE.PASSING);
         }
     }
 }

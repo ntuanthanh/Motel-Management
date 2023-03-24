@@ -13,14 +13,19 @@ namespace MotelManagement.Pages
         private readonly IBillService _serviceBill;
         private readonly ILogger<MyRoomModel> _logger;
         private readonly IWebHostEnvironment _env;
-        public MyRoomModel(IBillService billService, ILogger<MyRoomModel> logger, IWebHostEnvironment env)
+        private readonly IContractService _serviceContract;
+        private readonly IRoomService _serviceRoom;
+        public MyRoomModel(IBillService billService, ILogger<MyRoomModel> logger,
+            IWebHostEnvironment env, IContractService contractService, IRoomService serviceRoom)
         {
             this._serviceBill = billService;
             this._logger = logger;
             this._env = env;
+            this._serviceContract = contractService;
+            _serviceRoom = serviceRoom;
         }
 
-//      First page, load page when user click on room details => get base information into modal
+        //      First page, load page when user click on room details => get base information into modal
         public async Task OnGet(int roomId)
         {
             string json = HttpContext.Session.GetString("user");
@@ -47,16 +52,15 @@ namespace MotelManagement.Pages
         }
 
         //      Processcing payment, user paid bills.
-
         public async Task<IActionResult> OnPostSubmitBillAsync(string[] descriptions, IFormFile[] bankingImages, int[] billIds, int roomId)
         {
             UploadFileUnit upload = new UploadFileUnit(_env);
             string[] filename = await upload.UploadFile(bankingImages, "bill", null);
             try
             {
-                for(int i = 0; i < billIds.Length; i++)
+                for (int i = 0; i < billIds.Length; i++)
                 {
-                    if (String.IsNullOrEmpty(descriptions[i]) || billIds[i]==null || filename[i]==null)
+                    if (String.IsNullOrEmpty(descriptions[i]) || billIds[i] == null || filename[i] == null)
                     {
                         continue;
                     }
@@ -71,35 +75,77 @@ namespace MotelManagement.Pages
                         await _serviceBill.SubmitBillAsync(bill);
                     }
                 }
-                TempData["BillMessage"] = "Success";
+                TempData["Message"] = "Success";
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                TempData["BillMessage"] = "Failed";
+                TempData["Message"] = "Failed";
                 _logger.LogError(ex.ToString());
             }
             return Redirect("/user/manageroom?roomId=" + roomId);
         }
 
-//      Report broken devices
-        public async Task OnPostReportBrokenAsync()
+        //      Report broken devices
+        public async Task OnPostReportBrokenAsync(string description, IFormFile desImage, int roomId)
         {
+
 
         }
 
-//      Extend a room contract
-        public async Task OnPostExtendContractAsync()
+        //      Extend a room contract
+        public async Task<IActionResult> OnPostExtendContractAsync(int roomId, DateTime expectedDate)
         {
-
+            User user = UserUtil.getUserFromSession(HttpContext.Session.GetString("user"));
+            if(user==null)
+            {
+                return Page();
+            }
+            Contract c = await _serviceContract.GetContractByRoomId(roomId, user.UserId);
+            if (c != null)
+            {
+                try
+                {
+                    c.EffectiveTo = expectedDate;
+                    await _serviceContract.ExtendsContractAsyn(c);
+                    TempData["Message"] = "ExtendsSucc";
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.ToString());
+                    TempData["Message"] = "ExtendsFailed";
+                }
+            }
+            else
+            {
+                TempData["Message"] = "ExtendsFailed";
+            }
+            return Redirect("/user/manageroom?roomId=" + roomId);
         }
 
-//      Passing room
-        public async Task OnPostPassingRoomAsync()
+        //      Passing room <-Chưa test->
+        public async Task<IActionResult> OnPostPassingRoomAsync(int roomId)
         {
-
+            string json = HttpContext.Session.GetString("user");
+            User user = UserUtil.getUserFromSession(json);
+            if (user==null) { return Page(); }
+            Room room = await _serviceRoom.getRoomById(roomId);
+            try
+            {
+                Contract contract = await _serviceContract.GetContractByRoomId(roomId, user.UserId);
+                if (room.StatusId == (int)ROOM_STATE.RENTED)
+                {
+                    room.StatusId = (int)ROOM_STATE.PASSING;
+                    _serviceRoom.PassingRoom(room);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+            }
+            return Redirect("/user/manageroom?roomId=" + roomId);
         }
 
-//      Load list bills history for user
+        //      Load list bills history for user
         public async Task<JsonResult> OnGetBillAsync(DateTime? paidTimeFrom, DateTime? paidTimeTo, DateTime? confirmDateFrom, DateTime? confirmDateTo, int? owner, int? isDept, int roomId, int? pageNumber)
         {
             string json = HttpContext.Session.GetString("user");
@@ -120,7 +166,7 @@ namespace MotelManagement.Pages
                                                                         isDept == (int)DEFAULT_VALUE.PAYMENT_STATE ? null : isDept,
                                                                         roomId);
                     ViewData["countBills"] = countBills;
-                    var result = new {listBills, countBills};
+                    var result = new { listBills, countBills };
                     return new JsonResult(result);
                 }
                 catch (Exception ex)
@@ -131,12 +177,12 @@ namespace MotelManagement.Pages
             return null;
         }
 
-//      Common processing
+        //      Common processing
         public string GetBillState(int state)
         {
-            switch(state)
+            switch (state)
             {
-                case (int) PAYMENT_STATE.PAID:
+                case (int)PAYMENT_STATE.PAID:
                     return "Đã thanh toán";
                 case (int)PAYMENT_STATE.UNPAID:
                     return "Chưa thanh toán";

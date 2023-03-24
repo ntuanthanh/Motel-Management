@@ -153,7 +153,7 @@
                                                 foreach (Bill bill in listBills)
                                                 { 
                                                     <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" id="bill-form" method="post" asp-page-handler="SubmitBill">
-                                                    <input hidden value="@ViewData["roomId"]">
+                                                    <input hidden value="@ViewData["roomId"]" name="roomId">
                                                         <div>
                                                             <table class="table" style="text-align:center;">
                                                                 <thead>
@@ -344,8 +344,43 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
                         <span class="property-info-icon icon-bath">
-                            <img src="assets/img/icon/os-orange.png">
+                            <i class="fa-solid fa-street-view"></i>
                         </span>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true" id="extendcontract">
+                            <div class="modal-dialog modal-lg" style="width:360px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel"
+                                            style="display: inline-block;">
+                                            Nhường phòng 
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="font-size: 32px;">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="color: black; padding:0px; text-align:center;">
+                                        <form style="display: flex; flex-direction: column;" id="form-pass" method="post" asp-page-handler="PassingRoom">
+                                            <input hidden value="@ViewData["roomId"]" name="roomId">
+                                                <div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="message-text" class="col-form-label">Gia hạn tới:</label>
+                                                            <input type="date" name="expectedDate" id="message-text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </form>      
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="submit-pass"
+                                                data-dismiss="modal">
+                                            Nhượng phòng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <span class="property-info-entry">
                             <span class="property-info-label">Nhượng phòng</span>
                         </span>
@@ -353,8 +388,45 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
                         <span class="property-info-icon icon-garage">
-                            <img src="assets/img/icon/room-orange.png">
+                        <i class="fa-solid fa-file-signature" data-toggle="modal"
+                               data-target="#extendcontract" role="button" style="font-size:24px"></i>
                         </span>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true" id="extendcontract">
+                            <div class="modal-dialog modal-lg" style="width:360px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel"
+                                            style="display: inline-block;">
+                                            Gia hạn hợp đồng
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="font-size: 32px;">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="color: black; padding:0px; text-align:center;">
+                                        <form style="display: flex; flex-direction: column;" id="form-extends" method="post" asp-page-handler="ExtendContract">
+                                            <input hidden value="@ViewData["roomId"]" name="roomId">
+                                                <div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="message-text" class="col-form-label">Gia hạn tới:</label>
+                                                            <input type="date" name="expectedDate" id="message-text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </form>      
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="submit-extends"
+                                                data-dismiss="modal">
+                                            Gia hạn
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <span class="property-info-entry">
                             <span class="property-info-label">Gia hạn</span>
                         </span>
@@ -582,9 +654,17 @@
             });
             // load data for first time go to page
             loadData("http://localhost:5027/user/manageroom?handler=Bill&paidTimeFrom=&paidTimeTo=&confirmDateFrom=&confirmDateTo=&isDept=-2&owner=-1&roomId=5");
-            //submit form
+            //submit form bill
             $("#submit-bill").click(function (event) {
                 $("#bill-form").submit();
+            });
+            //submit extends form
+            $("#submit-extends").click(function (event) {
+                $("#form-extends").submit();
+            });
+            //submit passing form
+            $("#submit-pass").click(function (event) {
+                $("#form-pass").submit();
             });
             // preview images
             previewImages();
@@ -595,9 +675,6 @@
             console.log(img.length);
             $(".custom-file-input-upload").each(function (index, item) {
                 item.addEventListener(("change"), () => {
-                    console.log(img[index]);
-                    console.log(item);
-                    console.log(index);
                     const file = item.files;
                     img[index].src = URL.createObjectURL(file[0]);
                 })
@@ -709,9 +786,9 @@
 
     <script type="text/javascript">
         @{
-            if (TempData["BillMessage"] != null)
+            if (TempData["Message"] != null)
             {
-                if (TempData["BillMessage"].Equals("Success"))
+                if (TempData["Message"].Equals("Success"))
                 {
                     <text>
                         swal({
@@ -722,7 +799,7 @@
                         });
                     </text>
                 }
-                else if(TempData["BillMessage"].Equals("Failed"))
+                else if(TempData["Message"].Equals("Failed"))
                 {
                     <text>
                         swal({
@@ -733,12 +810,22 @@
                         })
                     </text>
                 }
-                else if (TempData["Message"].Equals("Error"))
+                else if (TempData["Message"].Equals("ExtendsSucc"))
                 {
                     <text>
                         swal({
-                          title: "Đăng nhập thất bại!",
-                          text: "Mật khẩu hoặc tên đăng nhập không đúng!",
+                          title: "Gia hạn thành công!",
+                          text: "Chúc mừng bạn đã gia hạn thành công!",
+                          icon: "success",
+                          buttons: false
+                        })
+                    </text>
+                }else if (TempData["Message"].Equals("Error"))
+                {
+                    <text>
+                        swal({
+                          title: "Gia hạn thất bại!",
+                          text: "Opps! Đã có lỗi xảy ra!",
                           icon: "warning",
                           buttons: false
                         })

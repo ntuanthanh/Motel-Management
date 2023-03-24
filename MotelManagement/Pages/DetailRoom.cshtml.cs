@@ -57,7 +57,8 @@ namespace MotelManagement.Pages
             ViewData["roomTypes"] = roomTypes;
 
             // Get Room by Id 
-            Room room = await _roomService.getRoomById(id);
+
+            Room room = await _roomService.getRoomById(id??-1);
             ViewData["room"] = room;
 
             // Get List Similar 

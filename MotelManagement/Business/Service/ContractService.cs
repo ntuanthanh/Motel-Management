@@ -12,6 +12,17 @@ namespace MotelManagement.Business.Service
             _unitOfWork = unitOfWork;
         }
 
+        public async Task ExtendsContractAsyn(Contract c)
+        {
+            await _unitOfWork.contractRepository.ExtendsContractAsyn(c);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<Contract> GetContractByRoomId(int roomId, int userId)
+        {
+            return await _unitOfWork.contractRepository.GetContractByRoomId(roomId, userId);
+        }
+
         public async Task<List<Contract>> getListContractsByUserId(int userId)
         {
             return await _unitOfWork.contractRepository.getListContractsByUserId(userId);
