@@ -33,7 +33,7 @@ namespace MotelManagement.Core.Repository
             ).Count(); 
         }
 
-        public async Task<Room> getRoomById(int? id)
+        public async Task<Room> getRoomById(int id)
         {
             // Query get room by id 
             return _context.Rooms.Include(r => r.Images).Include(b => b.Bookings).FirstOrDefault(r => r.RoomId == id);

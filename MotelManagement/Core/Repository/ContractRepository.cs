@@ -25,6 +25,19 @@ namespace MotelManagement.Core.Repository
             _context.Add(contract);
         }
 
+        public async Task ExtendsContractAsyn(Contract c)
+        {
+            _context.Contracts.Attach(c);
+            _context.Entry(c).Property(c => c.EffectiveTo).IsModified = true;
+        }
+
+        public async Task<Contract> GetContractByRoomId(int roomId, int userId)
+        {
+            return await _context.Contracts.Where(c=>c.RoomId == roomId 
+                                                     && c.UserId == userId
+                                                     && c.IsActive==true).FirstOrDefaultAsync();
+        }
+
         public async Task<List<Contract>> getListContractsByUserId(int userId)
         {
             return await _context.Contracts.Where(c => c.UserId==userId)
