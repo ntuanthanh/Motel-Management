@@ -78,5 +78,22 @@ namespace MotelManagement.Core.Repository
             _context.Bills.Update(bill);
             await _context.SaveChangesAsync();
         }
+
+        Task<List<Bill>> IBillRepository.GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex)
+        {
+            return _context.Bills.Include(b=>b.User).Include(b=>b.Room)
+                                    .Where(b=>b.CreatedDate >= (from??b.CreatedDate)&&
+                                    b.CreatedDate<= (to??b.CreatedDate)&&
+                                    b.Room.Name.Contains(roomName??"")&&
+                                    b.User.FullName.Contains(owner??""))
+                                    .Skip((pageIndex - 1) * (int)PageManagement.PageSize).Take((int)PageManagement.PageSize)
+                                    .ToListAsync<Bill>();
+        }
+
+        public async Task CreateBill(List<Bill> listBills)
+        {
+            await _context.Bills.AddRangeAsync(listBills);
+            await _context.SaveChangesAsync();
+        }
     }
 }

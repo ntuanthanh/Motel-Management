@@ -1,0 +1,67 @@
+﻿
+.gallery_cus {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery_cus img {
+    max-width: 100%;
+    height: auto;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.overlay_cus {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+    .overlay_cus img {
+        max-height: 90%;
+        max-width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .overlay_cus .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+.paid {
+    background-color: greenyellow;
+}
+
+.unpaid {
+    background-color: red;
+}
+
+.dept {
+    background-color: lightgoldenrodyellow;
+}
+
+thead th {
+    text-align: center;
+}
+
+
+hr {
+    background-color: greenyellow;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+

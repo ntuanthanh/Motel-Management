@@ -6,72 +6,7 @@
 @{
     List<Bill> listBills = (List<Bill>)ViewData["listUnPaidBills"];
 }
-<style>
-    .gallery_cus {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .gallery_cus img {
-        max-width: 100%;
-        height: auto;
-        margin: 5px;
-        cursor: pointer;
-    }
-
-    .overlay_cus {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .overlay_cus img {
-        max-height: 90%;
-        max-width: 90%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .overlay_cus .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #fff;
-        font-size: 30px;
-        cursor: pointer;
-    }
-
-    .paid{
-        background-color: greenyellow;
-    }
-
-    .unpaid{
-        background-color: red;
-    }
-
-    .dept{
-        background-color: lightgoldenrodyellow;
-    }
-
-    thead th{
-        text-align: center;
-    }
-
-
-    hr {
-        background-color: greenyellow;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        border: 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-</style>
+<link rel="stylesheet" href="~/Assets/Admin/css/zoomimage.css">
 
 <div class="page-head">
     <div class="container">
@@ -334,26 +269,18 @@
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
-                        <span class="property-info-icon icon-bed">
-                            <img src="assets/img/icon/cars-orange.png">
-                        </span>
-                        <span class="property-info-entry">
-                            <span class="property-info-label">Thanh toán</span>
-                        </span>
-                    </div>
-
-                    <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
                         <span class="property-info-icon icon-bath">
-                            <i class="fa-solid fa-street-view"></i>
+                        <i class="fa-solid fa-street-view" data-toggle="modal"
+                               data-target="#passroom" role="button" style="font-size:24px"></i>
                         </span>
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-                             aria-labelledby="myLargeModalLabel" aria-hidden="true" id="extendcontract">
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true" id="passroom">
                             <div class="modal-dialog modal-lg" style="width:360px">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title" id="exampleModalLabel"
                                             style="display: inline-block;">
-                                            Nhường phòng 
+                                            Nhượng phòng 
                                         </h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true" style="font-size: 32px;">×</span>
@@ -739,7 +666,6 @@
                                 </div>
                          </td> </tr>`;
                     });
-                    console.log(dataHtml);
                     data_container.html(dataHtml);
 
                     const images = document.querySelectorAll('.gallery_cus img');

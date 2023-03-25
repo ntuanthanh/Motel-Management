@@ -1,15 +1,12 @@
 ﻿@page "/admin/bill"
 @model MotelManagement.Pages.admin.BillManagerModel
+@using MotelManagement.Data.Models
 @{
 }
-<style>
-    .dataTables_length li{
-        display:flex;
-    }
-</style>
-<div class="main-wrapper">
+<link rel="stylesheet" href="~/Assets/Admin/css/zoomimage.css">
 
-    <div class="content container-fluid">
+<div class="main-wrapper">
+    <div class="content container-fluid" style="padding: 0px">
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
@@ -21,40 +18,92 @@
                                         aria-haspopup="true" aria-expanded="false">
                                     Tùy chọn
                                 </button>
-                                <div class="dropdown-menu" style="">
+                                <div class="dropdown-menu" id="menu-modal" style="">
                                     <a class="dropdown-item" href="#">Lưu hóa đơn</a>
                                     <a class="dropdown-item" href="#">Kết xuất hóa đơn</a>
                                     <a class="dropdown-item" href="#">Hoàn thành hóa đơn</a>
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#CreateBill">
+                                        Tạo hóa đơn
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="CreateBill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 640px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tạo hóa đơn</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="note" style="font-weight: bold;">Lưu ý: Dữ liệu chỉ được thêm vào đối với những phòng có người thuê</p>
+                        <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" id="bill-form" method="post" asp-page-handler="ImportBill">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="message-text" class="col-form-label">File Excel:</label>
+                                    <input name="bankingImages" type="file" class="custom-file-input-upload" id="customFile">
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="message-text" class="col-form-label">Mô tả:</label>
+                                    <textarea class="form-control" id="message-text" rows="4" name="descriptions"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Tạo đơn</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="row">
                 <div class="col-lg-12">
-                    <form>
+                    <form method="get">
                         <div class="row formtype">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>From</label>
+                                    <label>Hóa đơn tháng từ</label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="from" value="@ViewData["from"]">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>To</label>
+                                    <label>Hóa đơn tháng đến</label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="to" value="@ViewData["to"]">
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Tên phòng</label>
+                                <input type="text" class="form-control" id="usr" name="roomName" value="@ViewData["roomName"]">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Người nộp</label>
+                                <input type="text" class="form-control" id="usr" name="owner" value="@ViewData["owner"]">
+                                </div>
+                            </div>
+
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Tìm kiếm</label>
-                                    <a href="#" class="btn btn-success btn-block mt-0 search_button"> Tìm kiếm </a>
+                                    <input type="submit" class="btn btn-success btn-block mt-0 search_button"> Tìm kiếm </input>
                                 </div>
                             </div>
                         </div>
@@ -66,62 +115,47 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="datatable table table-stripped">
+                                <table class="datatable table table-stripped" id="listbill">
                                     <thead>
                                         <tr>
-                                            <th>Invoice ID</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Phòng</th>
+                                            <th>Tên khách hàng</th>                                         
                                             <th>Điện</th>
                                             <th>Nước</th>
                                             <th>Dịch vụ</th>
-                                            <th>Phòng</th>
                                             <th>Đã nộp</th>
-                                            <th>Còn nợ</th>
                                             <th>Ngày nộp</th>
                                             <th>Ngày duyệt</th>
                                             <th>Ảnh</th>
+                                            <th>Mô tả</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="invoice-view.html">#INV-0001</a></td>
-                                            <td>Charles Ortega</td>
-                                            <td>50</td>
-                                            <td>Paypal</td>
-                                            <td>5-5-2020</td>
-                                            <td>$320,000</td>
-                                            <td>50</td>
-                                            <td><input type="number"></td>
-                                            <td>5-5-2020</td>
-                                            <td>$320,000</td>
-                                            <td>$320,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="invoice-view.html">#INV-0002</a></td>
-                                            <td>Jason Cripps</td>
-                                            <td>63</td>
-                                            <td>Paypal</td>
-                                            <td>10-5-2020</td>
-                                            <td>$170,750</td>
-                                            <td>50</td>
-                                            <td><input type="number"></td>
-                                            <td>5-5-2020</td>
-                                            <td>$320,000</td>
-                                            <td>$320,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="invoice-view.html">#INV-0003</a></td>
-                                            <td>Silvia Ryan</td>
-                                            <td>66</td>
-                                            <td>Payer</td>
-                                            <td>12-5-2020</td>
-                                            <td>$86,000</td>
-                                            <td>50</td>
-                                            <td><input type="number"></td>
-                                            <td>5-5-2020</td>
-                                            <td>$320,000</td>
-                                            <td>$320,000</td>
-                                        </tr>
+                                    @{
+                                        if (Model.listBills != null)
+                                        {
+                                            foreach (Bill bill in Model.listBills)
+                                            {
+                                                <tr>
+                                                    <td>@bill.Room.Name</td>
+                                                    <td>@bill.User.FullName</td>
+                                                    <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                    <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                    <td>@bill.ServiceBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                    <td><input type="currency"></td>
+                                                    <td>@bill.PaidTime</td>
+                                                    <td>@bill.AcceptTime</td>                                                    
+                                                    <td>
+                                                        <div class="gallery_cus" style="width: 50px;height: 80px">
+                                                            <img src="/upload/@bill.BankingImage">
+                                                        </div>
+                                                    </td>
+                                                    <td>@bill.Description</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    }
                                     </tbody>
                                 </table>
                             </div>
@@ -132,6 +166,49 @@
         </div>
 </div>
 @section Scripts{
+    <script src="~/Assets/Admin/js/zoomimages.js"></script>
+    <script>
+        var currencyInput = document.querySelectorAll('input[type="currency"]')
+    
+        var currency = 'VND'
+
+     // format inital value
+        document.querySelectorAll('input[type="currency"]').forEach((item)=>{
+            onBlur({target:item})
+            item.addEventListener('focus', onFocus)
+            item.addEventListener('blur', onBlur)
+        })
+
+        function localStringToNumber( s ){
+              return Number(String(s).replaceAll('.',""))
+        }
+
+        function onFocus(e){
+          var value = e.target.value.trim().replace("VND", "").trim();
+          console.log("Forcus: Value: "+value);
+          e.target.value = localStringToNumber(value);
+        }
+
+        function onBlur(e){
+          var value = e.target.value;
+          console.log("Blur: Value: "+value);
+          var options = {
+              maximumFractionDigits : 2,
+              currency              : currency,
+              style                 : "currency",
+              currencyDisplay       : "symbol"
+          }
+    
+          e.target.value = localStringToNumber(value).toLocaleString('it-IT', options)
+        }
+
+        $(document).ready(function () {
+            zoomImages();
+
+        });
+
+    </script>
+
     <script>
         $(function () {
             $('#datetimepicker3').datetimepicker({

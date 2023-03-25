@@ -11,5 +11,6 @@ namespace MotelManagement.Business.IService
         public Task<Room> getRoomById(int roomId);
         public Task<List<Room>> roomSimilar(int ? statusRoom);
         public Task PassingRoom(Room room);
+        public Task<bool> isRoomRented(string roomName);
     }
 }

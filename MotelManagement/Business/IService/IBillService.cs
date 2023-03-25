@@ -12,5 +12,7 @@ namespace MotelManagement.Business.IService
 
         public Task<Bill> getBillByIdAsync(int billId);
         public Task SubmitBillAsync(Bill bill);
+        public Task CreateBill(List<Bill> listBills);    
+        public Task<List<Bill>> GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex);
     }
 }

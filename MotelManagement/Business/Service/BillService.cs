@@ -44,5 +44,15 @@ namespace MotelManagement.Business.Service
         {
              await _unitOfWork.billRepository.SubmitBillAsync(bill);
         }
+
+        public async Task<List<Bill>> GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex)
+        {
+            return await _unitOfWork.billRepository.GetListBillsByAdmin(from, to, roomName, owner, pageIndex);
+        }
+
+        public async Task CreateBill(List<Bill> listBills)
+        {
+            await _unitOfWork.billRepository.CreateBill(listBills);
+        }
     }
 }

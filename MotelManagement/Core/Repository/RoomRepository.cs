@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
 
@@ -60,6 +61,12 @@ namespace MotelManagement.Core.Repository
             Room room = await _context.Rooms.Where(r => r.RoomId == roomId).FirstOrDefaultAsync(); 
             room.StatusId = status;
             _context.Update(room);
+        }
+        public async Task<bool> isRoomRented(string roomName)
+        {
+            return await _context.Rooms.Where(r=>r.Name.ToLower().Equals(roomName.ToLower())
+                                && (r.StatusId==(int)ROOM_STATE.RENTED || r.StatusId == (int) ROOM_STATE.PASSING)
+                                ).FirstOrDefaultAsync() == null ? true:false;
         }
     }
 }
