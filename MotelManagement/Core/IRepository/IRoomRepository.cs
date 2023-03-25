@@ -11,6 +11,7 @@ namespace MotelManagement.Core.IRepository
        Task<Room> getRoomById(int id);
        Task<List<Room>> RoomSimilar(int? status);
        Task UpdateStatusRoom(int roomId, int status);
-       Task<bool> isRoomRented(int? roomId); 
+       Task<bool> isRoomRented(int? roomId);
+       Task<bool> isRoomRented(string roomName);
     }
 }

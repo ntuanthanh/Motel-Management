@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5a497a34-8d75-4c99-ba07-16ab672741fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyRoom.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/MyRoom.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/_AdminLayout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/_AdminLayout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/BillManager.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/BillManager.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/BillManager.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/admin/BillManager.cshtml.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,6 +59,7 @@
       <workItem from="1678817869764" duration="1804000" />
       <workItem from="1679079751820" duration="2106000" />
       <workItem from="1679148188537" duration="1315000" />
+      <workItem from="1679740724637" duration="2071000" />
     </task>
     <servers />
   </component>
