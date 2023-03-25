@@ -39,6 +39,12 @@ namespace MotelManagement.Core.Repository
             return _context.Rooms.Include(r => r.Images).Include(b => b.Bookings).FirstOrDefault(r => r.RoomId == id);
         }
 
+        public async Task<bool> isRoomRented(int? roomId)
+        {
+            Room room =  _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 2).FirstOrDefault();
+            return (room == null ? true : false);
+        }
+
         public async Task<List<Room>> RoomSimilar(int? status)
         {
             return await _context.Rooms.Where(r => r.StatusId == status).OrderBy(r => r.Price).Take(4).ToListAsync();
