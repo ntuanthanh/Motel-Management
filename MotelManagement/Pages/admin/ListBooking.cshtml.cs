@@ -13,12 +13,23 @@ namespace MotelManagement.Pages.admin
         {
             _bookingService = booking;
         }
-        public async Task<IActionResult> OnGetAsync(int? roomId)
+        public async Task<IActionResult> OnGetAsync(int? roomId, string? nameBooking, string? emailBooking, string? phoneBooking, string? fromBooking, string? toBooking)
         {
             // Danh sách booking của room id 
-            
-            
-            bookings  = await _bookingService.BookingsAvailable(roomId);
+            bookings  = await _bookingService.BookingsAvailableSearching(roomId,nameBooking,emailBooking,phoneBooking,fromBooking,toBooking);
+
+            // Check if có phòng đã có người thuê thì không hiện danh sách booking
+            bool isRoomRented = await _bookingService.isRoomRented(roomId);
+            ViewData["isRoomRented"] = isRoomRented; 
+
+            // search history 
+            ViewData["roomId"] = roomId;
+            ViewData["nameBooking"] = nameBooking;
+            ViewData["emailBooking"] = emailBooking;
+            ViewData["phoneBooking"] = phoneBooking; 
+            ViewData["fromBooking"] = fromBooking;
+            ViewData["toBooking"] = toBooking; 
+
             return Page(); 
         }
         // Gửi thông tin lịch hẹn cho từng user

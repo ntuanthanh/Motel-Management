@@ -11,5 +11,7 @@ namespace MotelManagement.Core.IRepository
         Task updateMeetingDate(DateTime? meetingDate, int? roomId); 
         Task updateMeetingDateForUser(DateTime? meetingDate, int? bookingId);
         public Task<List<Booking>> BookingListByRoomAvailable(int? roomId);
+        public Task<List<Booking>> BookingListByRoomAvailableSearching(int? roomId, string? nameBooking, string? emailBooking, string? phoneBooking, string? fromBooking, string? toBooking);
+
     }
 }

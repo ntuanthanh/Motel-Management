@@ -2,6 +2,7 @@
 using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
+using System.Globalization;
 
 namespace MotelManagement.Core.Repository
 {
@@ -18,6 +19,27 @@ namespace MotelManagement.Core.Repository
             List<Booking> listBookings = new List<Booking>(); 
             if (room != null) { 
                listBookings = await _context.Bookings.Include(u => u.User).Include(u => u.Room).Where(b => b.Status == 1 && b.RoomId == roomId).ToListAsync();
+            }
+            return listBookings;
+        }
+
+        public async Task<List<Booking>> BookingListByRoomAvailableSearching(int? roomId, string? nameBooking, string? emailBooking, string? phoneBooking, string? fromBooking, string? toBooking)
+        {
+            //
+            DateTime? from = fromBooking != null ? DateTime.ParseExact(fromBooking,"dd/MM/yyyy",CultureInfo.InvariantCulture) : null; 
+            DateTime? to = toBooking != null ? DateTime.ParseExact(toBooking, "dd/MM/yyyy", CultureInfo.InvariantCulture) : null;
+
+
+            Room room = _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 2).FirstOrDefault();
+            List<Booking> listBookings = new List<Booking>();
+            if (room != null)
+            {
+                listBookings = await _context.Bookings.Include(u => u.User).Include(u => u.Room).Where(b => b.Status == 1 && b.RoomId == roomId
+                                                                                                       && b.User.FullName.Contains( nameBooking ?? b.User.FullName)
+                                                                                                       && b.User.Email.Contains( emailBooking ?? b.User.Email)
+                                                                                                       && b.User.Phone.Contains( phoneBooking ?? b.User.Phone)
+                                                                                                       && ( b.BookingTime >= ( from ?? b.BookingTime ) && b.BookingTime <= (to ?? b.BookingTime) ) 
+                                                                                                       ).ToListAsync();
             }
             return listBookings;
         }
