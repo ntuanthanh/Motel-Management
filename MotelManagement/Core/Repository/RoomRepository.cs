@@ -13,7 +13,7 @@ namespace MotelManagement.Core.Repository
 
         public async Task<List<Room>> advancedSearchRoom(string nameRoom, int? roomTypeId, int? status, decimal fromPrice, decimal toPrice, int fromSizePerson, int toSizePerson, int offSet, int count)
         {
-            return await _context.Rooms.Where(r => 
+            return await _context.Rooms.Include(r => r.RoomType).Where(r => 
                 r.Name.Contains(nameRoom ?? r.Name) && 
                 r.RoomTypeId  == (roomTypeId ?? r.RoomTypeId) &&
                 r.StatusId == (status ?? r.StatusId) &&
