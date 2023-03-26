@@ -88,8 +88,8 @@
                                 <th>Tối Đa</th>
                                 <th>Trạng Thái</th>
                                 <th>Loại Phòng</th>
-                                <th></th>
-                                <th></th>
+                                <th>Bookings</th>
+                                <th>Chi Tiết</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,8 +115,8 @@
                                         }
                                     </td>
                                     <td>@room.RoomType.Name</td>
-                                    <td><button class="btn btn-warning ">Danh Sách Booking</button></td>
-                                    <td><button class="btn btn-danger ">Update</button></td>
+                                    <td><button onclick = "goBookings(@room.RoomId)" class="btn btn-warning ">Danh Sách Booking</button></td>
+                                    <td><button onclick = "goDetail(@room.RoomId)" class="btn btn-danger ">Cập Nhật</button></td>
                                 </tr>
                             }
                         </tbody>
@@ -140,5 +140,12 @@
     var gap = 2;
     var url_param = '@ViewData["url"]';
     pagination(pageindex,totalpage,container,gap,url_param);
+
+    function goBookings(roomId){
+        window.location.href = "/admin/room/booking/list?roomid="+roomId;
+    }
+    function goDetail(roomId){
+        window.location.href = "/admin/room/detail?roomid="+roomId;
+    }
 </script>
 }

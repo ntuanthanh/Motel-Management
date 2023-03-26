@@ -31,7 +31,7 @@
 
     enum PageManagement
     {
-        PageSize = 3
+        PageSize = 6
     }
 
     enum DEFAULT_VALUE
