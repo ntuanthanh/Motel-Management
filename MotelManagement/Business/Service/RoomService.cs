@@ -100,7 +100,7 @@ namespace MotelManagement.Business.Service
             return _unitOfWork.roomRepository.RoomSimilar(statusRoom);
         }
 
-        public async Task<bool> isRoomRented(string roomName)
+        public async Task<Contract> isRoomRented(string roomName)
         {
             return await _unitOfWork.roomRepository.isRoomRented(roomName);
         }

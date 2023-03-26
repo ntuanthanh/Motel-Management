@@ -6,6 +6,38 @@
 <link rel="stylesheet" href="~/Assets/Admin/css/zoomimage.css">
 
 <div class="main-wrapper">
+    <div class="modal fade" id="CreateBill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 640px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tạo hóa đơn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="note" style="font-weight: bold;">Lưu ý: Dữ liệu chỉ được thêm vào đối với những phòng có người thuê</p>
+                    <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" id="bill-form" method="post" asp-page-handler="ImportBill">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="message-text" class="col-form-label">File Excel:</label>
+                                <input name="file" type="file" class="custom-file-input-upload">
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="message-text" class="col-form-label">Mô tả:</label>
+                                <textarea class="form-control" id="message-text" rows="4" name="descriptions"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="createbillsubmit">Tạo đơn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="content container-fluid" style="padding: 0px">
             <div class="page-header">
                 <div class="row align-items-center">
@@ -20,7 +52,7 @@
                                 </button>
                                 <div class="dropdown-menu" id="menu-modal" style="">
                                     <a class="dropdown-item" href="#" id="save-bill">Lưu hóa đơn</a>
-                                    <a class="dropdown-item" href="#" id="export-bill">Kết xuất hóa đơn</a>
+                                    <a class="dropdown-item" href="/admin/bill?handler=ExportBill" id="export-bill">Kết xuất hóa đơn</a>
                                     <a class="dropdown-item" href="#" id="finish-bill">Hoàn thành hóa đơn</a>
                                     <a class="dropdown-item" data-toggle="modal" data-target="#CreateBill">
                                         Tạo hóa đơn
@@ -31,38 +63,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="CreateBill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" style="width: 640px">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tạo hóa đơn</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="note" style="font-weight: bold;">Lưu ý: Dữ liệu chỉ được thêm vào đối với những phòng có người thuê</p>
-                        <form style="display: flex; flex-direction: column;" enctype="multipart/form-data" id="bill-form" method="post" asp-page-handler="ImportBill">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="message-text" class="col-form-label">File Excel:</label>
-                                    <input name="bankingImages" type="file" class="custom-file-input-upload" id="customFile">
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="message-text" class="col-form-label">Mô tả:</label>
-                                    <textarea class="form-control" id="message-text" rows="4" name="descriptions"></textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Tạo đơn</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -103,7 +103,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Tìm kiếm</label>
-                                    <input type="submit" class="btn btn-success btn-block mt-0 search_button"> Tìm kiếm </input>
+                                    <input type="submit" class="btn btn-success btn-block mt-0 search_button">
                                 </div>
                             </div>
                         </div>
@@ -114,8 +114,9 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="datatable table table-stripped" id="listbill">
+                            <form method="post" asp-page-handler="SaveBill" id="form-bill">
+                                <div class="table-responsive">
+                                <table class="table table-stripped table table-hover table-center mb-0" id="listbill">
                                     <thead>
                                         <tr>
                                             <th>Phòng</th>
@@ -124,6 +125,7 @@
                                             <th>Điện</th>
                                             <th>Nước</th>
                                             <th>Dịch vụ</th>
+                                            <th>Tổng tiền</th>
                                             <th>Trạng thái</th>
                                             <th>Đã nộp</th>
                                             <th>Ngày nộp</th>
@@ -138,7 +140,6 @@
                                         {
                                             foreach (Bill bill in Model.listBills)
                                             {
-                                                <form method="post" asp-page-handler="SaveBill" id="form-bill">
                                                 <tr>
                                                     <input name="billIds" value="@bill.BillId" hidden></input>
                                                     <td>@bill.Room.Name</td>
@@ -147,24 +148,38 @@
                                                     <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>@bill.ServiceBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
+                                                     <td>@Model.GetTotal(bill.ServiceBill,bill.ElectricBill,bill.RoomBill,bill.WaterBill).ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>
-                                                        <select class="form-control">
+                                                            <select class="form-control" name="states" style="width:120px">
                                                                 @{
                                                                     foreach (Status s in Model.listStates)
                                                                     {
                                                                         if (s.StatusId == bill.BillState)
                                                                         {
-                                                                        <option value="@s.StatusId" selected>@s.Name</option>
+                                                                            <option value="@s.StatusId" selected>@s.Name</option>
                                                                         }
                                                                         else
                                                                         {
-                                                                        <option value="@s.StatusId">@s.Name</option>
+                                                                            <option value="@s.StatusId">@s.Name</option>
                                                                         }
                                                                     }
                                                                 }
-                                                        </select>
-                                                    </td>
-                                                    <td><input type="currency" class="form-control"></td>
+                                                            </select>
+                                                        </td>
+                                                        @{
+                                                            if (bill.Debt == null)
+                                                            {
+                                                                <td><input type="currency" class="form-control" name="paids" style="width:140px"></td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>
+                                                                    <input type="currency" class="form-control" name="paids" style="width:140px"
+                                                                value="@Model.GetDept(bill.ServiceBill, bill.ElectricBill, bill.WaterBill, bill.RoomBill, bill.Debt??0).ToString().Replace(".0000","")"></td>
+
+                                                            }
+                                                        }
                                                     <td>@bill.PaidTime</td>
                                                     <td>@bill.AcceptTime</td>
                                                     <td>
@@ -174,18 +189,27 @@
                                                     </td>
                                                     <td>@bill.Description</td>
                                                 </tr>
-                                                </form>
+                                                
                                             }
                                         }
                                     }
                                     </tbody>
                                 </table>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+</div>
+<!-- This is pagination -->
+<div class="pagination-bx rounded-sm gray clearfix" style="display: flex;
+    justify-content: center;
+    padding-top: 84px;">
+    <ul id="paggerBottom" class="pagination">
+    </ul>
+</div>
 </div>
 @section Scripts{
     <script src="~/Assets/Admin/js/zoomimages.js"></script>
@@ -237,17 +261,23 @@
                 buttons: true,
                 dangerMode: true,
             })
-                .then((willDelete) => {
-                if (willDelete) {
-                    swal("Poof! Your imaginary file has been deleted!", {
-                        icon: "success",
-                    });
-                    $('#form-bill').submit();
-                }
+            .then((willDelete) => {
+            if (willDelete) {
+                $('#form-bill').submit();
+                swal("Poof! Your imaginary file has been deleted!", {
+                    icon: "success",
+                });
+            }
             });
         });
 
+        $('#createbillsubmit').click(function(){
+            console.log("TEST");
+            $('#bill-form').submit();
+        });
+
     </script>
+    <script src="~/js/paging.js"></script>
 
     <script>
         $(function () {
@@ -255,5 +285,13 @@
                 format: 'LT'
             });
         });
+
+
+    var pageindex = @ViewData["pageIndex"];
+    var totalpage = @ViewData["totalPage"];
+    var container = document.getElementById('paggerBottom');
+    var gap = 2;
+    var url_param = '@ViewData["url"]';
+    pagination(pageindex,totalpage,container,gap,url_param);
     </script>
 }
