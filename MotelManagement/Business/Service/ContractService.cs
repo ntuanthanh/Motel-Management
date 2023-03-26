@@ -28,5 +28,12 @@ namespace MotelManagement.Business.Service
             return await _unitOfWork.contractRepository.getListContractsByUserId(userId);
 
         }
+
+        public async Task<bool> isMemberOfRoom(int roomId, int userId)
+        {
+            User user = new User(); 
+            user.UserId = userId;
+            return await _unitOfWork.contractRepository.IsMemberOfRoom(user, roomId);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace MotelManagement.Data.Models
     {
         public int PassingId { get; set; }
         public int RoomId { get; set; }
-        public int MemberId { get; set; }
+        public int? MemberId { get; set; }
         public int UserRequestId { get; set; }
         public int Status { get; set; }
         public DateTime BookingTime { get; set; }

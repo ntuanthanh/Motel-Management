@@ -10,6 +10,7 @@ namespace MotelManagement.Core.IRepository
         IRoomRepository roomRepository { get; }
 
         IBookingRepository bookingRepository { get; }
+        IPassingRepository passingRepository { get; }
         IContractRepository contractRepository { get; } 
 
         IBillRepository billRepository { get; }

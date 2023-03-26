@@ -9,33 +9,33 @@
     <script src="~/js/paging.js"></script>
     ViewData["Title"] = "Danh sách Phòng Trọ";
 }
-<div class="page-head"> 
+<div class="page-head">
     <div class="container">
         <div class="row">
             <div class="page-head-content">
-                <h1 class="page-title">Nhà Trọ Xanh Lá</h1>               
+                <h1 class="page-title">Nhà Trọ Xanh Lá</h1>
             </div>
         </div>
     </div>
 </div>
 
 <div class="properties-area recent-property" style="background-color: #FFF;">
-    <div class="container">  
+    <div class="container">
         <div class="row">
 
             <div class="col-md-3 p0 padding-top-40">
                 <div class="blog-asside-right pr0">
-                    <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                         <div class="panel-heading">
                             <h3 class="panel-title">Tìm Kiếm Nâng Cao</h3>
                         </div>
                         <div class="panel-body search-widget">
-                            <form action="" method = "GET" class=" form-inline"> 
+                            <form action="" method="GET" class=" form-inline">
                                 @*Search tên phòng*@
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input type="text" class="form-control" name = "nameRoom" value="@ViewData["nameRoom"]" placeholder="Key word">
+                                            <input type="text" class="form-control" name="nameRoom" value="@ViewData["nameRoom"]" placeholder="Key word">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -44,25 +44,32 @@
                                     <div class="row">
                                         <div class="col-xs-6">
 
-                                            <select name ="roomTypeId" id="lunchBegins" class="selectpicker show-tick form-control">
-                                                <option value = ""> -Loại Phòng- </option>
+                                            <select name="roomTypeId" id="lunchBegins" class="selectpicker show-tick form-control">
+                                                <option value=""> -Loại Phòng- </option>
                                                 @foreach (RoomType roomType in (List<RoomType>)@ViewData["roomTypes"])
                                                 {
-                                                    if (roomType.RoomTypeId == Convert.ToInt32(ViewData["roomTypeId"])) {
+                                                    if (roomType.RoomTypeId == Convert.ToInt32(ViewData["roomTypeId"]))
+                                                    {
                                                         <option selected="selected" value="@roomType.RoomTypeId">@roomType.Name</option>
-                                                    } else {
+                                                    }
+                                                    else
+                                                    {
                                                         <option value="@roomType.RoomTypeId">@roomType.Name</option>
                                                     }
                                                 }
                                             </select>
                                         </div>
                                         <div class="col-xs-6">
-                                            <select name = "status" id="basic" class="selectpicker show-tick form-control">
-                                                <option value = ""> -Status- </option>
-                                                @foreach (Status status in (List<Status>)@ViewData["statusList"]) {
-                                                    if (status.StatusId == Convert.ToInt32(ViewData["status"])) {
+                                            <select name="status" id="basic" class="selectpicker show-tick form-control">
+                                                <option value=""> -Status- </option>
+                                                @foreach (Status status in (List<Status>)@ViewData["statusList"])
+                                                {
+                                                    if (status.StatusId == Convert.ToInt32(ViewData["status"]))
+                                                    {
                                                         <option selected="selected" value="@status.StatusId">@status.Name</option>
-                                                    } else {
+                                                    }
+                                                    else
+                                                    {
                                                         <option value="@status.StatusId">@status.Name</option>
                                                     }
                                                 }
@@ -77,41 +84,54 @@
                                             <label for="price-range">Giá (đồng):</label>
                                             @if (ViewData["price"] == null)
                                             {
-                                                <input type="text" class="span2" value="" data-slider-min="1000000" 
-                                                       name = "price" data-slider-max="3000000" data-slider-step="5" 
-                                                       data-slider-value="[1000000,3000000]" id="price-range" ><br />
-                                                <b class="pull-left color">1 triệu</b> 
+                                                <input type="text" class="span2" value="" data-slider-min="1000000"
+                                                   name="price" data-slider-max="3000000" data-slider-step="5"
+                                                   data-slider-value="[1000000,3000000]" id="price-range">
+
+                                                <br />
+                                                <b class="pull-left color">1 triệu</b>
                                                 <b class="pull-right color">3 triệu</b>
-                                            } else {
-                                                <input type="text" class="span2" value="" data-slider-min="1000000" 
-                                                       name = "price" data-slider-max="3000000" data-slider-step="5" 
-                                                       data-slider-value="[@ViewData["price"]]" id="price-range" ><br />
-                                                <b class="pull-left color">1 triệu</b> 
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="span2" value="" data-slider-min="1000000"
+                                                   name="price" data-slider-max="3000000" data-slider-step="5"
+                                                   data-slider-value="[@ViewData["price"]]" id="price-range">
+
+                                                <br />
+                                                <b class="pull-left color">1 triệu</b>
                                                 <b class="pull-right color">3 triệu</b>
-                                            }                                                
+                                            }
                                         </div>
                                         @*Price range*@
                                         <div class="col-xs-6">
                                             <label for="property-geo">Số lượng người ở</label>
-                                            @if (ViewData["sizePerson"] == null) {
-                                                <input type="text" name = "sizePerson" class="span2" value="" data-slider-min="1" 
-                                                       data-slider-max="4" data-slider-step="1" 
-                                                       data-slider-value="[1,4]" id="property-geo" ><br />
-                                            } else {
-                                                <input type="text" name = "sizePerson" class="span2" value="" data-slider-min="1" 
-                                                       data-slider-max="4" data-slider-step="1" 
-                                                       data-slider-value="[@ViewData["sizePerson"]]" id="property-geo" ><br />
+                                            @if (ViewData["sizePerson"] == null)
+                                            {
+                                                <input type="text" name="sizePerson" class="span2" value="" data-slider-min="1"
+                                                   data-slider-max="4" data-slider-step="1"
+                                                   data-slider-value="[1,4]" id="property-geo">
+
+                                                <br />
                                             }
-                                            <b class="pull-left color">1 Người</b> 
-                                            <b class="pull-right color">4 Người</b>                                                
-                                        </div>                                            
+                                            else
+                                            {
+                                                <input type="text" name="sizePerson" class="span2" value="" data-slider-min="1"
+                                                   data-slider-max="4" data-slider-step="1"
+                                                   data-slider-value="[@ViewData["sizePerson"]]" id="property-geo">
+
+                                                <br />
+                                            }
+                                            <b class="pull-left color">1 Người</b>
+                                            <b class="pull-right color">4 Người</b>
+                                        </div>
                                     </div>
                                 </fieldset>
-                                <fieldset >
+                                <fieldset>
                                     <div class="row">
-                                        <div class="col-xs-12">  
+                                        <div class="col-xs-12">
                                             <input class="button btn largesearch-btn" value="Search" type="submit">
-                                        </div>  
+                                        </div>
                                     </div>
                                 </fieldset>
                             </form>
@@ -124,7 +144,8 @@
                         </div>
                         <div class="panel-body recent-property-widget">
                             <ul>
-                                @foreach(Room room in (List<Room>)@ViewData["roomsRecommendeds"]) {
+                                @foreach (Room room in (List<Room>)@ViewData["roomsRecommendeds"])
+                                {
                                     <li>
                                         <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
                                             <a href="single.html"><img src="~/Assets/User/assets/img/demo/property-2.jpg"></a>
@@ -146,17 +167,17 @@
             </div>
 
             <div class="col-md-9  pr0 padding-top-40 properties-page">
-                <div class="col-md-12 clear"> 
+                <div class="col-md-12 clear">
                     <div class="col-xs-10 page-subheader sorting pl0">
                         <ul class="sort-by-list">
                             <li class="active">
                                 <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                                    Giá tăng dần <i class="fa fa-sort-numeric-asc"></i>						
+                                    Giá tăng dần <i class="fa fa-sort-numeric-asc"></i>
                                 </a>
                             </li>
                             <li class="">
                                 <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                                    Giá giảm dần <i class="fa fa-sort-numeric-desc"></i>						
+                                    Giá giảm dần <i class="fa fa-sort-numeric-desc"></i>
                                 </a>
                             </li>
                         </ul><!--/ .sort-by-list-->
@@ -164,43 +185,47 @@
 
                     <div class="col-xs-2 layout-switcher">
                         <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i>  </a>
-                        <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>                          
+                        <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>
                     </div><!--/ .layout-switcher-->
                 </div>
-                <div class="col-md-12 clear"> 
+                <div class="col-md-12 clear">
                     <div id="list-type" class="proerty-th">
                         @foreach (Room room in (List<Room>)@ViewData["rooms"])
-                         {
+                        {
                             <div class="col-sm-6 col-md-4 p0">
-                                    <div class="box-two proerty-item">
-                                        <div class="item-thumb">
-                                            <a href="../../Room/Detail?id=@room.RoomId" ><img src="~/upload/@((room.Images.ToList())[0].Url)"> </a>
-                                        </div>
+                                <div class="box-two proerty-item">
+                                    <div class="item-thumb">
+                                        <a href="../../Room/Detail?id=@room.RoomId"><img src="~/upload/@((room.Images.ToList())[0].Url)"> </a>
+                                    </div>
 
-                                        <div class="item-entry overflow">
-                                            <h5><a href="../../Room/Detail?id=@room.RoomId"> @room.Name </a></h5>
-                                            <div class="dot-hr"></div>
-                                            <span class="pull-left"><b> Tối Đa :</b> @room.MaxPerson Người </span>
-                                            <span class="proerty-price pull-right"> @room.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ </span>
+                                    <div class="item-entry overflow">
+                                        <h5><a href="../../Room/Detail?id=@room.RoomId"> @room.Name </a></h5>
+                                        <div class="dot-hr"></div>
+                                        <span class="pull-left"><b> Tối Đa :</b> @room.MaxPerson Người </span>
+                                        <span class="proerty-price pull-right"> @room.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ </span>
                                         <p style="display: none;">
-                                            
+
                                             @if (room.Description.Length >= 100)
                                             {
-                                               @room.Description.Substring(0, 100); 
+                                                @room.Description.Substring(0, 100)
+                                                ;
                                             }
                                             else
                                             {
-                                              @room.Description;   
-                                            } ...</p>
+                                                @room.Description
+                                                ;
+                                            } ...
+                                        </p>
                                         <div class="property-icon">
-                                                <img src="~/Assets/User/assets/img/icon/bed.png">|
-                                                <img src="~/Assets/User/assets/img/icon/shawer.png">|
-                                                <img src="~/Assets/User/assets/img/icon/cars.png"> 
+                                            <img src="~/Assets/User/assets/img/icon/bed.png">|
+                                            <img src="~/Assets/User/assets/img/icon/shawer.png">|
+                                            <img src="~/Assets/User/assets/img/icon/cars.png">
                                             @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[0].StatusId)
                                             {
-                                                <span class="text-danger text-center mt-3 mb-3" style="font-weight: bold;margin-left:40px" >Đã Thuê</span>
+                                                <span class="text-danger text-center mt-3 mb-3" style="font-weight: bold;margin-left:40px">Đã Thuê</span>
                                             }
-                                            @if(room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId){
+                                            @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId)
+                                            {
                                                 <span class="text-success mt-3 mb-3" style="font-weight: bold; margin-left:40px">Còn Trống</span>
                                             }
                                             @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId)
@@ -212,89 +237,121 @@
                                         {
                                             User user = (User)JsonUtil.DeserializeObject<User>(Accessor.HttpContext.Session.GetString("user"));
                                             @*Đã Thuê*@
-                                            @if(room.StatusId == ((List<Status>)@ViewData["statusList"])[0].StatusId){
+                                            @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[0].StatusId)
+                                            {
                                                 <div class="text-center">
-                                                    <button class="btn btn-success">Xem Chi Tiết</button>
+                                                    <button class="btn btn-success" onclick = "GoRoomDetail(@room.RoomId)">Xem Chi Tiết</button>
                                                 </div>
                                             }
                                             @*Còn Trống*@
-                                            @if(room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId){
-                                                if(Model.isShowBooking(room, user.UserId))
-                                                {
-                                                   <div class="text-center">
-                                                   <button class="btn btn-success" onclick = "Booking(@room.RoomId)">Đặt Phòng</button>
-                                                   </div>
-                                                }else if (Model.isShowCancelBooking(room, user.UserId))
+                                            @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId)
+                                            {
+                                                if (Model.isShowBooking(room, user.UserId))
                                                 {
                                                     <div class="text-center">
-                                                    <button class="btn btn-success" onclick = "CancelBooking(@room.RoomId)">Hủy Đặt Phòng</button>
+                                                        <button class="btn btn-success" onclick="Booking(@room.RoomId)">Đặt Phòng</button>
+                                                    </div>
+                                                }
+                                                else if (Model.isShowCancelBooking(room, user.UserId))
+                                                {
+                                                    <div class="text-center">
+                                                        <button class="btn btn-success" onclick="CancelBooking(@room.RoomId)">Hủy Đặt Phòng</button>
                                                     </div>
                                                 }
                                             }
                                             @*Cần Pass*@
-                                            @if(room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId){
-                                                <div class="text-center">
-                                                    <button class="btn btn-success">Đặt Phòng</button>
-                                                </div>
-                                            }    
-                                        }                                        
-                                        </div> 
+                                            @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId)
+                                            {
+                                                if (Model.isMemberOfRoom(room, user.UserId).Result == true)
+                                                {
+                                                    <div class="text-center">
+                                                        <button class="btn btn-success" onclick = "GoRoomDetail(@room.RoomId)">Xem Chi Tiết (Your Room)</button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-center">
+                                                        <button class="btn btn-success" onclick="BookingPassing(@room.RoomId)">Đặt Phòng</button>
+                                                    </div>
+                                                }
+                                            }
+                                        }
                                     </div>
-                                </div> 
-                        }
-                     <!-- This is pagination -->  
-                    <div class="col-md-12"> 
-                        <div class="pull-right">
-                            <div class="pagination">
-                                 <ul id="paggerBottom">
-                                 </ul>
+                                </div>
                             </div>
-                        </div>                
+                        }
+                        <!-- This is pagination -->
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <div class="pagination">
+                                    <ul id="paggerBottom">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>  
-               </div>              
+                </div>
             </div>
-</div>
-@section Scripts{
-   <script>
-        var pageindex = @ViewData["pageIndex"]; 
-        var totalpage = @ViewData["totalPage"]; 
-        var container = document.getElementById('paggerBottom');
-        var gap = 2;
-        var url_param = '@ViewData["url"]';
-        pagination(pageindex,totalpage,container,gap,url_param); 
+        </div>
+        @section Scripts{
+        <script>
+            var pageindex = @ViewData["pageIndex"];
+            var totalpage = @ViewData["totalPage"];
+            var container = document.getElementById('paggerBottom');
+            var gap = 2;
+            var url_param = '@ViewData["url"]';
+            pagination(pageindex,totalpage,container,gap,url_param);
 
-        // Đặt phòng
-        function Booking(roomId){
-             swal({
-                    title: "Are you sure?",
-                    text: "Bạn chắc chắn muốn đăng kí phòng này?",
-                    icon: "info",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willBooking) => {
-                    if (willBooking) {
-                        window.location.href = "/user/mylistroom?handler=Register&roomid="+roomId;
-                    }
-                });
+            // Đến Room Detail 
+            function GoRoomDetail(roomId){
+                window.location.href = "/room/detail?id=" +roomId; 
+            }
+
+            // Đặt phòng
+            function Booking(roomId){
+                 swal({
+                        title: "Are you sure?",
+                        text: "Bạn chắc chắn muốn đăng kí phòng này?",
+                        icon: "info",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willBooking) => {
+                        if (willBooking) {
+                            window.location.href = "/user/mylistroom?handler=Register&roomid="+roomId;
+                        }
+                    });
+            }
+            // Hủy Phòng
+            function CancelBooking(roomId){
+                 swal({
+                        title: "Are you sure?",
+                        text: "Bạn chắc chắn muốn hủy đăng kí phòng này?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willBooking) => {
+                        if (willBooking) {
+                            window.location.href = "/user/mylistroom?handler=UnRegister&roomid="+roomId;
+                        }
+                    });
+            }
+            // Booking Phòng
+            function BookingPassing(roomId){
+                 swal({
+                        title: "Are you sure?",
+                        text: "Bạn chắc chắn muốn đăng kí với chủ phòng?",
+                        icon: "info",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willBooking) => {
+                        if (willBooking) {
+                            window.location.href = "/user/mylistroom?handler=RegisterPassing&roomid="+roomId;
+                        }
+                    });
+            }
+            // Hủy Booking Phòng
+        </script>
         }
-        // Hủy Phòng 
-        function CancelBooking(roomId){
-             swal({
-                    title: "Are you sure?",
-                    text: "Bạn chắc chắn muốn hủy đăng kí phòng này?",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willBooking) => {
-                    if (willBooking) {
-                        window.location.href = "/user/mylistroom?handler=UnRegister&roomid="+roomId;
-                    }
-                });
-        }
-        // Booking Phòng 
-        // Hủy Booking Phòng 
-   </script>
-}
