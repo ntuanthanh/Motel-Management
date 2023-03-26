@@ -28,6 +28,10 @@ namespace MotelManagement.Business.Service
         {
             return await _unitOfWork.bookingRepository.isBooking(roomid, userId); 
         }
+        public async Task<bool> isBookingPassing(int? roomid, int userId)
+        {
+            return await _unitOfWork.bookingRepository.isBookingPassing(roomid, userId);
+        }
 
         public async Task<bool> isRoomRented(int? roomId)
         {
@@ -47,6 +51,30 @@ namespace MotelManagement.Business.Service
             booking.Status = (int)REGISTER_ROOM_STATE.REGISTER;
             booking.BookingTime = DateTime.Now;
             booking.MeetingDate = null; 
+            await _unitOfWork.bookingRepository.AddAsync(booking);
+            await _unitOfWork.SaveAsync();
+        }
+        public async Task RegisterPassing(int userId, int roomid)
+        {
+            // roomId
+            // userId là ReuqestUser : người gửi yêu cầu muốn đăng kí đến member
+            int member; // không cần, đang set trong trường là null 
+
+            Passing passing = new Passing();
+            passing.RoomId = roomid; 
+            passing.UserRequestId = userId;
+            passing.Status = (int)REGISTER_ROOM_STATE.REGISTER;
+            passing.BookingTime = DateTime.Now; 
+            passing.MeetingDate = null;
+            passing.Member = null;
+            //await _unitOfWork.passing.AddAsync(passing); 
+
+            Booking booking = new Booking();
+            booking.RoomId = roomid;
+            booking.UserId = userId;
+            booking.Status = (int)REGISTER_ROOM_STATE.REGISTER;
+            booking.BookingTime = DateTime.Now;
+            booking.MeetingDate = null;
             await _unitOfWork.bookingRepository.AddAsync(booking);
             await _unitOfWork.SaveAsync();
         }

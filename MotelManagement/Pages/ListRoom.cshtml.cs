@@ -11,6 +11,7 @@ namespace MotelManagement.Pages
     {
         private readonly IRoomService _roomService;
         private readonly IRoomTypeService _roomTypeService;
+        private readonly IContractService _contractService;
 
      //   Design : Hiện nút booking : 
      //   TH1 : room và user chưa nằm trong bảng booking
@@ -41,10 +42,17 @@ namespace MotelManagement.Pages
             return false;
         }
 
-        public ListRoomModel(IRoomService roomService, IRoomTypeService roomTypeService)
+        // Check nếu như là member của phòng này 
+        public async Task<bool> isMemberOfRoom(Room room, int userId)
+        {
+            return await _contractService.isMemberOfRoom(room.RoomId, userId); 
+        }
+
+        public ListRoomModel(IRoomService roomService, IRoomTypeService roomTypeService, IContractService contractService)
         {
             _roomService = roomService;
             _roomTypeService = roomTypeService;
+            _contractService = contractService; 
         }
         public async Task<IActionResult> OnGetAsync(string nameRoom, int? roomTypeId, int? status, string price, string sizePerson, int pageIndex)
         {
