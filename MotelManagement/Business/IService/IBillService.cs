@@ -14,5 +14,6 @@ namespace MotelManagement.Business.IService
         public Task SubmitBillAsync(Bill bill);
         public Task CreateBill(List<Bill> listBills);    
         public Task<List<Bill>> GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex);
+        public Task SaveBillAsync(List<Bill> listBills);
     }
 }

@@ -11,5 +11,6 @@ namespace MotelManagement.Core.IRepository
         public Task<List<Bill>> getListUnPaidBills(int userId, int roomId);
         public Task CreateBill(List<Bill> listBills);    
         public Task SubmitBillAsync(Bill bill);
+        public Task SaveBillAsync(List<Bill> bills);
     }
 }
