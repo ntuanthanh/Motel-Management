@@ -1,0 +1,193 @@
+﻿@page "/user/room/passing/list"
+@using MotelManagement.Data.Models
+@model MotelManagement.Pages.ListPassingModel
+@{
+}
+<div style="background: #e6f2ec">
+    @if (Model.bookings != null && Model.bookings.Count > 0)
+    {
+        <div class="row" style="margin-left : 10px; margin-right: 10px">
+            <div class="col-md-8" style="margin-top: 20px; ">
+                <h4 class="card-title float-left mt-2">Danh Sách Booking: <span style="color : red">@Model.bookings.ElementAt(0).Room.Name</span></h4>
+            </div>
+            <div class="col-md-4" style="margin-top: 20px; ">
+                <form method="post" asp-page-handler="AllUser" class="float-right">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <input type="datetime-local" name="meetingdate" />
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success veiwbutton ">Hẹn Tất Cả User</button>
+                            <input hidden="hidden" type="text" name="roomId" value="@Model.bookings.ElementAt(0).Room.RoomId" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    @if ((bool)ViewData["isRoomRented"] == true)
+    {
+        <h3 class="align-items-center" style="margin-top:10px; color : red">Phòng này bạn đang thuê - chưa passing nên không có danh sách booking</h3>
+    }
+    @if ((bool)ViewData["isRoomWaiting"] == true)
+    {
+        <h3 class="align-items-center" style="margin-top:10px; color : red">Đang gửi yêu cầu duyệt nhượng phòng cho admin - nên không có danh sách booking</h3>
+    }
+    <div style="margin-left : 20px; margin-right : 20px; margin-top : 50px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="/user/room/passing/list" method="Get">
+                    <input type="hidden" name="roomId" value="@ViewData["roomId"]" />
+                    <div class="row formtype">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tên Người Booking</label>
+                                <input class="form-control" name="nameBooking" type="text" value="@ViewData["nameBooking"]" placeholder="Search Theo Tên">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" name="emailBooking" type="text" value="@ViewData["emailBooking"]" placeholder="Search Theo Email">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input class="form-control" name="phoneBooking" type="text" value="@ViewData["phoneBooking"]" placeholder="Search Theo Phone">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>From Date Booking</label>
+                                <div class="cal-icon">
+                                    <input type="date" name="fromBooking" value="@ViewData["fromBooking"]" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>To Date Booking</label>
+                                <div class="cal-icon">
+                                    <input type="date" name="toBooking" value="@ViewData["toBooking"]" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Search</label>
+                                <button class="btn btn-info m-t-0 btn-block search_button"> Search </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body booking_card">
+                        <div class="table-responsive">
+                            <table class="table table-stripped table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Người Booking</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Booking Time</th>
+                                        <th>Meeting Date</th>
+                                        <th>Xác nhận cho nhượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.bookings != null)
+                                    {
+                                        @foreach (Passing booking in Model.bookings)
+                                        {
+                                            <tr>
+                                                <td>@booking.UserRequest.FullName</td>
+                                                <td>@booking.UserRequest.Email</td>
+                                                <td>@booking.UserRequest.Phone</td>
+                                                <td>@booking.BookingTime</td>
+                                                <td><input onchange="ChangeTimeMeeting(this.value ,@booking.PassingId,@booking.RoomId)" type="datetime-local" name="meetingdate" value="@booking.MeetingDate?.ToString("yyyy-MM-ddTHH:mm")" /></td>
+                                                <td><a href="/user/room/passing/list?handler=SetMemberToRoom&roomId=@booking.RoomId&userId=@booking.UserRequestId&price=@booking.Room.Price&bookingId=@booking.PassingId" id="SetMemberToRoom" class="btn btn-success veiwbutton ">Đồng ý</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script>
+        function ChangeTimeMeeting(meetingDate, bookingId, roomId){
+            console.log("a");
+            window.location.href = "/user/room/passing/list?handler=ChangeMeeting&meetingDate="+meetingDate+"&bookingId="+bookingId+"&roomId="+roomId;
+       }
+
+       if(document.querySelector("#SetMemberToRoom")!=null){
+        [document.querySelector("#SetMemberToRoom")].forEach(
+        (item) => {
+            item.addEventListener("click", (event) => {
+                event.preventDefault();
+                swal({
+                    title: "Nhường phòng cho người này?",
+                    text: "Booking sẽ bị hủy nếu nhượng phòng - chờ Admin duyệt!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = item.href;
+                    }
+                });
+            })
+        }
+    )
+    }
+
+        @{
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].Equals("Success"))
+                {
+                                <text>
+                                    swal({
+                                        title: "Cập nhật thành công!",
+                                        text: "",
+                                        icon: "success",
+                                        buttons: false
+                                    });
+                                </text>
+                }
+                else if(TempData["Message"].Equals("Probs"))
+                {
+                                <text>
+                                    swal({
+                                        title: "Cập nhật thất bại!",
+                                        text: "Opps! Đã có lỗi xảy ra!",
+                                        icon: "warning",
+                                        buttons: false
+                                    })
+                                </text>
+               }else if(TempData["Message"].Equals("Registered"))
+               {
+                                <text>
+                                    swal({
+                                        title: "Cập nhật thất bại!",
+                                        text: "Phòng này bạn đã đăng kí",
+                                        icon: "warning",
+                                        buttons: false
+                                    })
+                                </text>
+               }
+        }
+    }
+</script>
+}
