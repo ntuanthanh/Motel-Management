@@ -4,7 +4,8 @@
     {
         RENTED = 1,
         PROCESSING = 2,
-        PASSING = 3
+        PASSING = 3, 
+        Waiting = 4
     }
 
     enum PAYMENT_STATE
@@ -26,7 +27,8 @@
         REGISTER = 1,
         UN_REGISTER = 0,
         SUCCESS = 2,
-        REJECT = 3
+        REJECT = 3,
+        Waiting = 4
     }
 
     enum PageManagement

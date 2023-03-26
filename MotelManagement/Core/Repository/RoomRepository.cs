@@ -45,6 +45,16 @@ namespace MotelManagement.Core.Repository
             Room room =  _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 2).FirstOrDefault();
             return (room == null ? true : false);
         }
+        public async Task<bool> isRoomRentedReal(int? roomId)
+        {
+            Room room = _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 1).FirstOrDefault();
+            return (room != null ? true : false);
+        }
+        public async Task<bool> isRoomWaiting(int? roomId)
+        {
+            Room room = _context.Rooms.Where(r => r.RoomId == roomId && r.StatusId == 4).FirstOrDefault();
+            return (room != null ? true : false);
+        }
 
         public async Task<List<Room>> RoomSimilar(int? status)
         {
