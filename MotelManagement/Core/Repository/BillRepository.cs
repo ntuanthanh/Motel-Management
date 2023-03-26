@@ -79,15 +79,21 @@ namespace MotelManagement.Core.Repository
             await _context.SaveChangesAsync();
         }
 
-        Task<List<Bill>> IBillRepository.GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex)
+        public async Task<List<Bill>> GetListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex, bool isPagging)
         {
-            return _context.Bills.Include(b=>b.User).Include(b=>b.Room)
-                                    .Where(b=>b.CreatedDate >= (from??b.CreatedDate)&&
-                                    b.CreatedDate<= (to??b.CreatedDate)&&
-                                    b.Room.Name.Contains(roomName??"")&&
-                                    b.User.FullName.Contains(owner??""))
-                                    .Skip((pageIndex - 1) * (int)PageManagement.PageSize).Take((int)PageManagement.PageSize)
+            IQueryable<Bill>  query = _context.Bills.Include(b => b.User).Include(b => b.Room)
+                                    .Where(b => b.CreatedDate >= (from ?? b.CreatedDate) &&
+                                    b.CreatedDate <= (to ?? b.CreatedDate) &&
+                                    b.Room.Name.Contains(roomName ?? "") &&
+                                    b.User.FullName.Contains(owner ?? "")).OrderByDescending(b => b.CreatedDate).AsQueryable();
+            if(isPagging) {
+                return await query.Skip((pageIndex - 1) * (int)PageManagement.PageSize).Take((int)PageManagement.PageSize)
                                     .ToListAsync<Bill>();
+            }
+            else
+            {
+                return await query.ToListAsync<Bill>();   
+            }
         }
 
         public async Task CreateBill(List<Bill> listBills)
@@ -102,6 +108,16 @@ namespace MotelManagement.Core.Repository
                 _context.Attach(bill).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
+        }
+
+        public Task<int> CountListBillsByAdmin(DateTime? from, DateTime? to, string roomName, string owner)
+        {
+            return _context.Bills.Include(b => b.User).Include(b => b.Room)
+                                    .Where(b => b.CreatedDate >= (from ?? b.CreatedDate) &&
+                                    b.CreatedDate <= (to ?? b.CreatedDate) &&
+                                    b.Room.Name.Contains(roomName ?? "") &&
+                                    b.User.FullName.Contains(owner ?? ""))                           
+                                    .CountAsync();
         }
     }
 }

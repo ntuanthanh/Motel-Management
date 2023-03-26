@@ -72,11 +72,9 @@ namespace MotelManagement.Core.Repository
             room.StatusId = status;
             _context.Update(room);
         }
-        public async Task<bool> isRoomRented(string roomName)
+        public async Task<Contract> isRoomRented(string roomName)
         {
-            return await _context.Rooms.Where(r=>r.Name.ToLower().Equals(roomName.ToLower())
-                                && (r.StatusId==(int)ROOM_STATE.RENTED || r.StatusId == (int) ROOM_STATE.PASSING)
-                                ).FirstOrDefaultAsync() == null ? true:false;
+            return await _context.Contracts.Include(c => c.Room).Where(c => c.Room.Name.Equals(roomName)).FirstOrDefaultAsync();         
         }
     }
 }

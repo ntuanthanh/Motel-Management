@@ -11,7 +11,7 @@ namespace MotelManagement.Data.Models
         public int BillId { get; set; }
         public int RoomId { get; set; }
         public int UserId { get; set; }
-        public DateTime PaidTime { get; set; }
+        public DateTime? PaidTime { get; set; }
         public DateTime? AcceptTime { get; set; }
         public DateTime? CreatedDate { get; set; }
         public decimal RoomBill { get; set; }
