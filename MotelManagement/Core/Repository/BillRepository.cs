@@ -95,5 +95,13 @@ namespace MotelManagement.Core.Repository
             await _context.Bills.AddRangeAsync(listBills);
             await _context.SaveChangesAsync();
         }
+
+        public async Task SaveBillAsync(List<Bill> bills)
+        {
+            foreach(var bill in bills) {
+                _context.Attach(bill).State = EntityState.Modified;
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

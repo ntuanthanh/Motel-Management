@@ -19,9 +19,9 @@
                                     Tùy chọn
                                 </button>
                                 <div class="dropdown-menu" id="menu-modal" style="">
-                                    <a class="dropdown-item" href="#">Lưu hóa đơn</a>
-                                    <a class="dropdown-item" href="#">Kết xuất hóa đơn</a>
-                                    <a class="dropdown-item" href="#">Hoàn thành hóa đơn</a>
+                                    <a class="dropdown-item" href="#" id="save-bill">Lưu hóa đơn</a>
+                                    <a class="dropdown-item" href="#" id="export-bill">Kết xuất hóa đơn</a>
+                                    <a class="dropdown-item" href="#" id="finish-bill">Hoàn thành hóa đơn</a>
                                     <a class="dropdown-item" data-toggle="modal" data-target="#CreateBill">
                                         Tạo hóa đơn
                                     </a>
@@ -119,10 +119,12 @@
                                     <thead>
                                         <tr>
                                             <th>Phòng</th>
-                                            <th>Tên khách hàng</th>                                         
+                                            <th>Tên khách hàng</th>            
+                                            <th>Tiền phòng</th>
                                             <th>Điện</th>
                                             <th>Nước</th>
                                             <th>Dịch vụ</th>
+                                            <th>Trạng thái</th>
                                             <th>Đã nộp</th>
                                             <th>Ngày nộp</th>
                                             <th>Ngày duyệt</th>
@@ -136,15 +138,35 @@
                                         {
                                             foreach (Bill bill in Model.listBills)
                                             {
+                                                <form method="post" asp-page-handler="SaveBill" id="form-bill">
                                                 <tr>
+                                                    <input name="billIds" value="@bill.BillId" hidden></input>
                                                     <td>@bill.Room.Name</td>
                                                     <td>@bill.User.FullName</td>
+                                                    <td>@bill.RoomBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>@bill.ElectricBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>@bill.WaterBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
                                                     <td>@bill.ServiceBill.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ</td>
-                                                    <td><input type="currency"></td>
+                                                    <td>
+                                                        <select class="form-control">
+                                                                @{
+                                                                    foreach (Status s in Model.listStates)
+                                                                    {
+                                                                        if (s.StatusId == bill.BillState)
+                                                                        {
+                                                                        <option value="@s.StatusId" selected>@s.Name</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                        <option value="@s.StatusId">@s.Name</option>
+                                                                        }
+                                                                    }
+                                                                }
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="currency" class="form-control"></td>
                                                     <td>@bill.PaidTime</td>
-                                                    <td>@bill.AcceptTime</td>                                                    
+                                                    <td>@bill.AcceptTime</td>
                                                     <td>
                                                         <div class="gallery_cus" style="width: 50px;height: 80px">
                                                             <img src="/upload/@bill.BankingImage">
@@ -152,9 +174,9 @@
                                                     </td>
                                                     <td>@bill.Description</td>
                                                 </tr>
+                                                </form>
                                             }
                                         }
-
                                     }
                                     </tbody>
                                 </table>
@@ -207,13 +229,30 @@
 
         });
 
+        $('#save-bill').click(function(){
+            swal({
+                title: "Bạn muốn lưu hóa đơn này chứ?",
+                text: "Nếu đồng ý, mọi thông tin sẽ được lưu vào trong CSDL!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    $('#form-bill').submit();
+                }
+            });
+        });
+
     </script>
 
     <script>
         $(function () {
             $('#datetimepicker3').datetimepicker({
                 format: 'LT'
-
             });
         });
     </script>

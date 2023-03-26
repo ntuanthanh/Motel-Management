@@ -54,5 +54,10 @@ namespace MotelManagement.Business.Service
         {
             await _unitOfWork.billRepository.CreateBill(listBills);
         }
+
+        public async Task SaveBillAsync(List<Bill> bills)
+        {
+            await _unitOfWork.billRepository.SaveBillAsync(bills);
+        }
     }
 }
