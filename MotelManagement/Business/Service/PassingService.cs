@@ -95,5 +95,20 @@ namespace MotelManagement.Business.Service
             await _unitOfWork.roomRepository.UpdateStatusRoom(roomid, (int)ROOM_STATE.PASSING);
             await _unitOfWork.SaveAsync();
         }
+
+        public async Task<List<Passing>> GetListPassings(int userId)
+        {
+            return await _unitOfWork.passingRepository.GetListPassings(userId);
+        }
+
+        public async Task<bool> isPassing(int roomid, int userId)
+        {
+            return await _unitOfWork.passingRepository.isPassing(roomid, userId);
+        }
+
+        public async Task UpdateUnregisterPassing(int userId, int roomid)
+        {
+            await _unitOfWork.passingRepository.UpdateUnregisterPassing(userId, roomid);
+        }
     }
 }

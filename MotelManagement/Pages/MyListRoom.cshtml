@@ -4,6 +4,7 @@
 @using MotelManagement.Common;
 @{
     List<Booking> list = (List<Booking>)ViewData["list"];
+    List<Passing> listPassings = (List<Passing>)ViewData["listPassings"];
     List<Contract> listContracts = (List<Contract>)ViewData["listContracts"];
 }
 <div class="page-head">
@@ -25,10 +26,13 @@
                 <div class="panel-heading panel-heading-nav">
                     <ul class="nav nav-tabs">
                         <li role="presentation" class="active">
-                            <a href="#one" aria-controls="one" role="tab" data-toggle="tab">Phòng đã thuê</a>
+                            <a href="#one" aria-controls="one" role="tab" data-toggle="tab">Phòng đăng ký thuê</a>
                         </li>
                         <li role="presentation">
-                            <a href="#two" aria-controls="two" role="tab" data-toggle="tab"> Phòng đã đăng ký</a>
+                            <a href="#two" aria-controls="two" role="tab" data-toggle="tab"> Phòng đăng ký nhượng</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#three" aria-controls="three" role="tab" data-toggle="tab"> Phòng đã thuê</a>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +90,60 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="two">
+
+                         <div role="tabpanel" class="tab-pane fade in active" id="two">
+                            <div class="section">
+                                <div id="list-type" class="proerty-th-list">
+                                @{
+                                    foreach (Passing p in listPassings){
+                                    <div class="col-md-4 p0">
+                                        <div class="box-two proerty-item">
+                                            <div class="item-thumb">
+                                                <a href="../../room/detail?id=@p.RoomId"><img src="~/upload/@p.Room.Images.ElementAt(0).Url"></a>
+                                            </div>
+                                            <div class="item-entry overflow">
+                                                <h5><a href="../../room/detail?id=@p.RoomId"> </a></h5>
+                                                <div class="dot-hr"></div>
+                                                <span class="pull-left"><b> Tên phòng :</b> @p.Room.Name </span>
+                                                <span class="proerty-price pull-right" style ="font-size : 16px" >
+                                                    Giá: @p.Room.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VNĐ
+                                                </span>
+                                                <p style="display: none;">
+                                                    @p.Room.Description.Substring(0, 100);
+                                                    ...
+                                                </p>
+                                                <div class="property-icon">
+                                                    Trạng thái:
+                                                    @{
+                                                        if ((int)REGISTER_ROOM_STATE.UN_REGISTER == p.Status)
+                                                        {
+                                                            <span style="color: red">Hủy đăng ký</span>
+                                                        }
+                                                        else if ((int)REGISTER_ROOM_STATE.REGISTER == p.Status)
+                                                        {
+                                                            <span style="color: #FDC600">Chờ duyệt</span>
+                                                        }
+                                                    }
+
+                                                    <div class="pull-right">
+                                                        @if ((int)REGISTER_ROOM_STATE.REGISTER == p.Status)
+                                                        {
+                                                            <a href="/user/mylistroom?handler=UnregisterPassing&roomid=@p.RoomId" style="color: red; padding-right: 8px" class="button" id="unregister">Hủy đăng ký</a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                   <p style="font-weight: bold; color: #333;">Đặt phòng vào <span style ="color:red">@p.BookingTime.ToString("dd/MM/yyyy") lúc @p.BookingTime.ToString("HH:mm")</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane fade" id="three">
                             <div class="section">
                                 <div id="list-type" class="proerty-th-list">
                                 @{
@@ -137,42 +194,9 @@
                     </div>
                 </div>
             </div>
-            <div class="section">
-                <div class="pull-right">
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="#">Prev</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">Next</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 
-            </div>
 
-            <div class="col-md-3 p0 padding-top-40">
-                <div class="blog-asside-right">
-                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Hello Kimaro</h3>
-                        </div>
-                        <div class="panel-body search-widget">
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Recommended</h3>
-                        </div>
-                        <div class="panel-body recent-property-widget">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -107,5 +107,31 @@ namespace MotelManagement.Core.Repository
             booking.Status = status;
             _context.Update(booking);
         }
+
+        public async Task<List<Passing>> GetListPassings(int userId)
+        {
+            return await _context.Passings.Where(p => p.UserRequestId == userId &&
+                                                    (p.Status == (int)REGISTER_ROOM_STATE.REJECT||
+                                                     p.Status == (int)REGISTER_ROOM_STATE.REGISTER||
+                                                     p.Status == (int)REGISTER_ROOM_STATE.Waiting)).ToListAsync();
+
+        }
+
+        public async Task<bool> isPassing(int roomid, int userId)
+        {
+            Passing passing = await _context.Passings
+                                            .Where(b => b.RoomId == roomid && b.UserRequestId == userId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER)
+                                            .FirstOrDefaultAsync();
+            return passing != null;
+        }
+
+        public async Task UpdateUnregisterPassing(int userId, int roomid)
+        {
+            Passing passing = await _context.Passings
+                                .Where(b => b.RoomId == roomid && b.UserRequestId == userId && b.Status == (int)REGISTER_ROOM_STATE.REGISTER)
+                                .FirstOrDefaultAsync();
+            passing.Status = (int)REGISTER_ROOM_STATE.UN_REGISTER;
+            _context.Entry(passing).Property(s => s.Status).IsModified = true;
+        }
     }
 }

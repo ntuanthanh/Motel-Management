@@ -162,6 +162,7 @@ namespace MotelManagement.Pages.admin
             var stream = new MemoryStream();
             workbook.SaveAs(stream);
             stream.Position = 0;
+            Response.Headers.Add("Refresh", "1;url=/admin/bill");
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "HoaDonPhong.xlsx");
         }
 

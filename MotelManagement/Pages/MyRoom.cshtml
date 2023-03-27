@@ -5,6 +5,7 @@
 @using System;
 @{
     List<Bill> listBills = (List<Bill>)ViewData["listUnPaidBills"];
+    Room room = (Room)ViewData["room"];
 }
 <link rel="stylesheet" href="~/Assets/Admin/css/zoomimage.css">
 
@@ -376,182 +377,76 @@
                     <h4 class="s-property-title">Mô tả</h4>
                     <div class="s-property-content">
                         <p>
-                            Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse
-                            ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium.
-                            Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu
-                            nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies
-                            commodo arcu nec pretium. Nullam sed arcu ultricies
+                            @room.Description
                         </p>
                     </div>
                 </div>
                 <!-- End description area  -->
 
-                <div class="section additional-details">
 
-                    <h4 class="s-property-title">Additional Details</h4>
+                    <div class="section additional-details">
 
-                    <ul class="additional-details-list clearfix">
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
-                        </li>
+                        <h4 class="s-property-title">Additional Details</h4>
 
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Built In</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2003</span>
-                        </li>
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                2 Or More Spaces,Covered
-                                Parking,Valet Parking
-                            </span>
-                        </li>
-
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
-                        </li>
-
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">View</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal View,Direct ew</span>
-                        </li>
-
-                        <li>
-                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront Description:</span>
-                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                Intracoastal Front,Ocean
-                                Access
-                            </span>
-                        </li>
-
-                    </ul>
-                </div>
-                <!-- End additional-details area  -->
-
-                <div class="section property-features">
-
-                    <h4 class="s-property-title">Features</h4>
-                    <ul>
-                        <li><a href="properties.html">Swimming Pool</a></li>
-                        <li><a href="properties.html">3 Stories</a></li>
-                        <li><a href="properties.html">Central Cooling</a></li>
-                        <li><a href="properties.html">Jog Path 2</a></li>
-                        <li><a href="properties.html">2 Lawn</a></li>
-                        <li><a href="properties.html">Bike Path</a></li>
-                    </ul>
-
-                </div>
-                <!-- End features area  -->
-
-                <div class="section property-video">
-                    <h4 class="s-property-title">Property Video</h4>
-                    <div class="video-thumb">
-                        <a class="video-popup" href="yout" title="Virtual Tour">
-                            <img src="assets/img/property-video.jpg" class="img-responsive wp-post-image"
-                                 alt="Exterior">
-                        </a>
-                    </div>
-                </div>
-                <!-- End video area  -->
-
-
-
-                <div class="section property-share">
-                    <h4 class="s-property-title">Share width your friends </h4>
-                    <div class="roperty-social">
-                        <ul>
+                        <ul class="additional-details-list clearfix">
                             <li>
-                                <a title="Share this on dribbble " href="#">
-                                    <img src="assets/img/social_big/dribbble_grey.png">
-                                </a>
+                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Tình Trạng</span>
+                                @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[0].StatusId)
+                                {
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry" style = "font-weight:bold" >Đã có người  thuê</span>
+                                }
+                                @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[1].StatusId)
+                                {
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry" style = "font-weight:bold" >Còn Trống</span>
+                                }
+                                @if (room.StatusId == ((List<Status>)@ViewData["statusList"])[2].StatusId)
+                                {
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry" style = "font-weight:bold">Cần Pass</span>
+                                }
                             </li>
                             <li>
-                                <a title="Share this on facebok " href="#">
-                                    <img src="assets/img/social_big/facebook_grey.png">
-                                </a>
+                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Xây dựng vào năm</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2020</span>
                             </li>
                             <li>
-                                <a title="Share this on delicious " href="#">
-                                    <img src="assets/img/social_big/delicious_grey.png">
-                                </a>
+                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Địa chỉ</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Cách trường đại học FPT 1km, Thôn 8 Thạch Hòa, Thạch Thất, Hà Nội </span>
                             </li>
+
                             <li>
-                                <a title="Share this on tumblr " href="#">
-                                    <img src="assets/img/social_big/tumblr_grey.png">
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Share this on digg " href="#">
-                                    <img src="assets/img/social_big/digg_grey.png">
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Share this on twitter " href="#">
-                                    <img src="assets/img/social_big/twitter_grey.png">
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Share this on linkedin " href="#">
-                                    <img src="assets/img/social_big/linkedin_grey.png">
-                                </a>
+                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Tối đa</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">@room.MaxPerson Người</span>
                             </li>
                         </ul>
                     </div>
-                </div>
+                    <!-- End additional-details area  -->
+
+                    <div class="section property-video">
+                        <h4 class="s-property-title">Property Video</h4>
+                        <div class="video-thumb">
+                            <a class="video-popup" href="yout" title="Virtual Tour">
+                                <img src="~/Assets/User/assets/img/property-video.jpg" class="img-responsive wp-post-image" alt="Exterior">
+                            </a>
+                        </div>
+                    </div>
+
                 <!-- End video area  -->
-
+                    <div class="section property-share">
+                        <h4 class="s-property-title">Share width your friends </h4>
+                        <div class="roperty-social">
+                            <ul>
+                                <li><a title="Share this on dribbble " href="#"><img src="~/Assets/User/assets/img/social_big/dribbble_grey.png"></a></li>
+                                <li><a title="Share this on facebok " href="#"><img src="~/Assets/User/assets/img/social_big/facebook_grey.png"></a></li>
+                                <li><a title="Share this on delicious " href="#"><img src="~/Assets/User/assets/img/social_big/delicious_grey.png"></a></li>
+                                <li><a title="Share this on tumblr " href="#"><img src="~/Assets/User/assets/img/social_big/tumblr_grey.png"></a></li>
+                                <li><a title="Share this on digg " href="#"><img src="~/Assets/User/assets/img/social_big/digg_grey.png"></a></li>
+                                <li><a title="Share this on twitter " href="#"><img src="~/Assets/User/assets/img/social_big/twitter_grey.png"></a></li>
+                                <li><a title="Share this on linkedin " href="#"><img src="~/Assets/User/assets/img/social_big/linkedin_grey.png"></a></li>
+                            </ul>
+                        </div>
+                    </div>
             </div>
 
-            <div class="similar-post-section padding-top-40">
-                <div id="prop-smlr-slide_0">
-                    <div class="box-two proerty-item">
-                        <div class="item-thumb">
-                            <a href="property-1.html"><img src="assets/img/similar/property-1.jpg"></a>
-                        </div>
-                        <div class="item-entry overflow">
-                            <h5><a href="property-1.html"> Super nice villa </a></h5>
-                            <div class="dot-hr"></div>
-                            <span class="pull-left"><b> Area :</b> 120m </span>
-                            <span class="proerty-price pull-right"> $ 300,000</span>
-                        </div>
-                    </div>
-                    <div class="box-two proerty-item">
-                        <div class="item-thumb">
-                            <a href="property-1.html"><img src="assets/img/similar/property-2.jpg"></a>
-                        </div>
-                        <div class="item-entry overflow">
-                            <h5><a href="property-1.html"> Super nice villa </a></h5>
-                            <div class="dot-hr"></div>
-                            <span class="pull-left"><b> Area :</b> 120m </span>
-                            <span class="proerty-price pull-right"> $ 300,000</span>
-                        </div>
-                    </div>
-                    <div class="box-two proerty-item">
-                        <div class="item-thumb">
-                            <a href="property-1.html"><img src="assets/img/similar/property-3.jpg"></a>
-                        </div>
-                        <div class="item-entry overflow">
-                            <h5><a href="property-1.html"> Super nice villa </a></h5>
-                            <div class="dot-hr"></div>
-                            <span class="pull-left"><b> Area :</b> 120m </span>
-                            <span class="proerty-price pull-right"> $ 300,000</span>
-                        </div>
-                    </div>
-                    <div class="box-two proerty-item">
-                        <div class="item-thumb">
-                            <a href="property-1.html"><img src="assets/img/similar/property-1.jpg"></a>
-                        </div>
-                        <div class="item-entry overflow">
-                            <h5><a href="property-1.html"> Super nice villa </a></h5>
-                            <div class="dot-hr"></div>
-                            <span class="pull-left"><b> Area :</b> 120m </span>
-                            <span class="proerty-price pull-right"> $ 300,000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -580,7 +475,8 @@
                 loadData(url);
             });
             // load data for first time go to page
-            loadData("http://localhost:5027/user/manageroom?handler=Bill&paidTimeFrom=&paidTimeTo=&confirmDateFrom=&confirmDateTo=&isDept=-2&owner=-1&roomId=5");
+            var id = @ViewData["roomId"];
+            loadData(`http://localhost:5027/user/manageroom?handler=Bill&paidTimeFrom=&paidTimeTo=&confirmDateFrom=&confirmDateTo=&isDept=-2&owner=-1&roomId=${id}`);
             //submit form bill
             $("#submit-bill").click(function (event) {
                 $("#bill-form").submit();

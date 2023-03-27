@@ -43,6 +43,13 @@ namespace MotelManagement.Pages
                     ViewData["listUnpaidBills"] = listUnPaidBills;
                     ViewData["owners"] = owners;
                     ViewData["roomId"] = roomId;
+                    Room room = await _serviceRoom.getRoomById(roomId);
+                    ViewData["room"] = room;
+                    List<Status> statusList = new List<Status>();
+                    statusList.Add(new Status { StatusId = (int)ROOM_STATE.RENTED, Name = "Đã Thuê" });
+                    statusList.Add(new Status { StatusId = (int)ROOM_STATE.PROCESSING, Name = "Còn Trống" });
+                    statusList.Add(new Status { StatusId = (int)ROOM_STATE.PASSING, Name = "Muốn Pass" });
+                    ViewData["statusList"] = statusList;
                 }
                 catch (Exception ex)
                 {
