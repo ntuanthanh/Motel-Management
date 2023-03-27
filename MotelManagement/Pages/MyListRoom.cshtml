@@ -65,11 +65,13 @@
                                                     @{
                                                         if ((int)REGISTER_ROOM_STATE.UN_REGISTER == b.Status)
                                                         {
-                                                            <span style="color: red">Hủy đăng ký</span>
+                                                            <span style="color: darkorange">Hủy đăng ký</span>
                                                         }
                                                         else if ((int)REGISTER_ROOM_STATE.REGISTER == b.Status)
                                                         {
                                                             <span style="color: #FDC600">Chờ duyệt</span>
+                                                        }else if((int)REGISTER_ROOM_STATE.REJECT == b.Status){
+                                                            <span style="color: red">Yêu cầu bị từ chối</span>
                                                         }
                                                     }
 
@@ -117,11 +119,13 @@
                                                     @{
                                                         if ((int)REGISTER_ROOM_STATE.UN_REGISTER == p.Status)
                                                         {
-                                                            <span style="color: red">Hủy đăng ký</span>
+                                                            <span style="color: darkorange">Hủy đăng ký</span>
                                                         }
                                                         else if ((int)REGISTER_ROOM_STATE.REGISTER == p.Status)
                                                         {
                                                             <span style="color: #FDC600">Chờ duyệt</span>
+                                                        }else if((int)REGISTER_ROOM_STATE.REJECT == p.Status){
+                                                            <span style="color: red">Yêu cầu bị từ chối</span>
                                                         }
                                                     }
 

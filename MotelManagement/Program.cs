@@ -1,4 +1,7 @@
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MotelManagement.Authorization;
 using MotelManagement.Business.IService;
 using MotelManagement.Business.Service;
 using MotelManagement.Common;
@@ -31,6 +34,10 @@ builder.Services.AddScoped<IPassingService, PassingService>();
 builder.Services.AddScoped<IContractService, ContractService>();
 builder.Services.AddScoped<IBillService, BillService>();
 builder.Services.AddTransient<UploadFileUnit>();
+
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddDefaultTokenProviders();
 var app = builder.Build();
 
 
