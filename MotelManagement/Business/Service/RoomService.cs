@@ -108,6 +108,7 @@ namespace MotelManagement.Business.Service
         public async Task PassingRoom(Room room)
         {
             await _unitOfWork.roomRepository.UpdateStatusRoom(room.RoomId, (int)ROOM_STATE.PASSING);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

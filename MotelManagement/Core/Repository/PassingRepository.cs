@@ -110,10 +110,12 @@ namespace MotelManagement.Core.Repository
 
         public async Task<List<Passing>> GetListPassings(int userId)
         {
-            return await _context.Passings.Where(p => p.UserRequestId == userId &&
-                                                    (p.Status == (int)REGISTER_ROOM_STATE.REJECT||
-                                                     p.Status == (int)REGISTER_ROOM_STATE.REGISTER||
-                                                     p.Status == (int)REGISTER_ROOM_STATE.Waiting)).ToListAsync();
+            return await _context.Passings.Include(m => m.Room.Images).Where(p => p.UserRequestId == userId &&
+                                                    (p.Status == (int)REGISTER_ROOM_STATE.REJECT ||
+                                                     p.Status == (int)REGISTER_ROOM_STATE.REGISTER ||
+                                                     p.Status == (int)REGISTER_ROOM_STATE.Waiting ||
+                                                     p.Status == (int)REGISTER_ROOM_STATE.UN_REGISTER)
+                                                     ).ToListAsync();
 
         }
 

@@ -109,6 +109,7 @@ namespace MotelManagement.Business.Service
         public async Task UpdateUnregisterPassing(int userId, int roomid)
         {
             await _unitOfWork.passingRepository.UpdateUnregisterPassing(userId, roomid);
+            await _unitOfWork.SaveAsync();
         }
     }
 }
