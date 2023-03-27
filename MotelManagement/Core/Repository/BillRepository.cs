@@ -36,7 +36,7 @@ namespace MotelManagement.Core.Repository
             }
 
             list = await query.OrderByDescending(b=>b.PaidTime)
-                                            .Skip((pageIndex-1)*(int)PageManagement.PageSize).Take((int)PageManagement.PageSize).AsNoTracking().ToListAsync();
+                                            .Skip((pageIndex-1)*3).Take(3).AsNoTracking().ToListAsync();
             return list;
         }
 

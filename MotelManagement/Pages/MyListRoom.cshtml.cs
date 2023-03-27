@@ -32,7 +32,9 @@ namespace MotelManagement.Pages
                 {
                     List<Booking> list = await _serviceBooking.listBookings(user.UserId);
                     List<Contract> listContracts = await _serviceContract.getListContractsByUserId(user.UserId);
+                    List<Passing> listPassings = await _servicePassingService.GetListPassings(user.UserId);
                     ViewData["list"] = list;
+                    ViewData["listPassings"] = listPassings;
                     ViewData["listContracts"] = listContracts;
                     return Page();
                 }
@@ -72,6 +74,38 @@ namespace MotelManagement.Pages
             }
             return Redirect("~/user/mylistroom");
         }
+
+        public async Task<IActionResult> OnGetUnregisterPassingAsync(int roomid)
+        {
+
+            string json = HttpContext.Session.GetString("user");
+            User user = UserUtil.getUserFromSession(json);
+            if (user != null)
+            {
+                try
+                {
+                    bool isExist = await _servicePassingService.isPassing(roomid, user.UserId);
+                    if (isExist && roomid != null)
+                    {
+                        await _servicePassingService.UpdateUnregisterPassing(user.UserId, roomid);
+                        TempData["Message"] = "Success";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Probs";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.ToString());
+                    TempData["Message"] = "Probs";
+                }
+            }
+            return Redirect("~/user/mylistroom");
+        }
+
+
+
         // Thành 
         public async Task<IActionResult> OnGetRegisterAsync(int roomid)
         {
