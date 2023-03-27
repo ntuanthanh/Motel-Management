@@ -63,7 +63,7 @@ namespace MotelManagement.Core.Repository
         {
             List <Booking> listBooking = await _context.Bookings
                                             .Where(b => b.UserId == userId && 
-                                                        (b.Status == (int)REGISTER_ROOM_STATE.REGISTER || b.Status == (int)REGISTER_ROOM_STATE.UN_REGISTER))                   
+                                                        (b.Status == (int)REGISTER_ROOM_STATE.REGISTER || b.Status == (int)REGISTER_ROOM_STATE.UN_REGISTER || b.Status==(int)REGISTER_ROOM_STATE.REJECT))                   
                                             .Include(r=>r.Room)
                                             .ThenInclude(r => r.Images)
                                             .ToListAsync();
