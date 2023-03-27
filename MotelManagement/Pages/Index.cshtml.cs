@@ -14,9 +14,9 @@ namespace MotelManagement.Pages
             _roomTypeService = roomTypeService;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            
+            return Redirect("/room/list");
         }
     }
 }

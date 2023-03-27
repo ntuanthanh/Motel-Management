@@ -77,11 +77,11 @@ namespace MotelManagement.Business.Service
 
         public async Task SetUserBeMember(int userId, int roomid, decimal price, int bookingId)
         {
-            // Add to  Contract 
+            // Add to Contract 
             await _unitOfWork.contractRepository.addUsertoRoom(roomid, userId, price);
-            // Update status Booking 
+            // Update status Booking  
             await _unitOfWork.passingRepository.updateStatusPassing(userId, roomid, bookingId, (int)REGISTER_ROOM_STATE.SUCCESS); // Success
-            // Update status Room
+            // Update status Room 
             await _unitOfWork.roomRepository.UpdateStatusRoom(roomid, (int)ROOM_STATE.RENTED);
             // Save transaction 
             await _unitOfWork.SaveAsync();
