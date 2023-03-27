@@ -2,6 +2,7 @@
 using MotelManagement.Common;
 using MotelManagement.Core.IRepository;
 using MotelManagement.Data.Models;
+using System.Globalization;
 
 namespace MotelManagement.Core.Repository
 {
@@ -83,6 +84,28 @@ namespace MotelManagement.Core.Repository
                 book.Status = (int)REGISTER_ROOM_STATE.REJECT;
                 _context.Update(book);
             }
+        }
+
+        public async Task<List<Passing>> PassingListByRoomWaitingSearching(string? roomBooking, string? nameBooking, string? emailBooking, string? fromBooking, string? toBooking)
+        {
+            DateTime? from = fromBooking != null ? DateTime.ParseExact(fromBooking, "dd/MM/yyyy", CultureInfo.InvariantCulture) : null;
+            DateTime? to = toBooking != null ? DateTime.ParseExact(toBooking, "dd/MM/yyyy", CultureInfo.InvariantCulture) : null;
+
+            List<Passing> listPassings = new List<Passing>();
+            listPassings = await _context.Passings.Include(u => u.UserRequest).Include(u => u.Room).Where(b => b.Status == 4 && b.Room.Name.Contains(roomBooking ?? b.Room.Name)
+                                                                                                       && b.UserRequest.FullName.Contains(nameBooking ?? b.UserRequest.FullName)
+                                                                                                       && b.UserRequest.Email.Contains(emailBooking ?? b.UserRequest.Email)
+                                                                                                       && (b.BookingTime >= (from ?? b.BookingTime) && b.BookingTime <= (to ?? b.BookingTime))
+                                                                                                       ).ToListAsync();
+             return listPassings;
+        }
+
+        public async Task updateStatusPassing(int memberId, int roomId, int bookingId, int status)
+        {
+            // Update status member; 
+            Passing booking = await _context.Passings.Where(b => b.PassingId == bookingId).FirstOrDefaultAsync();
+            booking.Status = status;
+            _context.Update(booking);
         }
     }
 }
