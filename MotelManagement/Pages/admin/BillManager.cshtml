@@ -276,6 +276,12 @@
             $('#bill-form').submit();
         });
 
+        $("#export-bill").click(function(e){
+            e.preventDefault();
+            let params = (new URL(document.location)).searchParams;
+            window.location.href = "/admin/bill?handler=ExportBill&"+params;
+        });
+
     </script>
     <script src="~/js/paging.js"></script>
 

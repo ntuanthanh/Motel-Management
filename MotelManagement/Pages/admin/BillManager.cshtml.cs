@@ -133,7 +133,14 @@ namespace MotelManagement.Pages.admin
             worksheet.Cell(1, 11).Value = "Mô tả";
             // Lấy dữ liệu từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
             //var students = _dbContext.Students.ToList();
-
+            worksheet.Columns("B").Style.NumberFormat.Format = "#,##0\" đ\"";
+            worksheet.Columns("C").Style.NumberFormat.Format = "#,##0\" đ\"";
+            worksheet.Columns("D").Style.NumberFormat.Format = "#,##0\" đ\"";
+            worksheet.Columns("E").Style.NumberFormat.Format = "#,##0\" đ\"";
+            worksheet.Columns("G").Style.NumberFormat.Format = "#,##0\" đ\"";
+            for (int i=1; i<=11; i++){
+                worksheet.Row(1).Cell(i).Style.Fill.BackgroundColor = XLColor.Yellow;
+            }
             // Ghi dữ liệu vào bảng
             for (int i = 0; i < listBills.Count; i++)
             {
