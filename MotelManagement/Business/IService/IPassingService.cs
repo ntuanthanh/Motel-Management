@@ -13,5 +13,8 @@ namespace MotelManagement.Business.IService
         public Task PushUserToAdmin(int userId, int roomid, int bookingId);
         public Task<bool> isRoomRented(int? roomId);
         public Task<bool> isRoomWaiting(int? roomId);
+        public Task<List<Passing>> PassingsWaitingSearching(string? roomBooking, string? nameBooking, string? emailBooking, string? fromBooking, string? toBooking);
+        public Task SetUserBeMember(int userId, int roomid, decimal price, int bookingId);
+        public Task RejectPassing(int userId, int roomid, int bookingId);
     }
 }

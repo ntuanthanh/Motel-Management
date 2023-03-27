@@ -10,6 +10,8 @@ namespace MotelManagement.Core.IRepository
         Task updateMeetingDateForUser(DateTime? meetingDate, int? bookingId);
         public Task<List<Passing>> BookingListByRoomAvailable(int? roomId);
         Task updateSuccessRejectUsersExceptMember(int memberId, int roomId, int bookingId);
+        public Task<List<Passing>> PassingListByRoomWaitingSearching(string? roomBooking, string? nameBooking, string? emailBooking, string? fromBooking, string? toBooking);
+        Task updateStatusPassing(int memberId, int roomId, int bookingId, int Status);
 
     }
 }

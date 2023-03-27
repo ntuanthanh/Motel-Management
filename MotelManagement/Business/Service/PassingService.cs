@@ -68,5 +68,32 @@ namespace MotelManagement.Business.Service
             // Save transaction 
             await _unitOfWork.SaveAsync();
         }
+
+        public async Task<List<Passing>> PassingsWaitingSearching(string? roomBooking, string? nameBooking, string? emailBooking, string? fromBooking, string? toBooking)
+        {
+            List<Passing> passings = await _unitOfWork.passingRepository.PassingListByRoomWaitingSearching(roomBooking, nameBooking, emailBooking, fromBooking, toBooking);
+            return passings;
+        }
+
+        public async Task SetUserBeMember(int userId, int roomid, decimal price, int bookingId)
+        {
+            // Add to  Contract 
+            await _unitOfWork.contractRepository.addUsertoRoom(roomid, userId, price);
+            // Update status Booking 
+            await _unitOfWork.passingRepository.updateStatusPassing(userId, roomid, bookingId, (int)REGISTER_ROOM_STATE.SUCCESS); // Success
+            // Update status Room
+            await _unitOfWork.roomRepository.UpdateStatusRoom(roomid, (int)ROOM_STATE.RENTED);
+            // Save transaction 
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task RejectPassing(int userId, int roomid, int bookingId)
+        {
+            // Update status Booking 
+            await _unitOfWork.passingRepository.updateStatusPassing(userId, roomid, bookingId, (int)REGISTER_ROOM_STATE.REJECT); // Success
+            // Update status Room
+            await _unitOfWork.roomRepository.UpdateStatusRoom(roomid, (int)ROOM_STATE.PASSING);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }
