@@ -10,12 +10,14 @@ namespace MotelManagement.Pages
     public class MyListRoomModel : PageModel
     {
         private readonly IBookingService _serviceBooking;
+        private readonly IPassingService _servicePassingService;
         private readonly IContractService _serviceContract;
         private readonly IRoomService _serviceRoom;
         private readonly ILogger<LoginModel> _logger;
-        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger, IContractService contractService, IRoomService serviceRoom)
+        public MyListRoomModel(IBookingService bookingService, ILogger<LoginModel> logger, IContractService contractService, IRoomService serviceRoom, IPassingService passingService)
         {
             this._serviceBooking = bookingService;
+            _servicePassingService = passingService;
             this._serviceContract = contractService;
             _serviceRoom = serviceRoom; 
             this._logger = logger;
@@ -104,7 +106,46 @@ namespace MotelManagement.Pages
             }
             return Redirect("~/user/mylistroom");
         }
+        // Thành - Đăng kí Passing
+        public async Task<IActionResult> OnGetRegisterPassingAsync(int roomId)
+        {
+            // Cần RoomId, MemberId, UserRequest 
+            string json = HttpContext.Session.GetString("user");
+            User user = UserUtil.getUserFromSession(json);
+            if (user != null)
+            {
+                try
+                {
+                    // Phải check thêm nữa là nếu như là member thì không được đặt phòng đó
+                    bool isMemberOfRoom = await _serviceContract.isMemberOfRoom(roomId, user.UserId);
 
+                    // TH user dùng url, nếu phòng đã có nguời đang có người thuê nhưng vẫn booking passing
+                    bool isExist = await _servicePassingService.isBookingPassing(roomId, user.UserId);
+                    // Check xem room tồn tại không
+                    Room room = await _serviceRoom.getRoomById(roomId);
+
+                    if (!isMemberOfRoom && !isExist && roomId != null && room.StatusId == (int)ROOM_STATE.PASSING)
+                    {
+                        await _servicePassingService.RegisterPassing(user.UserId, roomId);
+                        TempData["Message"] = "Success";
+                    }
+                    else if (isExist)
+                    {
+                        TempData["Message"] = "Registered";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Probs";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.ToString());
+                    TempData["Message"] = "Probs";
+                }
+            }
+            return Redirect("~/user/mylistroom");
+        }
 
     }
 }

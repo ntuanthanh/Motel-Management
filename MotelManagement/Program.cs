@@ -25,6 +25,7 @@ builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IPassingService, PassingService>();
 builder.Services.AddScoped<IContractService, ContractService>();
 builder.Services.AddScoped<IBillService, BillService>();
 builder.Services.AddTransient<UploadFileUnit>();

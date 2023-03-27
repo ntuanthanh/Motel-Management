@@ -12,6 +12,8 @@ namespace MotelManagement.Core.Repository
         public IRoomRepository roomRepository { get;  }
 
         public IBookingRepository bookingRepository { get; }
+        public IPassingRepository passingRepository { get; }
+
 
         public IContractRepository contractRepository  { get; }
 
@@ -24,6 +26,7 @@ namespace MotelManagement.Core.Repository
             userRepository = new UserRepository(_context);
             roomRepository = new RoomRepository(_context);
             bookingRepository = new BookingRepository(_context);
+            passingRepository = new PassingRepository(_context);
             contractRepository = new ContractRepository(_context);
             billRepository = new BillRepository(_context);
         }
