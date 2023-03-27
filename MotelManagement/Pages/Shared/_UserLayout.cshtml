@@ -109,6 +109,7 @@
                     <li class="wow fadeInDown" data-wow-delay="0.1s"><a class="" href="/room/list">Phòng Trọ</a></li>
                     <li class="wow fadeInDown" data-wow-delay="0.1s"><a class="" href="/room/list">Tin Tức Trọ</a></li>                   
                     <li class="wow fadeInDown" data-wow-delay="0.4s"><a href="/room/list">Liên Hệ</a></li>
+                    <li class="wow fadeInDown" data-wow-delay="0.4s"><a href="/admin/room/list">Admin Page</a></li>
                 @if (@Accessor.HttpContext.Session.GetString("user") != null)
                 {
                     User user = (User)JsonUtil.DeserializeObject<User>(Accessor.HttpContext.Session.GetString("user"));
