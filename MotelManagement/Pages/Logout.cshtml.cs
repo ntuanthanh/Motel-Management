@@ -8,7 +8,7 @@ namespace MotelManagement.Pages
         public IActionResult OnGet()
         {
             HttpContext.Session.SetString("user","");
-            return Redirect("~/room/list");
+            return Redirect("~/user/login");
         }
     }
 }
