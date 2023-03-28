@@ -93,7 +93,7 @@
             <div class="collapse navbar-collapse yamm" id="navigation">
                 <div class="button navbar-right">
                     @{
-                        if (@Accessor.HttpContext.Session.GetString("user") == null)
+                        if (String.IsNullOrEmpty(@Accessor.HttpContext.Session.GetString("user")))
                         {
                             <button class="navbar-btn nav-button wow bounceInRight login" data-wow-delay="0.4s">
                                 <a href="/user/login">Đăng Nhập</a>                              
@@ -109,7 +109,7 @@
                     <li class="wow fadeInDown" data-wow-delay="0.1s"><a class="" href="/room/list">Phòng Trọ</a></li>
                     <li class="wow fadeInDown" data-wow-delay="0.1s"><a class="" href="/room/list">Tin Tức Trọ</a></li>                   
                     <li class="wow fadeInDown" data-wow-delay="0.4s"><a href="/room/list">Liên Hệ</a></li>
-                @if (@Accessor.HttpContext.Session.GetString("user") != null)
+                @if (!String.IsNullOrEmpty(@Accessor.HttpContext.Session.GetString("user")))
                 {
                     User user = (User)JsonUtil.DeserializeObject<User>(Accessor.HttpContext.Session.GetString("user"));
                     <li class="dropdown ymm-sw " data-wow-delay="0.1s">

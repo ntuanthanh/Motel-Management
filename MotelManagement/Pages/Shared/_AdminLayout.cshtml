@@ -1,6 +1,31 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor Accessor
+@using Common
+@using MotelManagement.Data.Models
+<!DOCTYPE html>
 <html lang="en">
-
+@if (!String.IsNullOrEmpty(@Accessor.HttpContext.Session.GetString("user")))
+{
+	User user = UserUtil.getUserFromSession(@Accessor.HttpContext.Session.GetString("user"));
+	if (user.RoleName.Equals("Admin"))
+	{
+	}
+	else
+	{
+		<text>
+			Đăng nhập để truy cập vào website
+		</text>
+		<script>
+			window.location.href="/errors";
+		</script>
+	}
+}
+else
+{
+	<text>Đăng nhập để truy cập vào website</text>
+	<script>
+		window.location.href = "/errors";
+	</script>
+}
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">

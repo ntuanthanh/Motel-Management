@@ -319,6 +319,10 @@ namespace MotelManagement.Data.Models
                     .IsRequired()
                     .HasMaxLength(150);
 
+                entity.Property(e => e.RoleName)
+                   .IsRequired(false)
+                   .HasMaxLength(50);
+
                 entity.Property(e => e.Dob).HasColumnType("date");
 
                 entity.Property(e => e.Email)
