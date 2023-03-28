@@ -70,7 +70,7 @@ namespace MotelManagement.Pages.admin
             }
         }
 
-        public async Task OnPostSaveBillAsync(int[] states, int[] billIds, string[] paids)
+        public async Task<IActionResult> OnPostSaveBillAsync(int[] states, int[] billIds, string[] paids)
         {
             List<Bill> listBills = new List<Bill>();
             try
@@ -109,6 +109,8 @@ namespace MotelManagement.Pages.admin
             {
                 _logger.LogError(ex.ToString());
             }
+            return Redirect("/admin/bill");
+
         }
         public async Task<IActionResult> OnGetExportBillAsync(DateTime? from, DateTime? to, string roomName, string owner, int pageIndex)
         {
