@@ -11,6 +11,7 @@ namespace MotelManagement.Core.IRepository
         public Task addUsertoRoom(int roomId, int userId, decimal price);
         public Task<Contract> GetContractByRoomId(int roomId, int userId);
         public Task ExtendsContractAsyn(Contract c);
+        public Task UpdateMoveContract(int roomId);
     }
 
 }

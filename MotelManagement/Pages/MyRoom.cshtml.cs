@@ -142,7 +142,7 @@ namespace MotelManagement.Pages
                 if (room.StatusId == (int)ROOM_STATE.RENTED)
                 {
                     room.StatusId = (int)ROOM_STATE.PASSING;
-                    _serviceRoom.PassingRoom(room);
+                    await _serviceRoom.PassingRoom(room);
                 }
             }
             catch (Exception ex)

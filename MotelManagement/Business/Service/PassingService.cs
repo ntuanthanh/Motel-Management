@@ -77,6 +77,8 @@ namespace MotelManagement.Business.Service
 
         public async Task SetUserBeMember(int userId, int roomid, decimal price, int bookingId)
         {
+            // Update Status Old Contract
+            await _unitOfWork.contractRepository.UpdateMoveContract(roomid); 
             // Add to Contract 
             await _unitOfWork.contractRepository.addUsertoRoom(roomid, userId, price);
             // Update status Booking  

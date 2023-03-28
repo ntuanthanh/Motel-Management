@@ -35,5 +35,11 @@ namespace MotelManagement.Business.Service
             user.UserId = userId;
             return await _unitOfWork.contractRepository.IsMemberOfRoom(user, roomId);
         }
+
+        public async Task UpdateMoveContract(int roomId)
+        {
+            await _unitOfWork.contractRepository.UpdateMoveContract(roomId);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

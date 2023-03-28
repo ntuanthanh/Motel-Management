@@ -72,5 +72,17 @@ namespace MotelManagement.Core.Repository
             else
                 return false;
         }
+
+        public async Task UpdateMoveContract(int roomId)
+        {
+            // Query 
+            List<Contract> contracts = new List<Contract>();
+            contracts = await _context.Contracts.Where(c => c.RoomId == roomId && c.IsActive == true).ToListAsync(); 
+            foreach(Contract contract in contracts)
+            {
+                contract.IsActive = false;
+                _context.Update(contract); 
+            }
+        }
     }
 }
