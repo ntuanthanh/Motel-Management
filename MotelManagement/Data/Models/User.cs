@@ -27,7 +27,7 @@ namespace MotelManagement.Data.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime Dob { get; set; }
-
+        public string RoleName { get; set; }
         public virtual ICollection<Bill> Bills { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }

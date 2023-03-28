@@ -66,10 +66,14 @@
                                                         if ((int)REGISTER_ROOM_STATE.UN_REGISTER == b.Status)
                                                         {
                                                             <span style="color: darkorange">Hủy đăng ký</span>
-                                                        }
-                                                        else if ((int)REGISTER_ROOM_STATE.REGISTER == b.Status)
-                                                        {
-                                                            <span style="color: #FDC600">Chờ duyệt</span>
+                                                            }
+                                                            else if ((int)REGISTER_ROOM_STATE.REGISTER == b.Status)
+                                                            {
+                                                            <span style="color: #FDC600">Chờ duyệt |</span>
+                                                            if (b.MeetingDate != null)
+                                                            {
+                                                                <span>Ngày gặp: @b.MeetingDate</span>
+                                                            }                                                                      
                                                         }else if((int)REGISTER_ROOM_STATE.REJECT == b.Status){
                                                             <span style="color: red">Yêu cầu bị từ chối</span>
                                                         }
@@ -123,7 +127,11 @@
                                                         }
                                                         else if ((int)REGISTER_ROOM_STATE.REGISTER == p.Status)
                                                         {
-                                                            <span style="color: #FDC600">Chờ duyệt</span>
+                                                            <span style="color: #FDC600">Chờ duyệt |</span>
+                                                             if (p.MeetingDate != null)
+                                                            {
+                                                                <span>Ngày gặp: @p.MeetingDate</span>
+                                                            }    
                                                         }else if((int)REGISTER_ROOM_STATE.REJECT == p.Status){
                                                             <span style="color: red">Yêu cầu bị từ chối</span>
                                                         }

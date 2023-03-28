@@ -30,7 +30,7 @@ namespace MotelManagement.Pages
                 {
                     string json = JsonUtil.SerializeObject(user);
                     HttpContext.Session.SetString("user", json);
-                    return Redirect(Request.Headers["Referer"].ToString());
+                    return Redirect("~/room/list");
                 }
             }catch(Exception ex)
             {
