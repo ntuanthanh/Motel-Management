@@ -16,7 +16,7 @@ Dự án quản lý nhà trọ - môn học PRN221
    ![5 Giao diện admin](https://user-images.githubusercontent.com/99120557/235282819-9aa63340-1e0b-4a68-8083-d5bd2e51769a.JPG)
    #### Danh sách booking theo phòng 
    ![6 Danh sách booking](https://user-images.githubusercontent.com/99120557/235282842-f2479410-14b9-4623-9949-0f101c8d2c50.JPG)
-   #### Admin có thể hiện thị ngày gặp để 2 bên xem phòng và thỏa thuận hợp đồng ( hẹn all user và được set từng user ) 
+   #### Admin có thể hẹn ngày gặp để 2 bên xem phòng và thỏa thuận hợp đồng ( hẹn all user và được set từng user ) 
    ![7 hẹn](https://user-images.githubusercontent.com/99120557/235282861-56057de3-4700-4ea6-baa7-a88248e14696.JPG)
    #### Bên user vừa đăng kí phòng đó nếu được set ngày gặp thì có thể xem 
    ![8 Hiện thị ngày gặp](https://user-images.githubusercontent.com/99120557/235282891-9bea8ba5-1512-4d74-8665-684f35c40ba1.JPG)
