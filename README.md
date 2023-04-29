@@ -23,7 +23,7 @@ Dự án quản lý nhà trọ - môn học PRN221
    #### Admin set 1 user thành chủ của phòng đó 
    ![9 Set member](https://user-images.githubusercontent.com/99120557/235282907-f130a310-1244-4c41-a6f8-e0f8a6e7cc35.JPG)
    #### Sau khi set thì tất cả user còn lại được thông báo bị reject và hủy ngày gặp
-   ![11 Các user bị từ chối](https://user-images.githubusercontent.com/99120557/235282926-4ab79e17-23f1-4656-911b-7da46e0e7839.JPG
+   ![11 Các user bị từ chối](https://user-images.githubusercontent.com/99120557/235283368-0ede73b5-a5b7-4013-837d-fa47b557eb39.JPG)
    #### User được set thì sẽ hiện lên mục quản lý phòng 
    ![10 Đã hiện thị mục quản lý phòng](https://user-images.githubusercontent.com/99120557/235282944-bd4bc86a-e99d-4d39-b5fc-ea0bddb187cb.JPG)
    #### My room của người dùng 
