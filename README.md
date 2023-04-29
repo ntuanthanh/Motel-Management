@@ -35,7 +35,7 @@ Dự án quản lý nhà trọ - môn học PRN221
    ![15 Tạo](https://user-images.githubusercontent.com/99120557/235283002-1e11b9cd-f803-46ad-a868-4f20748139e6.JPG)
    #### User vào mục hóa đơn để thanh toán ( gửi ảnh đã gửi tiền cho bên admin check )
    ![16 Bên User](https://user-images.githubusercontent.com/99120557/235283038-3dccc397-24fd-4e29-88e2-c79ce691cd15.JPG)
-   ![16 Bên User](https://user-images.githubusercontent.com/99120557/235283043-d2fc532c-6ed9-41a2-8e77-135d9bdfb1fe.JPG)
+   ![17 Đóng tiền phòng](https://user-images.githubusercontent.com/99120557/235283437-2188f8f9-b135-42fb-9677-2c565e1bbe15.JPG)
    #### Admin sẽ xác nhận đã đóng hay chưa
    ![18 Bên Admin Xác nhận đã nộp chưa](https://user-images.githubusercontent.com/99120557/235283061-43200119-63b2-4b98-a8c9-88e757d50984.JPG)
    #### User hiện thị được lịch sử và xem trạng thái hóa đơn của phòng
